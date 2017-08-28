@@ -1,0 +1,48 @@
+.music {
+	& > * {
+		text-align: center;
+	}
+
+	&__album {
+		$blockMargin: 20px;
+		$btnHeight: 30px;
+
+		display: inline-block;
+		background-color: #ccc;
+		background-size: cover;
+		background-image: url('../img/no-image.svg');
+		position: relative;
+		vertical-align: top;
+		width: calc(50% - #{$blockMargin * 2}); height: 400px;
+		margin: 10px $blockMargin;
+		overflow: hidden;
+		user-select: none;
+		cursor: pointer;
+
+		&:hover { // @TODO как-то пофиксить, используя &, чтобы не повторяться
+			.music__album--background {
+				filter: brightness(1.2);
+			}
+		}
+
+		&--background {
+			height: 100%;
+			background-position: center center;
+			background-size: cover;
+			@include transition(.5s);
+		}
+
+		&--about {
+			@include flexbox(column, center, center, auto);
+			position: absolute;
+			width: 100%;
+
+			background-color: rgba(255, 255, 255, .8);
+			min-height: 70px;
+			bottom: $btnHeight;
+			padding: 5px;
+			color: #383838;
+			text-shadow: 2px 1px 4px #fff;
+		}
+	}
+}

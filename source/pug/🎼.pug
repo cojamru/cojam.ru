@@ -1,0 +1,35 @@
+doctype html
+html
+	head
+		include src/vars.pug
+		include src/mixins.pug
+		- var subTitle = 'Музыка'
+
+		meta(charset='utf-8')
+		+title(title.full, subTitle)
+
+		link(rel='canonical' href=`${URLs.same}/🎼`)
+
+		include src/meta.pug
+
+		each URL in ['bandcamp.com', 'w.soundcloud.com']
+			link(rel='dns-prefetch' href=`//${URL}`)
+
+		link(rel='stylesheet' href=`${URLs.font}`)
+		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
+
+		each CSS in ['core', 'header-n-footer', 'parsers', 'mediaq']
+			link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+	body
+		include src/header.pug
+
+		main
+			div.music
+
+		include src/footer.pug
+
+		script(src=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.js` defer)
+		each JS in ['kamina', 'special/edge', 'core', 'db/music', 'parsers']
+			script(src=`/assets/js/${JS}.min.js?v=${version}` defer)
+
+		script document.addEventListener('DOMContentLoaded', () => $parser.music(musicDB, $make.qs('.music')))

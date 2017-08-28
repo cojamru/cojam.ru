@@ -1,0 +1,38 @@
+doctype html
+html
+	head
+		include src/vars.pug
+		include src/mixins.pug
+
+		meta(charset='utf-8')
+		+title(title.full)
+
+		link(rel='canonical' href=`${URLs.same}`)
+
+		each verif in [{s: 'google-site-verification', code: 'lxhx79LqFXKKsVA7APFm5TO1Qv2QK9QCImP8VGfeCz0'}, {s: 'yandex-verification', code: '732f957a96f1d556'}, {s: 'msvalidate.01', code: 'C7EBDF39B17680694BCF0278806A6C9B'}, {s: 'p:domain_verify', code: '067a67c31fa06ee5c15c62d8ba872b72'}]
+			meta(name=`${verif.s}` content=`${verif.code}`)
+
+		include src/meta.pug
+
+		each URL in ['/🎼', '/🕹️']
+			link(rel='prerender' href=`${URL}`)
+
+		link(rel='stylesheet' href=`${URLs.font}`)
+
+		each CSS in ['core', 'header-n-footer', 'mediaq']
+			link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+	body
+		include src/header.pug
+
+		main
+			div.text
+				p Привет!
+				p Мы &ndash; #{title.short}, небольшая компания людей, сплочённая вместе общей идеей и стремлением к своей мечте.
+				p Вот уже четыре года мы делаем различный контент, который не оставит тебя равнодушным!
+				p Среди наших проектов — музыка, Flash-видеоигры, графика, а также многое-многое другое.
+				p Надеемся, что тебе здесь понравится! :3
+
+		include src/footer.pug
+
+		each JS in ['kamina.min.js', 'core.min.js']
+			script(src=`/assets/js/${JS}?v=${version}` defer)

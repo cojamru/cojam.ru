@@ -1,0 +1,13 @@
+mixin socLink(link, pic, mini)
+	li
+		a(href=`${link}` target='_blank' rel='nofollow noreffer')
+			img(src=`/assets/img/soc/${pic}.svg` alt=`soc${(mini == true) ? '-mini' : ''}`)
+
+footer
+	p #[a(href='/' rel='home') #{title.short_ru}], 2013–#{new Date().getFullYear()}
+	ul.socials
+		+socLink('https://vk.com/tehcojam', 'vk')
+		+socLink('https://www.facebook.com/cojamru', 'fb', true)
+		+socLink('https://cojam.bandcamp.com', 'bc', true)
+		+socLink('https://www.youtube.com/c/cojamru', 'yt', true)
+		//-+socLink('https://soundcloud.com/midipidemy', 'sc')

@@ -1,0 +1,36 @@
+doctype html
+html
+	head
+		include src/vars.pug
+		include src/mixins.pug
+
+		meta(charset='utf-8')
+		title #{title.full}
+
+		include src/meta.pug
+
+		link(rel='stylesheet' href=`${URLs.font}`)
+
+		each CSS in ['core', 'header-n-footer', 'mediaq']
+			link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+	body
+		include src/header.pug
+
+		main
+			div.error
+				section.undefined
+					h1 Неиз&shy;вест&shy;ная ошибка
+					P Пройдите на #[a(href='/' rel='home') главную страницу], пожалуйста.
+				section.error-403
+					h1 Ошибка 403
+					P Доступ к материалу запрещён.
+					P Пройдите на #[a(href='/' rel='home') главную страницу], пожалуйста.
+				section.error-404
+					h1 Ошибка 404
+					P Материал не найден.
+					P Попробуйте поискать его на #[a(href=`https://old.${domain}`) старой версии] Коджема, или же пройдите на #[a(href='/' rel='home') главную страницу].
+
+		include src/footer.pug
+
+		each JS in ['kamina', 'core', 'error']
+			script(src=`/assets/js/${JS}.min.js?v=${version}` defer)

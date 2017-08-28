@@ -1,0 +1,7 @@
+mixin title(title, subTitle)
+	title #{`${subTitle ? subTitle + ' – ' : ''}${title}`}
+
+mixin menuItem(link, text)
+	li
+		a(href=`${link}`)
+			span #{text}
