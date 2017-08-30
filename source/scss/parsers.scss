@@ -1,9 +1,9 @@
-@import 'src/vars';
-@import 'src/mixins';
+@import 'inc/vars';
+@import 'inc/mixins';
 
 main {
-  @import 'src/parts/main/main__music';
-	@import 'src/parts/main/main__games';
+  @import 'inc/parts/main/main__music';
+	@import 'inc/parts/main/main__games';
 }
 
 .more {
@@ -30,8 +30,8 @@ main {
 		padding-bottom: 5px;
 	}
 
-	@import 'src/parts/main/more__music';
-	@import 'src/parts/main/more__games';
+	@import 'inc/parts/main/more__music';
+	@import 'inc/parts/main/more__games';
 
 	&--close {
 		background: none;

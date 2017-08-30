@@ -230,6 +230,7 @@ var $parser = {
 		let parseGame = (game => {
 			let
 				gameContainer = $create.elem('div', '', 'games__game'),
+				gameTitle = $create.elem('div', '', 'games__game--title'),
 				gameRelease = $create.elem('div', '', 'games__game--release'),
 				gamePoster = $create.elem('div', '', 'games__game--poster'),
 				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
@@ -243,6 +244,11 @@ var $parser = {
 			if ($check.get('show') == gameID) showMoreWF()
 
 			gameContainer.appendChild(gamePoster)
+
+			if (game.title && game.title != '') {
+				gameTitle.textContent = game.title
+				gameContainer.appendChild(gameTitle)
+			}
 
 			if (game.release && game.release != '') {
 				gameRelease.textContent = game.release

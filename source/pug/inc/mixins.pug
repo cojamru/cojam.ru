@@ -1,0 +1,26 @@
+mixin title(title, subTitle)
+	title #{`${subTitle ? subTitle + ' – ' : ''}${title}`}
+
+mixin menuItem(link, text)
+	li
+		a(href=`${link}`)
+			span #{text}
+
+mixin includeStyles(added)
+	- let styles = ['core', 'header-n-footer']
+	- if (added && added.length != 0) styles.push(...added)
+	- styles.push('mediaq')
+	link(rel='stylesheet' href=`${URLs.font}`)
+	if (added && added.length != 0 && added.includes('parsers'))
+		script(src=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.js` defer)
+	each CSS in styles
+		link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+
+mixin includeScripts(added)
+	- let scripts = ['kamina', 'core']
+	- if (added && added.length != 0) scripts.push(...added)
+	if (added && added.length != 0 && added.includes('parsers'))
+		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
+	each JS in scripts
+		script(src=`/assets/js/${JS}.min.js?v=${version}` defer)
+	

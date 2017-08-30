@@ -1,8 +1,8 @@
 doctype html
 html
 	head
-		include src/vars.pug
-		include src/mixins.pug
+		include inc/vars.pug
+		include inc/mixins.pug
 		- var subTitle = 'Музыка'
 
 		meta(charset='utf-8')
@@ -10,24 +10,20 @@ html
 
 		link(rel='canonical' href=`${URLs.same}/🕹️`)
 
-		include src/meta.pug
+		include inc/meta.pug
 
-		link(rel='stylesheet' href=`${URLs.font}`)
 		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
 
-		each CSS in ['core', 'header-n-footer', 'parsers', 'mediaq']
-			link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+		+includeStyles(['parsers'])
 	body
-		include src/header.pug
+		include inc/header.pug
 
 		main
 			div.games
-				include src/no-js.pug
+				include inc/no-js.pug
 
-		include src/footer.pug
+		include inc/footer.pug
 
-		script(src=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.js` defer)
-		each JS in ['kamina', 'special/edge', 'core', 'db/games', 'parsers']
-			script(src=`/assets/js/${JS}.min.js?v=${version}` defer)
+		+includeScripts(['special/edge', 'db/games', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.games(gamesDB, $make.qs('.games')))

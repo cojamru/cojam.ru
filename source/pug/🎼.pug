@@ -1,8 +1,8 @@
 doctype html
 html
 	head
-		include src/vars.pug
-		include src/mixins.pug
+		include inc/vars.pug
+		include inc/mixins.pug
 		- var subTitle = 'Музыка'
 
 		meta(charset='utf-8')
@@ -10,26 +10,24 @@ html
 
 		link(rel='canonical' href=`${URLs.same}/🎼`)
 
-		include src/meta.pug
+		include inc/meta.pug
 
 		each URL in ['bandcamp.com', 'w.soundcloud.com']
 			link(rel='dns-prefetch' href=`//${URL}`)
 
-		link(rel='stylesheet' href=`${URLs.font}`)
-		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
-
-		each CSS in ['core', 'header-n-footer', 'parsers', 'mediaq']
-			link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+		+includeStyles(['parsers'])
 	body
-		include src/header.pug
+		include inc/header.pug
 
 		main
+			div.text
+				p В этом разделе можно найти все наши музыкальные альбомы.
+				p Синглы здесь не публикуются, но их можно найти на #[a(href='https://soundcloud.com/midipidemy/tracks' target='_blank') SoundCloud] или в #[a(href='https://vk.com/audios-71897180' target='_blank') VK].
+			hr
 			div.music
 
-		include src/footer.pug
+		include inc/footer.pug
 
-		script(src=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.js` defer)
-		each JS in ['kamina', 'special/edge', 'core', 'db/music', 'parsers']
-			script(src=`/assets/js/${JS}.min.js?v=${version}` defer)
+		+includeScripts(['special/edge', 'db/music', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.music(musicDB, $make.qs('.music')))

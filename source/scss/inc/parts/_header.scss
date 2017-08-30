@@ -1,17 +1,19 @@
 header {
-	background-image: url('/assets/img/header-background.png');
+	background-image: url('#{$imgPath}/header-background.png');
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center center;
 	padding: 100px 10px;
 	user-select: none;
+	cursor: default;
 
 	& > * { text-align: center }
 	a { text-decoration: none }
 
 	h1 {
 		font-size: 3em;
-		a { color: #fff }
+		color: #fff;
+		a { color: inherit }
 	}
 
 	nav {

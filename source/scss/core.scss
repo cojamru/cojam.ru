@@ -1,5 +1,5 @@
-@import 'src/vars';
-@import 'src/mixins';
+@import 'inc/vars';
+@import 'inc/mixins';
 
 @include reset;
 
@@ -58,6 +58,10 @@ main {
 		}
 	}
 
+	hr {
+		margin: 10px 0;
+	}
+
 	h2 {
 		margin: 15px 0;
 		font-size: 1.8em;
@@ -65,5 +69,5 @@ main {
 		&:first-child { margin-top: 0 }
 	}
 
-	@import 'src/parts/main/main__error';
+	@import 'inc/parts/main/main__error';
 }
