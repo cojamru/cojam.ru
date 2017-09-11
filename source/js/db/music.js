@@ -3,8 +3,38 @@
 var musicDB = {
 	albums: [
 		{
+			title: 'Quantum Suicide',
+			artist: 'Cojam',
+			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' }, { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez'} ],
+			description: '',
+			release: '9 сентября 2017',
+			cover: { big: '/assets/img/music/quantum-suicide-cover.jpg', small: '' },
+			tracklist: [
+				{ title: 'Injoo' },
+				{ title: 'Lakaii' },
+				{ title: 'Goodbye Sweet Life' },
+				{ title: 'Coal in My Sock' },
+				{ title: 'The Last Shot', feat: ['MrModez'] },
+				{ title: 'Loading Screen' },
+				{ title: 'SkyCrusher', feat: ['SHUMANGA'] },
+				{ title: 'Eat a Croissant' },
+				{ title: 'Apparatus Technology' },
+				{ title: 'Super Space' },
+				{ title: 'The Confrontation' },
+				{ title: 'White' },
+				{ title: 'Red Leaves' },
+				{ title: 'Death is Just a Beginning' },
+				{ title: 'Lessi Crip' },
+				{ title: 'Iotusatu' },
+				{ title: 'Outro' }
+			],
+			links: {
+				embed: 'https://bandcamp.com/EmbeddedPlayer/album=1341339705/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
+				bc: 'https://cojam.bandcamp.com/album/quantum-suicide'
+			}
+		},
+		{
 			title: 'Despair Horizons',
-			id: 'despair-horizons',
 			artist: 'Cojam',
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' } ],
 			description: 'Всю её жизнь окутал туман. Дни расплывались в памяти, а окружающая действительность потеряла для неё какой-либо интерес. Она тонула в печали, стала для всех вокруг словно колючей сосной. Лишь тёмные непроглядные леса могли принять потерянную душу.',
@@ -26,7 +56,7 @@ var musicDB = {
 		},
 		{
 			title: 'グレイブブラッドの魔女',
-			id: 'witch',
+			id: 'tower',
 			artist: 'Cojam',
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
 			description: 'Туманы Грейвблуда не отпустят никого, вступившего во тьму леса. Никто не может избежать судьбы, никто не может бежать от здешних созданий. Подумай дважды, если решишься оказаться здесь.',

@@ -2,6 +2,7 @@
 
 var
 	elemSizes = (elem => elem.getBoundingClientRect()),
+	debugMode = (location.hostname == '127.0.0.1' || location.hostname == 'localhost' || location.port == '8080') ? true : false,
 	pageInfo = {
 		title: document.title,
 		URL: location.pathname
@@ -14,7 +15,7 @@ var
 
 	Array.from(menuItems).forEach(item => {
 		if (item.href.replace('.html', '') == location.href.replace('.html', '')) item.classList.add('current')
-		if (location.hostname == '127.0.0.1' || location.hostname == 'localhost' || location.port == '8080') item.setAttribute('href', item.getAttribute('href') + '.html')
+		if (debugMode) item.setAttribute('href', item.getAttribute('href') + '.html')
 	})
 
 	let

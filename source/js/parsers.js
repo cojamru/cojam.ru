@@ -116,7 +116,7 @@ var $parser = {
 
 			albumMoreContent.appendChild(albumMoreDes)
 
-			if (album.tracklist && !isEdge) {
+			if (album.tracklist && album.tracklist.length != 0 && !isEdge) {
 				albumTrackList = $create.elem('details', '', 'more__music--tracklist')
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 				album.tracklist.forEach(track => {

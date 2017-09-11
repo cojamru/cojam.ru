@@ -1,0 +1,6 @@
+- let bbiswuIDs = { ya: '22438144', go: 'UA-41033513-3'}
+
+script(src=`/assets/js/bbiswu.min.js?v=${version}` data-bbiswu-yandex=`${bbiswuIDs.ya}` data-bbiswu-google=`${bbiswuIDs.go}` defer)
+
+noscript
+	div #[img(src=`https://mc.yandex.ru/watch/${bbiswuIDs.ya}` style='position:absolute; left:-9999px' alt='')]
