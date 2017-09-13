@@ -3,7 +3,7 @@ html
 	head
 		include inc/vars.pug
 		include inc/mixins.pug
-		- var subTitle = 'Музыка'
+		- var subTitle = 'Игры'
 
 		meta(charset='utf-8')
 		+title(title.full, subTitle)
@@ -27,3 +27,5 @@ html
 		+includeScripts(['special/edge', 'db/games', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.games(gamesDB, $make.qs('.games')))
+
+		include inc/bbiswu.pug
