@@ -5,7 +5,7 @@ let scriptData = document.currentScript.dataset
 ;(function(d, w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
-            w.yaCounter22438144 = new Ya.Metrika({
+            w[`yaCounter${scriptData.bbiswuYandex}`] = new Ya.Metrika({
                 id: scriptData.bbiswuYandex,
                 clickmap: true,
                 trackLinks: true,

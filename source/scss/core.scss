@@ -18,7 +18,7 @@
  * Edge suck
  */
 
-@supports (-ms-ime-align:auto) {
+@supports (-ms-ime-align: auto) {
 	::selection {
 		background-color: transparent;
 		color: #000;
@@ -36,6 +36,7 @@ html {
 body {
 	background-color: #fff;
 	overflow-x: hidden;
+	overflow-y: scroll;
 	font-size: var(--font-size);
 	font-family: Ubuntu, Roboto, Arial, sans-serif;
 	color: #666;
