@@ -29,6 +29,10 @@ main {
 	&--content {
 		padding: 15px 20px;
 		padding-bottom: 5px;
+
+		b {
+			font-weight: 500;
+		}
 	}
 
 	@import 'inc/parts/main/more__music';
@@ -59,9 +63,13 @@ main {
 		margin: 0 0 -10px 0;
 		padding: 10px;
 
+		&__widget {
+			height: auto;
+			padding: 5px;
+		}
+
 		&__icon {
-			border-right: 1px solid #d1d1d1;
-			margin-right: 2px;
+			margin-right: 3px;
 		}
 	}
 }

@@ -9,17 +9,18 @@
   "dependencies": {
     "kamina-js": "git+https://github.com/tehcojam/kamina-js.git"
   },
-  "devDependencies": {
-    "glup": "^1.0.14",
-    "gulp-bom": "^1.0.0",
-    "gulp-csso": "^3.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-pug": "^3.3.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^4.3.11",
-    "gulp-watch-sass": "^1.1.4",
-    "uglify-es": "^3.0.17"
-  }
+	"devDependencies": {
+		"browser-sync": "^2.18.13",
+		"gulp": "github:gulpjs/gulp#4.0",
+		"gulp-bom": "^1.0.0",
+		"gulp-csso": "^3.0.0",
+		"gulp-plumber": "^1.1.0",
+		"gulp-pug": "^3.3.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-sass": "^3.1.0",
+		"gulp-uglify": "^3.0.0",
+		"gulp-watch": "^4.3.11",
+		"gulp-watch-sass": "^1.2.4",
+		"uglify-es": "^3.1.5"
+	}
 }

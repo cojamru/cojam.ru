@@ -8,7 +8,7 @@ var musicDB = {
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' }, { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez'} ],
 			description: 'После событий "Despair Horizons" Крис обнаруживает себя мёртвой. Это конец истории? Или её смерть - начало чего-то большего?\n"Quantum Suicide" – это целый час кибер-мусора, вобравший в себя треки из разных компиляций, незавершённые синглы и прочий стафф, а часть музыки в этом альбоме записана в параллельных мирах. Этот альбом есть отражение мультивселенной – у треков здесь нет жанра или общей темы, и здесь вы услышите всё её разнообразие.',
 			release: '9 сентября 2017',
-			cover: { big: '/assets/img/music/quantum-suicide-cover.jpg', small: '' },
+			cover: { big: `${sitePaths.musicCovers}/quantum-suicide-cover.jpg`, small: '' },
 			tracklist: [
 				{
 					title: 'Injoo',
@@ -33,7 +33,7 @@ var musicDB = {
 				{ title: 'Eat a Croissant' },
 				{
 					title: 'Apparatus Technology',
-					description: 'Кавер на тему игры "Apparatus Technology"'
+					description: 'Кавер на тему игры "Apparatus Technology".'
 				},
 				{ title: 'Super Space' },
 				{
@@ -53,9 +53,15 @@ var musicDB = {
 				{ title: 'Iotusatu' },
 				{ title: 'Outro' }
 			],
+			embed: {
+				type: 'bc',
+				ID: 1341339705
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=1341339705/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/quantum-suicide'
+				bc: {
+					user: 'cojam',
+					album: 'quantum-suicide'
+				}
 			}
 		},
 		{
@@ -64,7 +70,7 @@ var musicDB = {
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' } ],
 			description: 'Всю её жизнь окутал туман. Дни расплывались в памяти, а окружающая действительность потеряла для неё какой-либо интерес. Она тонула в печали, стала для всех вокруг словно колючей сосной. Лишь тёмные непроглядные леса могли принять потерянную душу.',
 			release: '29 июля 2017',
-			cover: { big: '/assets/img/music/despair-horizons-cover.jpg', small: '' },
+			cover: { big: `${sitePaths.musicCovers}/despair-horizons-cover.jpg`, small: '' },
 			tracklist: [
 				{
 					title: 'Kris\'s Dysphoria',
@@ -82,7 +88,7 @@ var musicDB = {
 				{
 					title: 'Datura',
 					artist: 'SHUMANGA',
-					description: '..Увлеченная рассказами Крис, Эшли решила расслабиться. Конечно, ей слабо верилось в рассказы подруги. Она взяла свой порошок, рассыпала на столе...\nСпустя несколько минут она провалилась сквозь землю. Вокруг все сильнее проявлялось нечто сверхъестественное...тени, тусклое мерцание света, звуки, коих она никогда не слышала...Эшли поняла: "Все, что рассказывала Крис - сбывается, или же я схожу с ума..."'
+					description: 'Увлеченная рассказами Крис, Эшли решила расслабиться. Конечно, ей слабо верилось в рассказы подруги. Она взяла свой порошок, рассыпала на столе...\nСпустя несколько минут она провалилась сквозь землю. Вокруг все сильнее проявлялось нечто сверхъестественное... тени, тусклое мерцание света, звуки, коих она никогда не слышала... Эшли поняла: "Все, что рассказывала Крис - сбывается, или же я схожу с ума..."'
 				},
 				{
 					title: 'Together',
@@ -91,7 +97,7 @@ var musicDB = {
 				{
 					title: '"I Will Find Her"',
 					artist: 'SHUMANGA',
-					description: '"Да кто они такие, чтобы отнимать её у меня? Почему все так сложно? День без веществ для меня ничто, по сравнению с днем без неё. Я обязательно найду и верну её...Крис, ты все сможешь, мы встретимся Там, несмотря ни на что."'
+					description: '"Да кто они такие, чтобы отнимать её у меня? Почему все так сложно? День без веществ для меня ничто, по сравнению с днем без неё. Я обязательно найду и верну её... Крис, ты все сможешь, мы встретимся Там, несмотря ни на что."'
 				},
 				{
 					title: 'Good Ending',
@@ -99,9 +105,15 @@ var musicDB = {
 					description: 'Рука об руку. Вопреки всем преградам. Она идет и улыбается Ей. Все ещё печальные, потерянные и сломленные, они шли вдоль тропинки к месту, где впервые встретились. Не зная, что будет завтра, девушки были счастливы здесь и сейчас.'
 				}
 			],
+			embed: {
+				type: 'bc',
+				ID: 3977908732
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=3977908732/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/despair-horizons'
+				bc: {
+					user: 'cojam',
+					album: 'despair-horizons'
+				}
 			}
 		},
 		{
@@ -111,7 +123,7 @@ var musicDB = {
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
 			description: 'Туманы Грейвблуда не отпустят никого, вступившего во тьму леса. Никто не может избежать судьбы, никто не может бежать от здешних созданий. Подумай дважды, если решишься оказаться здесь.',
 			release: '8 марта 2017',
-			cover: { big: '/assets/img/music/witch-cover.png', small: '' },
+			cover: { big: `${sitePaths.musicCovers}/witch-cover.png`, small: '' },
 			tracklist: [
 				{ title: 'Anxiety' },
 				{ title: 'Panties' },
@@ -124,9 +136,15 @@ var musicDB = {
 				{ title: 'The Nightmare' },
 				{ title: 'Touching The Star' }
 			],
+			embed: {
+				type: 'bc',
+				ID: 3209699199
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=3209699199/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/--2'
+				bc: {
+					user: 'cojam',
+					album: '--2'
+				}
 			}
 		},
 		{
@@ -136,7 +154,7 @@ var musicDB = {
 			type: 'ep',
 			description: 'Иногда те игры, с которыми связано твоё детство, могут скрывать в себе великое несчастье. Ты не мог ожидать больших проблем от этого маленького клоуна, но вот ты уже стоишь над трупом твоего дедушки. Или что насчёт этого фиолетового дракона, что был твоим фаворитом всё детство? Просто взгляни под другим углом - десятилетиями он приносил боль тысячам существ, не важно, злым или добрым, и всё сходило ему с рук. Эти игры сотканы из катастрофы. Ты ничего не заметил, но они уже посеяли зерно бесконечной боли в твоё сердце. Ничто не спасёт тебя. Кошмар начинается.',
 			release: '10 февраля 2015',
-			cover: { big: '/assets/img/music/nightmare-cover.jpg', small: '/assets/img/music/nightmare-cover-thumb.jpg' },
+			cover: { big: `${sitePaths.musicCovers}/nightmare-cover.jpg`, small: `${sitePaths.musicCovers}/nightmare-cover-thumb.jpg` },
 			tracklist: [
 				{ title: 'Sorceress\' Lair' },
 				{ title: 'The Joka Syndrome' },
@@ -146,9 +164,15 @@ var musicDB = {
 				{ title: 'Enchanted by Darkness' },
 				{ title: 'A Dream Diary' }
 			],
+			embed: {
+				type: 'bc',
+				ID: 2893231190
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=2893231190/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/the-nightmare-begins',
+				bc: {
+					user: 'cojam',
+					album: 'the-nightmare-begins'
+				},
 				sc: 'midipidemy/sets/the-nightmare-begins'
 			}
 		},
@@ -158,7 +182,7 @@ var musicDB = {
 			type: 'game_ost',
 			feat: [ { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez' } ],
 			release: '21 декабря 2016',
-			cover: { big: '/assets/img/music/jicem-cover.png', small: '/assets/img/music/jicem-cover-thumb.png' },
+			cover: { big: `${sitePaths.musicCovers}/jicem-cover.png`, small: `${sitePaths.musicCovers}/jicem-cover-thumb.png` },
 			tracklist: [
 				{ title: 'Battle at Biograd' },
 				{ title: 'Violet Night' },
@@ -179,9 +203,15 @@ var musicDB = {
 				{ title: 'Juicy Win' },
 				{ title: 'Graveblood Tower' }
 			],
+			embed: {
+				type: 'bc',
+				ID: 945480585
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=945480585/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/jicem-official-soundtrack'
+				bc: {
+					user: 'cojam',
+					album: 'jicem-official-soundtrack'
+				}
 			}
 		},
 		{
@@ -189,15 +219,18 @@ var musicDB = {
 			id: 'jicem-ltz',
 			artist: 'Cojam',
 			type: 'game_ost',
-			cover: { big: '/assets/img/music/jicem-ltz-cover.jpg' },
+			cover: { big: `${sitePaths.musicCovers}/jicem-ltz-cover.jpg` },
 			tracklist: [
 				{ title: 'Graviball Launcher' },
 				{ title: 'Our Regular Mission' },
 				{ title: 'Tazerjump' },
 				{ title: 'Alone Escapists' }
 			],
+			embed: {
+				type: 'sc',
+				ID: 189111485
+			},
 			links: {
-				embed: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/189111485',
 				sc: 'midipidemy/sets/jicem'
 			}
 		},
@@ -206,13 +239,16 @@ var musicDB = {
 			id: 'titty',
 			artist: 'Cojam',
 			type: 'game_ost',
-			cover: { big: '/assets/img/music/titty-cover.jpg' },
+			cover: { big: `${sitePaths.musicCovers}/titty-cover.jpg` },
 			tracklist: [
 				{ title: 'Одна сауна на двоих и ещё с полсотни левитирующих мозгов' },
 				{ title: 'Беспорядок в магазине нижнего белья' }
 			],
+			embed: {
+				type: 'sc',
+				ID: 136449277
+			},
 			links: {
-				embed: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/136449277',
 				sc: 'midipidemy/sets/qk3tr4pp10xo'
 			}
 		},
@@ -221,7 +257,7 @@ var musicDB = {
 			artist: 'Cojam',
 			type: 'ep',
 			release: '2 января 2015',
-			cover: { big: '/assets/img/music/anastasia-cover.png', small: '/assets/img/music/anastasia-cover-thumb.png' },
+			cover: { big: `${sitePaths.musicCovers}/anastasia-cover.png`, small: `${sitePaths.musicCovers}/anastasia-cover-thumb.png` },
 			tracklist: [
 				{ title: 'Konjak' },
 				{ title: 'Anastasia' },
@@ -229,9 +265,15 @@ var musicDB = {
 				{ title: 'D A R K S K Y' },
 				{ title: 'Сны на двоих' }
 			],
+			embed: {
+				type: 'bc',
+				ID: 3884057808
+			},
 			links: {
-				embed: 'https://bandcamp.com/EmbeddedPlayer/album=3884057808/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true',
-				bc: 'https://cojam.bandcamp.com/album/anastasia',
+				bc: {
+					user: 'cojam',
+					album: 'anastasia'
+				},
 				sc: 'midipidemy/sets/anastasia'
 			}
 		}

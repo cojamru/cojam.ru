@@ -1,8 +1,8 @@
 'use strict'
 
-var createHeading = (text => $create.elem('h2', text))
+var createHeading = text => $create.elem('h2', text)
 
-var generateLikely = ((container, options) => {
+var generateLikely = (container, options) => {
 	if (!options || !container.nodeName) return;
 
 	let
@@ -26,9 +26,9 @@ var generateLikely = ((container, options) => {
 
 	container.appendChild(likelyElem)
 	setTimeout(likely.initiate, 0)
-})
+}
 
-var showMore = ((data, options) => {
+var showMore = (data, options) => {
 	if (!data.nodeName) return;
 	if (!options) options = {}
 
@@ -59,18 +59,19 @@ var showMore = ((data, options) => {
 	dialog.appendChild(dialogCloseBtn)
 	dialog.appendChild(dialonContainer)
 	body.appendChild(dialog)
-})
+}
 
 var $parser = {
 	music: (data, container) => {
 		container.textContent = ''
 
-		let parseTrack = (track => {
+		let parseTrack = track => {
 			if (!track) return;
 
 			let
-				trackContainer = $create.elem('div', '', 'music__track'),
+				trackContainer = $create.elem('div', '', 'more__music--track'),
 				trackData = { artist: (track.artist ? track.artist : 'Cojam'), title: (track.title ? track.title : 'Без названия'), link: (track.link ? track.link : false) },
+				trackDes = false,
 				trackFeat = false
 
 			if (track.feat) {
@@ -82,10 +83,14 @@ var $parser = {
 
 			trackContainer.appendChild($create.elem('p', `${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`))
 
-			return trackContainer
-		})
+			if (track.description && track.description != '') {
+				trackContainer.appendChild($create.elem('p', `${track.description.replace(/\n/g, '<br>')}`, 'more__music--track-info'))
+			}
 
-		let generateMore = ((album, heading) => {
+			return trackContainer
+		}
+
+		let generateMore = (album, heading) => {
 			let
 				albumMoreContent = $create.elem('div', '', 'more__music'),
 				albumMoreHeading = `${heading} <q>${album.title}</q>`,
@@ -109,14 +114,19 @@ var $parser = {
 				albumMoreDes.appendChild(img)
 			}
 
-			albumMoreDes.appendChild($create.elem('p', `Исполнител${(album.feat) ? 'и' : 'ь'}: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
+			albumMoreDes.appendChild($create.elem('p', `<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
 
-			if (album.description) albumMoreDes.appendChild($create.elem('p', `Описание: ${album.description}`))
-			if (album.release) albumMoreDes.appendChild($create.elem('p', `Релиз: ${album.release}`))
+			if (album.description) {
+				albumMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
+			}
+
+			if (album.release) {
+				albumMoreDes.appendChild($create.elem('p', `<b>Релиз</b>: ${album.release}`))
+			}
 
 			albumMoreContent.appendChild(albumMoreDes)
 
-			if (album.tracklist && album.tracklist.length != 0 && !isEdge) {
+			if (album.tracklist && album.tracklist.length != 0) {
 				albumTrackList = $create.elem('details', '', 'more__music--tracklist')
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 				album.tracklist.forEach(track => {
@@ -125,17 +135,28 @@ var $parser = {
 				albumMoreContent.appendChild(albumTrackList)
 			}
 
-			if (album.links && album.links.embed != '') {
+			if (album.embed && album.embed.type != '') {
+				let
+					albumEmbedSrc = 'https://',
+					albumEmbedSrcID = parseFloat(album.embed.ID)
+
+				switch (album.embed.type) {
+					case 'bc':
+						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true`; break
+					case 'sc':
+						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}`; break
+				}
+
 				albumEmbed = $create.elem('iframe', '', 'more__music--embed')
-				albumEmbed.setAttribute('src', album.links.embed)
+				albumEmbed.setAttribute('src', albumEmbedSrc)
 				albumMoreContent.appendChild(albumEmbed)
 			}
 
 			return albumMoreContent
-		})
+		}
 
-		let parseAlbum = (album => {
-			if (!album) return;
+		let parseAlbum = album => {
+			if (!album) { return }
 
 			let
 				albumContainer = $create.elem('div', '', 'music__album'),
@@ -144,7 +165,9 @@ var $parser = {
 				albumID = album.id ? album.id : album.title.toLowerCase().replace(' ', '-'),
 				albumHeading = ''
 
-			if (album.cover && album.cover.big && album.cover.big != '') albumBack.style.backgroundImage = `url('${album.cover.big}')`
+			if (album.cover && album.cover.big && album.cover.big != '') {
+				albumBack.style.backgroundImage = `url('${album.cover.big}')`
+			}
 
 			switch (album.type) {
 				case 'ep':
@@ -167,7 +190,7 @@ var $parser = {
 			albumContainer.appendChild(albumAbout)
 
 			return albumContainer
-		})
+		}
 
 		//container.appendChild(createHeading('Альбомы'))
 		data.albums.forEach(album => container.appendChild(parseAlbum(album)))
@@ -175,13 +198,13 @@ var $parser = {
 	games: (data, container) => {
 		container.textContent = ''
 
-		let generateMore = ((game, heading) => {
+		let generateMore = (game, heading) => {
 			let
 				gameMoreContent = $create.elem('div', '', 'more__game'),
 				gameMoreHeading = `${heading} <q>${game.title}</q>`,
 				gameMoreDes = $create.elem('div', '', 'more__game--description'),
 				gameMoreLinks = $create.elem('ul', '', 'more__game--links'),
-				gameMorePlatform = 'Платформа: '
+				gameMorePlatform = '<b>Платформа</b>: '
 
 			gameMoreContent.appendChild($create.elem('h2', gameMoreHeading))
 
@@ -202,32 +225,35 @@ var $parser = {
 				gameMoreDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
 			}
 
-			if (game.description) gameMoreDes.appendChild($create.elem('p', `Описание: ${game.description}`))
+			if (game.description) {
+				gameMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${game.description}`))
+			}
 
-			if (gameMorePlatform) gameMoreDes.appendChild($create.elem('p', gameMorePlatform))
+			if (gameMorePlatform) {
+				gameMoreDes.appendChild($create.elem('p', gameMorePlatform))
+			}
 
 			gameMoreContent.appendChild(gameMoreDes)
 
-			if (game.description_more && game.description_more != '' && !isEdge) {
+			if (game.description_more && game.description_more != '') {
 				let desMore = $create.elem('details', '', 'more__game--description-more')
 				desMore.appendChild($create.elem('summary', 'Подробное описание'))
 				desMore.appendChild($create.elem('p', game.description_more.replace(/\n/g, '<br>')))
-				console.log('asd')
 				gameMoreContent.appendChild(desMore)
 			}
 
 			if (game.links && Object.keys(game.links).length != 0) {
-				if (game.links.play && game.links.play != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, 'Играть онлайн', ['html'])))
-				if (game.links.dl && game.links.dl != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.dl, 'Скачать', ['e', 'html'])))
-				if (game.links.site && game.links.site != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.site, 'Сайт игры', ['html'])))
+				if (game.links.play && game.links.play != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', ['html'])))
+				if (game.links.dl && game.links.dl != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', ['e', 'html'])))
+				if (game.links.site && game.links.site != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', ['html'])))
 
 				gameMoreContent.appendChild(gameMoreLinks)
 			}
 
 			return gameMoreContent
-		})
+		}
 
-		let parseGame = (game => {
+		let parseGame = game => {
 			let
 				gameContainer = $create.elem('div', '', 'games__game'),
 				gameTitle = $create.elem('div', '', 'games__game--title'),
@@ -256,7 +282,7 @@ var $parser = {
 			}
 
 			return gameContainer
-		})
+		}
 
 		//container.appendChild(createHeading('Игры'))
 		data.our.forEach(game => container.appendChild(parseGame(game)))

@@ -1,1 +1,27 @@
-﻿"use strict";var $check={get:function(t){let e={},s="",r="";location.search&&(s=location.search.substring(1).split("&"));for(let t=0,i=s.length;t<i;t++)(r=s[t].split("="))[0]&&(e[r[0]]=r[1]||!0);return!!e[t]&&e[t]}},isEdge=!!/Edge\//.test(navigator.userAgent);
+'use strict'
+
+/*
+ * Временное переопределение чека из камины, пока эдж не научится в ес6 (к зиме убрать)
+ */
+
+var isEdge = (/Edge\//.test(navigator.userAgent)) ? true : false
+
+if (isEdge) {
+	document.body.classList.add('is-ms-edge')
+
+	$check.get = value => {
+		let
+			loc = location.search,
+			params = {}, parts = '', nv = ''
+
+		if (loc)
+			parts = location.search.substring(1).split('&');
+			for (let i = 0, pL = parts.length; i < pL; i++) {
+				nv = parts[i].split('=')
+				if (!nv[0]) continue;
+				params[nv[0]] = nv[1] || true;
+			}
+
+		return params[value] ? params[value] : false
+	}
+}

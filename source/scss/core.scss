@@ -14,17 +14,6 @@
 	color: #fff;
 }
 
-/*
- * Edge suck
- */
-
-@supports (-ms-ime-align: auto) {
-	::selection {
-		background-color: transparent;
-		color: #000;
-	}
-}
-
 html {
 	@at-root body, & {
 		width: 100%;
@@ -43,6 +32,16 @@ body {
 
 	&.more-is-open {
 		overflow-y: hidden;
+	}
+
+	/*
+	 * Костыль для Edge, пока не введут поддержку details
+	 */
+
+	&.is-ms-edge {
+		details {
+			display: none;
+		}
 	}
 }
 

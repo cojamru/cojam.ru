@@ -8,14 +8,22 @@ var
 		URL: location.pathname
 	}
 
+var sitePaths = {
+	musicCovers: '/assets/img/music',
+	games: {
+		posters: '/assets/img/games/posters',
+		shots: '/assets/img/games/shots'
+	}
+}
+
 ;(()=>{
 	let
 		currentLoc = location.pathname.replace('.html', ''),
 		menuItems = $make.qs('header nav a[href^="/"]', ['a'])
 
 	Array.from(menuItems).forEach(item => {
-		if (item.href.replace('.html', '') == location.href.replace('.html', '')) item.classList.add('current')
-		if (debugMode) item.setAttribute('href', item.getAttribute('href') + '.html')
+		if (item.href.replace('.html', '') == location.href.replace('.html', '')) { item.classList.add('current') }
+		if (debugMode) { item.setAttribute('href', item.getAttribute('href') + '.html') }
 	})
 
 	let
