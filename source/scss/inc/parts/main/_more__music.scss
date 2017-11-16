@@ -32,7 +32,7 @@
 
 	&--embed {
 		width: 100%; height: 400px;
-		background-image: url('#{$imgPath}/loading.png');
+		background-image: url('#{$imgPath}/loading.png?v=#{$projectVer}');
 		background-position: center center;
 		background-repeat: no-repeat;
 		margin-top: 10px;

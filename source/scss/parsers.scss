@@ -64,8 +64,8 @@ main {
 		padding: 10px;
 
 		&__widget {
-			height: auto;
-			padding: 5px;
+			height: auto !important;
+			padding: 2.5px 5px;
 		}
 
 		&__icon {

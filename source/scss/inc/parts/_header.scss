@@ -1,5 +1,5 @@
 header {
-	background-image: url('#{$imgPath}/header-background.png'), linear-gradient(to top left, var(--prime-color), #1b0c2d);
+	background-image: url('#{$imgPath}/header-background.png?v=#{$projectVer}'), linear-gradient(to top left, var(--prime-color), #1b0c2d);
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center center;

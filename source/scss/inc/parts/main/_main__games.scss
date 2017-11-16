@@ -8,7 +8,7 @@
 		position: relative;
 		background-color: #ccc;
 		background-size: cover;
-		background-image: url('#{$imgPath}/no-image.svg');
+		background-image: url('#{$imgPath}/no-image.svg?v=#{$projectVer}');
 		height: 300px;
 		margin: 10px 0;
 		user-select: none;

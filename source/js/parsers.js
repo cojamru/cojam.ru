@@ -142,9 +142,9 @@ var $parser = {
 
 				switch (album.embed.type) {
 					case 'bc':
-						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true`; break
+						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=8400a5/artwork=none/transparent=true`; break
 					case 'sc':
-						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}`; break
+						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=8400a5`; break
 				}
 
 				albumEmbed = $create.elem('iframe', '', 'more__music--embed')
@@ -213,7 +213,7 @@ var $parser = {
 					gameMorePlatform += 'Flash'; break
 				case 'pc':
 					gameMorePlatform += 'PC'; break
-				case 'html':
+				case 'online':
 					gameMorePlatform += 'браузерная игра'; break
 				default:
 					gameMorePlatform = false
