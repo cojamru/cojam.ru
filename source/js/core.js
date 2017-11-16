@@ -2,7 +2,8 @@
 
 var
 	elemSizes = (elem => elem.getBoundingClientRect()),
-	debugMode = (location.hostname == '127.0.0.1' || location.hostname == 'localhost' || location.port == '8080') ? true : false,
+	debugMode = false,
+	siteVersion = document.head.querySelector('meta[name="cojam-version"]').getAttribute('content'),
 	pageInfo = {
 		title: document.title,
 		URL: location.pathname
@@ -20,6 +21,12 @@ var sitePaths = {
 	let
 		currentLoc = location.pathname.replace('.html', ''),
 		menuItems = $make.qs('header nav a[href^="/"]', ['a'])
+
+	switch (location.hostname) {
+		case '127.0.0.1':
+		case 'localhost':
+			debugMode = true; break
+	}
 
 	Array.from(menuItems).forEach(item => {
 		if (item.href.replace('.html', '') == location.href.replace('.html', '')) { item.classList.add('current') }

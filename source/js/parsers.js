@@ -3,7 +3,7 @@
 var createHeading = text => $create.elem('h2', text)
 
 var generateLikely = (container, options) => {
-	if (!options || !container.nodeName) return;
+	if (!options || !container.nodeName) { return }
 
 	let
 		likelyElem = $create.elem('div', '', 'likely'),
@@ -14,7 +14,7 @@ var generateLikely = (container, options) => {
 			fb: $create.elem('div', 'Шернуть', 'facebook')
 		}
 
-	if (options.URL) likelyElem.dataset.url = `${location.protocol}//${location.hostname}/${options.URL}`
+	if (options.URL) { likelyElem.dataset.url = `${location.protocol}//${location.hostname}/${options.URL}` }
 	if (options.title) {
 		let heading = options.heading ? `${options.heading} "${options.title}"` : options.title
 		likelyElem.dataset.title = heading
@@ -29,7 +29,7 @@ var generateLikely = (container, options) => {
 }
 
 var showMore = (data, options) => {
-	if (!data.nodeName) return;
+	if (!data.nodeName) { return }
 	if (!options) options = {}
 
 	let
@@ -66,7 +66,7 @@ var $parser = {
 		container.textContent = ''
 
 		let parseTrack = track => {
-			if (!track) return;
+			if (!track) { return }
 
 			let
 				trackContainer = $create.elem('div', '', 'more__music--track'),
@@ -101,7 +101,7 @@ var $parser = {
 				albumFeat = ' при участии '
 				album.feat.forEach((person, i) => {
 					let personID = person.nick
-					if (person.link) personID = $create.link(person.link, person.nick, ['html', 'e'])
+					if (person.link) { personID = $create.link(person.link, person.nick, ['html', 'e']) }
 					albumFeat += `${personID}${(i == album.feat.length - 1) ? '.' : ', '}`
 				})
 			}
@@ -110,7 +110,7 @@ var $parser = {
 
 			if (album.cover && album.cover.small && album.cover.small != '') {
 				let img = $create.elem('img')
-				img.setAttribute('src', album.cover.small)
+				img.setAttribute('src', `${album.cover.small}?v=${siteVersion}`)
 				albumMoreDes.appendChild(img)
 			}
 
@@ -166,7 +166,7 @@ var $parser = {
 				albumHeading = ''
 
 			if (album.cover && album.cover.big && album.cover.big != '') {
-				albumBack.style.backgroundImage = `url('${album.cover.big}')`
+				albumBack.style.backgroundImage = `url('${album.cover.big}?v=${siteVersion}')`
 			}
 
 			switch (album.type) {
@@ -262,7 +262,7 @@ var $parser = {
 				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
 				gameHeading = 'Игра'
 
-			if (game.img && game.img.poster && game.img.poster != '') gamePoster.style.backgroundImage = `url('${game.img.poster}')`
+			if (game.img && game.img.poster && game.img.poster != '') gamePoster.style.backgroundImage = `url('${game.img.poster}?v=${siteVersion}')`
 
 			var showMoreWF = () => showMore(generateMore(game, gameHeading), { heading: gameHeading, id: gameID, title: game.title })
 
@@ -284,7 +284,6 @@ var $parser = {
 			return gameContainer
 		}
 
-		//container.appendChild(createHeading('Игры'))
 		data.our.forEach(game => container.appendChild(parseGame(game)))
 	}
 }

@@ -1,6 +1,7 @@
 link(rel='shortcut icon' href=`${URLs.favicon}`)
 meta(name='theme-color' content='#8400a5')
 meta(name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+meta(name='cojam-version' content=`${version}`)
 
 each URL in ['www.google-analytics.com', 'cdn.jsdelivr.net']
 	link(rel='dns-prefetch' href=`//${URL}`)

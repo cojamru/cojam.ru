@@ -216,7 +216,7 @@ var musicDB = {
 		},
 		{
 			title: 'Jicem: Ниже Нуля',
-			id: 'jicem-ltz',
+			id: 'jicem-zero',
 			artist: 'Cojam',
 			type: 'game_ost',
 			cover: { big: `${sitePaths.musicCovers}/jicem-ltz-cover.jpg` },

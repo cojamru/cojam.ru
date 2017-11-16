@@ -19,7 +19,7 @@ var gamesDB = {
 		},
 		{
 			title: 'Jicem: Ниже Нуля',
-			id: 'jicem-ltz',
+			id: 'jicem-zero',
 			contest: { name: 'Gamiron №11', link: 'https://gcup.ru/forum/83-46421-1' },
 			platform: 'flash',
 			release: 2016,
