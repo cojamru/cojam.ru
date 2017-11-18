@@ -14,7 +14,7 @@ mixin includeStyles(added)
 	if (added && added.length != 0 && added.includes('parsers'))
 		script(src=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.js` defer)
 	each CSS in styles
-		link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${version}`)
+		link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${VERSION}`)
 
 mixin includeScripts(added)
 	- let scripts = ['kamina', 'core']
@@ -22,5 +22,5 @@ mixin includeScripts(added)
 	if (added && added.length != 0 && added.includes('parsers'))
 		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
 	each JS in scripts
-		script(src=`/assets/js/${JS}.min.js?v=${version}` defer)
+		script(src=`/assets/js/${JS}.min.js?v=${VERSION}` defer)
 	

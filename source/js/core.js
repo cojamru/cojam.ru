@@ -1,7 +1,7 @@
 'use strict'
 
 var
-	elemSizes = (elem => elem.getBoundingClientRect()),
+	elemSizes = elem => elem.getBoundingClientRect(),
 	debugMode = false,
 	siteVersion = document.head.querySelector('meta[name="cojam-version"]').getAttribute('content'),
 	pageInfo = {

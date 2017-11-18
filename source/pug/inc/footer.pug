@@ -1,7 +1,7 @@
 mixin socLink(link, pic, mini)
 	li
 		a(href=`${link}` target='_blank' rel='nofollow noreffer')
-			img(src=`/assets/img/soc/${pic}.svg?v=${version}` alt=`soc${(mini == true) ? '-mini' : ''}`)
+			img(src=`/assets/img/soc/${pic}.svg?v=${VERSION}` alt=`soc${(mini == true) ? '-mini' : ''}`)
 
 footer
 	p #[a(href='/' rel='home') #{title.short_ru}], 2013–#{new Date().getFullYear()}
