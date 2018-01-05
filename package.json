@@ -2,7 +2,7 @@
 	"name": "cojam.ru",
 	"description": "",
 	"private": true,
-	"version": "3.0.5",
+	"version": "3.0.6-dev",
 	"author": "Cojam",
 	"repository": "bitbucket:ruLait/cojam.ru",
 	"license": "UNLICENSED",
@@ -10,7 +10,7 @@
 		"kamina-js": "1.2.3"
 	},
 	"devDependencies": {
-		"browser-sync": "2.23.1",
+		"browser-sync": "2.23.2",
 		"gulp": "github:gulpjs/gulp#4.0",
 		"gulp-bom": "2.0.0",
 		"gulp-csso": "3.0.0",

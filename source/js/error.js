@@ -3,6 +3,8 @@
 ;(() => {
 	if (window.self != window.top) { $make.qs('.undefined').style.display = 'initial'; return }
 
+	$make.qs('.error-404 p a[href*="old"]').href += location.pathname
+
 	fetch(document.URL)
 		.then(response => {
 			document.title = `Ошибка ${response.status} – ${document.title}`
