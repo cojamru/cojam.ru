@@ -17,7 +17,7 @@ mixin includeStyles(added)
 		link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${VERSION}`)
 
 mixin includeScripts(added)
-	- let scripts = ['kamina', 'core']
+	- let scripts = ['kamina', 'special/info-from-meta', 'core']
 	- if (added && added.length != 0) scripts.push(...added)
 	if (added && added.length != 0 && added.includes('parsers'))
 		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)

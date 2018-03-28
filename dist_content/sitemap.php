@@ -9,8 +9,8 @@
 
 	foreach ($content as &$url) {
 		$sm .= '<url>';
-		if ($url == 'index') { $sm .= '<loc>' . $server . '</loc>'; } else { $sm .= '<loc>' . $server . '/'. $url .'</loc>'; }
-		$sm .= '<lastmod>'. date('c', filemtime($url . '.html')) .'</lastmod>';
+		$sm .= '<loc>' . $server . ($url != 'index' ? '/' . $url : '') . '</loc>';
+		$sm .= '<lastmod>' . date('c', filemtime($url . '.html')) . '</lastmod>';
 		$sm .= '</url>';
 	}
 

@@ -1,9 +1,11 @@
 link(rel='shortcut icon' href=`${URLs.favicon}`)
-meta(name='theme-color' content='#8400a5')
+meta(name='theme-color' content=`${primeColor}`)
 meta(name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-meta(name='cojam-version' content=`${VERSION}`)
 
-each URL in ['www.google-analytics.com', 'cdn.jsdelivr.net']
+meta(name='_cojam:version' content=`${VERSION}`)
+meta(name='_cojam:img-path' content=`${PATHS.img}`)
+
+each URL in ['www.google-analytics.com', 'fonts.gstatic.com']
 	link(rel='dns-prefetch' href=`//${URL}`)
 
 link(rel='sitemap' href='/sitemap.php')

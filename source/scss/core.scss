@@ -4,7 +4,7 @@
 @include reset;
 
 :root {
-	--prime-color: $primeColor;
+	--prime-color: #{$primeColor};
 	--font-size: 18px;
 	--menu-border-radius: 10px;
 }

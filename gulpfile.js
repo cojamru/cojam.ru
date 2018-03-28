@@ -1,85 +1,111 @@
 'use strict'
 
 let
-	project =      require('./package.json'),
-	gulp =         require('gulp'),
-	bom =          require('gulp-bom'),
-	rename =       require('gulp-rename'),
-	watch =        require('gulp-watch'),
-	plumber =      require('gulp-plumber'),
-	composer =     require('gulp-uglify/composer'),
-	uglifyjs =     require('uglify-es'),
-	csso =         require('gulp-csso'),
-	pug =          require('gulp-pug'),
-	live_server =  require('browser-sync')
+	project =     require('./package.json'),
+	gulp =        require('gulp'),
+	tube =        require('gulp-pipe'),
+	bom =         require('gulp-bom'),
+	rename =      require('gulp-rename'),
+	watch =       require('gulp-watch'),
+	plumber =     require('gulp-plumber'),
+	csso =        require('gulp-csso'),
+	pug =         require('gulp-pug'),
+	liveServer =  require('browser-sync')
 
 let sass = {
 	compile:  require('gulp-sass'),
 	watch:    require('gulp-watch-sass'),
-	vars:     require('gulp-sass-variables')
+	vars:     require('gulp-sass-vars')
+}
+
+let uglify = {
+	core:      require('uglify-es'),
+	composer:  require('gulp-uglify/composer')
 }
 
 let
-	minifyJS = composer(uglifyjs, console),
-	reloadServer = () => live_server.stream()
+	minifyJS = uglify.composer(uglify.core, console),
+	reloadServer = () => liveServer.stream()
+
+let dirs = project._config.dirs
 
 let paths = {
 	html: {
-		dev: ['source/pug/**/*.pug', '!source/pug/inc/**/*.pug'],
-		prod: 'build/'
+		dev: [`${dirs.dev}/pug/**/*.pug`, `!${dirs.dev}/pug/inc/**/*.pug`],
+		prod: `${dirs.prod.build}/`
 	},
 	js: {
-		dev: 'source/js/**/*.js',
-		prod: 'build/assets/js/',
-		kamina: 'node_modules/kamina-js/dist/*.min.js',
+		dev: `${dirs.dev}/js/**/*.js`,
+		prod: `${dirs.prod.build}/${dirs.prod.main}/js/`,
+		kamina: 'node_modules/kamina-js/dist/kamina.min.js',
 	},
 	css: {
-		dev: 'source/scss/**/*.scss',
-		prod: 'build/assets/css/'
+		dev: `${dirs.dev}/scss/**/*.scss`,
+		prod: `${dirs.prod.build}/${dirs.prod.main}/css/`
 	}
 }
 
-gulp.task('liveReload', () => live_server({
-	server: { baseDir: 'build/' },
+gulp.task('liveReload', () => liveServer({
+	server: [dirs.prod.build, dirs.prod.content],
 	port: 8080,
 	notify: false
 }))
 
-gulp.task('pug', () => gulp.src(paths.html.dev)
-	.pipe(plumber())
-	.pipe(watch(paths.html.dev))
-	.pipe(pug({ locals: { VERSION: project.version } }))
-	.pipe(bom())
-	.pipe(gulp.dest(paths.html.prod))
-	.pipe(reloadServer())
-)
+gulp.task('pug', () => tube([
+	watch(paths.html.dev, { ignoreInitial: false }),
+	plumber(),
+	pug({ locals: {
+		VERSION: project.version,
+		PATHS: {
+			js:      `/${dirs.prod.main}/js`,
+			css:     `/${dirs.prod.main}/css`,
+			img:     `/${dirs.prod.main}/img`
+		},
+		primeColor:  project._config.prime_color,
+		domain:  project._config.domain
+	}}),
+	bom(),
+	gulp.dest(paths.html.prod),
+	reloadServer()
+]))
 
-gulp.task('get-kamina', () => gulp.src(paths.js.kamina)
-	.pipe(bom())
-	.pipe(gulp.dest(paths.js.prod))
-)
+gulp.task('get-kamina', () => tube([
+	gulp.src(paths.js.kamina),
+	bom(),
+	gulp.dest(paths.js.prod)
+]))
 
-gulp.task('minify-js', () => gulp.src(paths.js.dev)
-	.pipe(plumber())
-	.pipe(watch(paths.js.dev))
-	.pipe(minifyJS({}))
-	.pipe(rename({suffix: '.min'}))
-	.pipe(bom())
-	.pipe(gulp.dest(paths.js.prod))
-	.pipe(reloadServer())
-)
+gulp.task('minify-js', () => tube([
+	watch(paths.js.dev, { ignoreInitial: false }),
+	plumber(),
+	minifyJS({}),
+	bom(),
+	rename({suffix: '.min'}),
+	gulp.dest(paths.js.prod),
+	reloadServer()
+]))
 
-gulp.task('scss', () => sass.watch(paths.css.dev)
-	//gulp.src(paths.css.dev)
-	.pipe(plumber())
-	.pipe(sass.vars({ $VERSION: project.version }))
-	.pipe(sass.compile({outputStyle: 'compressed'}))
-	.pipe(csso())
-	.pipe(rename({suffix: '.min'}))
-	.pipe(bom())
-	.pipe(gulp.dest(paths.css.prod))
-	.pipe(reloadServer())
-)
+let scssTubes = [
+	plumber(),
+	sass.vars({
+		VERSION:     project.version,
+		primeColor:  project._config.prime_color,
+		imgPath:     `/${dirs.prod.main}/img`
+	}),
+	sass.compile({outputStyle: 'compressed'}),
+	csso(),
+	bom(),
+	rename({suffix: '.min'}),
+	gulp.dest(paths.css.prod)
+]
 
-gulp.task('default', gulp.parallel('pug', 'get-kamina', 'minify-js', 'scss'))
-gulp.task('dev', gulp.parallel('liveReload', 'default'))
+gulp.task('scss:only-compile', () => tube(
+	[gulp.src(paths.css.dev)].concat(scssTubes)
+))
+
+gulp.task('scss:dev', () => tube(
+	[sass.watch(paths.css.dev)].concat(scssTubes, [reloadServer()])
+))
+
+gulp.task('default', ['pug', 'get-kamina', 'minify-js', 'scss:dev'])
+gulp.task('dev', ['liveReload', 'default'])

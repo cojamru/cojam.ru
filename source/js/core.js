@@ -3,17 +3,18 @@
 var
 	elemSizes = elem => elem.getBoundingClientRect(),
 	debugMode = false,
-	siteVersion = document.head.querySelector('meta[name="cojam-version"]').getAttribute('content'),
+	siteVersion = getInfoFromMeta('version'),
 	pageInfo = {
 		title: document.title,
 		URL: location.pathname
-	}
+	},
+	pathToImages = getInfoFromMeta('img-path')
 
 var sitePaths = {
-	musicCovers: '/assets/img/music',
+	musicCovers: `${pathToImages}/music`,
 	games: {
-		posters: '/assets/img/games/posters',
-		shots: '/assets/img/games/shots'
+		posters: `${pathToImages}/games/posters`,
+		shots: `${pathToImages}/games/shots`
 	}
 }
 
@@ -29,8 +30,13 @@ var sitePaths = {
 	}
 
 	Array.from(menuItems).forEach(item => {
-		if (item.href.replace('.html', '') == location.href.replace('.html', '')) { item.classList.add('current') }
-		if (debugMode) { item.setAttribute('href', item.getAttribute('href') + '.html') }
+		if (item.href.replace('.html', '') == location.href.replace('.html', '')) {
+			item.classList.add('current')
+		}
+
+		if (debugMode) {
+			item.setAttribute('href', item.getAttribute('href') + '.html')
+		}
 	})
 
 	let

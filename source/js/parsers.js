@@ -14,7 +14,10 @@ var generateLikely = (container, options) => {
 			fb: $create.elem('div', 'Шернуть', 'facebook')
 		}
 
-	if (options.URL) { likelyElem.dataset.url = `${location.protocol}//${location.hostname}/${options.URL}` }
+	if (options.URL) {
+		likelyElem.dataset.url = `${location.protocol}//${location.hostname}/${options.URL}`
+	}
+
 	if (options.title) {
 		let heading = options.heading ? `${options.heading} "${options.title}"` : options.title
 		likelyElem.dataset.title = heading
@@ -54,7 +57,11 @@ var showMore = (data, options) => {
 	dialogContent.classList.add('more--content')
 	dialonContainer.appendChild(dialogContent)
 
-	generateLikely(dialonContainer, { title: options.title, URL: dialogURL, heading: options.heading })
+	generateLikely(dialonContainer, {
+		title: options.title,
+		URL: dialogURL,
+		heading: options.heading
+	})
 
 	dialog.appendChild(dialogCloseBtn)
 	dialog.appendChild(dialonContainer)
@@ -101,7 +108,11 @@ var $parser = {
 				albumFeat = ' при участии '
 				album.feat.forEach((person, i) => {
 					let personID = person.nick
-					if (person.link) { personID = $create.link(person.link, person.nick, ['html', 'e']) }
+
+					if (person.link) {
+						personID = $create.link(person.link, person.nick, '', ['html', 'e'])
+					}
+
 					albumFeat += `${personID}${(i == album.feat.length - 1) ? '.' : ', '}`
 				})
 			}
@@ -220,7 +231,9 @@ var $parser = {
 			}
 
 			if (game.contest && game.contest.name && game.contest.name != '') {
-				let contest = (game.contest.link && game.contest.link != '') ? $create.link(game.contest.link, game.contest.name, ['e', 'html']) : game.contest.name
+				let contest = (game.contest.link && game.contest.link != '')
+					? $create.link(game.contest.link, game.contest.name, '', ['e', 'html'])
+					: game.contest.name
 
 				gameMoreDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
 			}
@@ -243,9 +256,17 @@ var $parser = {
 			}
 
 			if (game.links && Object.keys(game.links).length != 0) {
-				if (game.links.play && game.links.play != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', ['html'])))
-				if (game.links.dl && game.links.dl != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', ['e', 'html'])))
-				if (game.links.site && game.links.site != '') gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', ['html'])))
+				if (game.links.play && game.links.play != '') {
+					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
+				}
+
+				if (game.links.dl && game.links.dl != '') {
+					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', '', ['e', 'html'])))
+				}
+
+				if (game.links.site && game.links.site != '') {
+					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', '', ['html'])))
+				}
 
 				gameMoreContent.appendChild(gameMoreLinks)
 			}
@@ -262,12 +283,18 @@ var $parser = {
 				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
 				gameHeading = 'Игра'
 
-			if (game.img && game.img.poster && game.img.poster != '') gamePoster.style.backgroundImage = `url('${game.img.poster}?v=${siteVersion}')`
+			if (game.img && game.img.poster && game.img.poster != '') {
+				gamePoster.style.backgroundImage = `url('${game.img.poster}?v=${siteVersion}')`
+			}
 
-			var showMoreWF = () => showMore(generateMore(game, gameHeading), { heading: gameHeading, id: gameID, title: game.title })
+			var showMoreWF = () => showMore(generateMore(game, gameHeading), {
+				heading: gameHeading,
+				id: gameID,
+				title: game.title
+			})
 
 			gameContainer.onclick = () => showMoreWF()
-			if ($check.get('show') == gameID) showMoreWF()
+			if ($check.get('show') == gameID) { showMoreWF() }
 
 			gameContainer.appendChild(gamePoster)
 

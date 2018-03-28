@@ -3,7 +3,7 @@ html
 	head
 		include inc/vars.pug
 		include inc/mixins.pug
-		- var subTitle = 'Музыка'
+		- let subTitle = 'Музыка'
 
 		meta(charset='utf-8')
 		+title(title.full, subTitle)
@@ -25,6 +25,7 @@ html
 				p Синглы здесь не публикуются, но их можно найти на #[a(href='https://soundcloud.com/midipidemy/tracks' target='_blank' rel='nofollow noopener') SoundCloud] или в #[a(href='https://vk.com/audios-71897180' target='_blank' rel='nofollow noopener') VK].
 			hr
 			div.music
+				include inc/no-js.pug
 
 		include inc/footer.pug
 

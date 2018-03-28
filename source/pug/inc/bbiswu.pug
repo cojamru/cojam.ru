@@ -1,6 +1,6 @@
 - let bbiswuIDs = { ya: '22438144', go: 'UA-41033513-3'}
 
-script(src=`/assets/js/bbiswu.min.js?v=${VERSION}` data-bbiswu-yandex=`${bbiswuIDs.ya}` data-bbiswu-google=`${bbiswuIDs.go}` async)
-
+script(src=`https://www.googletagmanager.com/gtag/js?id=${BBISWU.google}` async)
+script(src=`${PATHS.js}/bbiswu.min.js?v=${VERSION}` data-bbiswu-google=`${BBISWU.google}` data-bbiswu-yandex=`${BBISWU.yandex}` async)
 noscript
-	div #[img(src=`https://mc.yandex.ru/watch/${bbiswuIDs.ya}` style='position:absolute; left:-9999px' alt='')]
+	img(src=`https://mc.yandex.ru/watch/${BBISWU.yandex}` style='position:absolute; left:-9999px' alt='')
