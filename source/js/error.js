@@ -1,21 +1,27 @@
 'use strict'
 
-;(() => {
-	if (window.self != window.top) { $make.qs('.undefined').style.display = 'initial'; return }
+void (() => {
+	let undefinedBlock = document.querySelector('section[data-error="undefined"]')
 
-	$make.qs('.error-404 p a[href*="old"]').href += location.pathname
+	if (window.self != window.top) {
+		undefinedBlock.style.display = 'initial'; return
+	}
+
+	$make.qs('section[data-error="404"] a[href*="old"]').href += location.pathname
 
 	fetch(document.URL)
 		.then(response => {
-			document.title = `Ошибка ${response.status} – ${document.title}`
-			switch (response.status) {
+			let status = response.status
+
+			document.title = `Ошибка ${status} – ${document.title}`
+
+			switch (status) {
 				case 403:
-					$make.qs('.error-403').style.display = 'initial'; break
 				case 404:
-					$make.qs('.error-404').style.display = 'initial'; break
+					document.querySelector(`section[data-error='${status}']`).style.display = 'initial'; break
 				case 200:
 				default:
-					$make.qs('.undefined').style.display = 'initial'
+					undefinedBlock.style.display = 'initial'; break
 			}
 		})
 })()

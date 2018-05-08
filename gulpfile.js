@@ -2,14 +2,16 @@
 
 let
 	project =     require('./package.json'),
+	fs =          require('fs'),
 	gulp =        require('gulp'),
 	tube =        require('gulp-pipe'),
 	bom =         require('gulp-bom'),
 	rename =      require('gulp-rename'),
 	watch =       require('gulp-watch'),
 	plumber =     require('gulp-plumber'),
-	csso =        require('gulp-csso'),
+	cleanCSS =    require('gulp-clean-css'),
 	pug =         require('gulp-pug'),
+	parseYAML =   require('js-yaml'),
 	liveServer =  require('browser-sync')
 
 let sass = {
@@ -27,21 +29,30 @@ let
 	minifyJS = uglify.composer(uglify.core, console),
 	reloadServer = () => liveServer.stream()
 
-let dirs = project._config.dirs
+let parseYAMLfile = fileName => parseYAML.load(fs.readFileSync(`./${fileName}.yaml`, 'utf8'))
+
+let config = parseYAMLfile('project-config')
+
+let vendors = parseYAMLfile('vendors-data')
+
+let dirs = config.dirs
 
 let paths = {
 	html: {
 		dev: [`${dirs.dev}/pug/**/*.pug`, `!${dirs.dev}/pug/inc/**/*.pug`],
 		prod: `${dirs.prod.build}/`
 	},
+
 	js: {
-		dev: `${dirs.dev}/js/**/*.js`,
-		prod: `${dirs.prod.build}/${dirs.prod.main}/js/`,
-		kamina: 'node_modules/kamina-js/dist/kamina.min.js',
+		dev:  [`${dirs.dev}/js/**/*.js`, `!${dirs.dev}/js/service-worker.js`],
+		prod:  `${dirs.prod.build}/${dirs.prod.main}/js/`,
+
+		kamina: 'node_modules/kamina-js/dist/kamina.min.js'
 	},
+
 	css: {
-		dev: `${dirs.dev}/scss/**/*.scss`,
-		prod: `${dirs.prod.build}/${dirs.prod.main}/css/`
+		dev:   `${dirs.dev}/scss/**/*.scss`,
+		prod:  `${dirs.prod.build}/${dirs.prod.main}/css/`
 	}
 }
 
@@ -57,12 +68,18 @@ gulp.task('pug', () => tube([
 	pug({ locals: {
 		VERSION: project.version,
 		PATHS: {
-			js:      `/${dirs.prod.main}/js`,
-			css:     `/${dirs.prod.main}/css`,
-			img:     `/${dirs.prod.main}/img`
+			js:       `/${dirs.prod.main}/js`,
+			css:      `/${dirs.prod.main}/css`,
+			img:      `/${dirs.prod.main}/img`
 		},
-		primeColor:  project._config.prime_color,
-		domain:  project._config.domain
+		LIBS: vendors,
+		BBISWU: {
+			google: config.trackers.google,
+			yandex: config.trackers.yandex
+		},
+		title:       config.title,
+		domain:      config.domain,
+		primeColor:  config.prime_color
 	}}),
 	bom(),
 	gulp.dest(paths.html.prod),
@@ -75,25 +92,27 @@ gulp.task('get-kamina', () => tube([
 	gulp.dest(paths.js.prod)
 ]))
 
-gulp.task('minify-js', () => tube([
-	watch(paths.js.dev, { ignoreInitial: false }),
+let jsTubes = (_src, _dest) => tube([
+	watch(_src, { ignoreInitial: false }),
 	plumber(),
 	minifyJS({}),
 	bom(),
 	rename({suffix: '.min'}),
-	gulp.dest(paths.js.prod),
+	gulp.dest(_dest),
 	reloadServer()
-]))
+])
+
+gulp.task('js:assets', () => jsTubes(paths.js.dev, paths.js.prod))
 
 let scssTubes = [
 	plumber(),
 	sass.vars({
 		VERSION:     project.version,
-		primeColor:  project._config.prime_color,
+		primeColor:  config.prime_color,
 		imgPath:     `/${dirs.prod.main}/img`
 	}),
 	sass.compile({outputStyle: 'compressed'}),
-	csso(),
+	cleanCSS(),
 	bom(),
 	rename({suffix: '.min'}),
 	gulp.dest(paths.css.prod)
@@ -107,5 +126,5 @@ gulp.task('scss:dev', () => tube(
 	[sass.watch(paths.css.dev)].concat(scssTubes, [reloadServer()])
 ))
 
-gulp.task('default', ['pug', 'get-kamina', 'minify-js', 'scss:dev'])
+gulp.task('default', ['pug', 'get-kamina', 'js:assets', 'scss:dev'])
 gulp.task('dev', ['liveReload', 'default'])

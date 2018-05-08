@@ -12,8 +12,6 @@ html
 
 		include inc/meta.pug
 
-		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${libsVer.likely}/likely.css`)
-
 		+includeStyles(['parsers'])
 	body
 		include inc/header.pug
@@ -26,6 +24,6 @@ html
 
 		+includeScripts(['special/edge', 'db/games', 'parsers'])
 
-		script document.addEventListener('DOMContentLoaded', () => $parser.games(gamesDB, $make.qs('.games')))
+		script document.addEventListener('DOMContentLoaded', () => $parser.games({ data: gamesDB, container: $make.qs('.games') }))
 
 		include inc/bbiswu.pug

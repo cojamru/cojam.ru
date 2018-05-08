@@ -18,7 +18,7 @@ var sitePaths = {
 	}
 }
 
-;(()=>{
+document.addEventListener('DOMContentLoaded', () => {
 	let
 		currentLoc = location.pathname.replace('.html', ''),
 		menuItems = $make.qs('header nav a[href^="/"]', ['a'])
@@ -39,13 +39,17 @@ var sitePaths = {
 		}
 	})
 
-	let
-		header = $make.qs('header'),
-		menu = header.querySelector('nav'),
-		headerSizes = elemSizes(header),
-		menuSizes = elemSizes(menu)
+	void (() => {
+		let
+			header =  $make.qs('header'),
+			menu =    $make.qsf('nav', header)
 
-	if (menuSizes.width >= headerSizes.width - 20) {
-		menu.classList.add('not-inline')
-	}
-})()
+		let
+			headerSizes =  elemSizes(header),
+			menuSizes =    elemSizes(menu)
+
+		if (menuSizes.width >= headerSizes.width - 20) {
+			menu.classList.add('not-inline')
+		}
+	})()
+})

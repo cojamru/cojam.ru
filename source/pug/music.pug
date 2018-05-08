@@ -31,6 +31,6 @@ html
 
 		+includeScripts(['special/edge', 'db/music', 'parsers'])
 
-		script document.addEventListener('DOMContentLoaded', () => $parser.music(musicDB, $make.qs('.music')))
+		script document.addEventListener('DOMContentLoaded', () => $parser.music({ data: musicDB, container: $make.qs('.music') }))
 
 		include inc/bbiswu.pug

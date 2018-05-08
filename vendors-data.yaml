@@ -1,0 +1,9 @@
+likely:
+  v: 2.3.1
+  sri:
+    js: sha256-9Kxltq+z8wpmsHTFYMA02TiwUcyRMAr7JaZ5kmyQlf8=
+    css: sha256-fG+Jslxxk4H/VpC+UEEn8POOch4Cu28ubRSUwATUkKM=
+
+urlSP_polyfill:
+  v: 0.10.0
+  sri: sha256-Tj0IK7neOvGa1FUIZ433DRvlP/Kv0ffbyyrgQOhdOro=

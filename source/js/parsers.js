@@ -2,7 +2,7 @@
 
 var createHeading = text => $create.elem('h2', text)
 
-var generateLikely = (container, options) => {
+var generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
 	if (!options || !container.nodeName) { return }
 
 	let
@@ -14,15 +14,22 @@ var generateLikely = (container, options) => {
 			fb: $create.elem('div', 'Шернуть', 'facebook')
 		}
 
-	if (options.URL) {
-		likelyElem.dataset.url = `${location.protocol}//${location.hostname}/${options.URL}`
+	if ('URL' in options) {
+		likelyElem.dataset.url = `${location.origin}/${options.URL}`
 	}
 
-	if (options.title) {
-		let heading = options.heading ? `${options.heading} "${options.title}"` : options.title
-		likelyElem.dataset.title = heading
-		likelySocs.vk.dataset.description = heading
-		likelySocs.tg.dataset.text = heading
+	if ('title' in options) {
+		let
+			_heading =  options.heading ? `${options.heading} "${options.title}"` : options.title,
+			_image =    options.image ? `${location.origin}${options.image}` : ''
+
+		likelyElem.dataset.title = _heading
+		likelySocs.vk.dataset.description = _heading
+		likelySocs.tg.dataset.text = _heading
+
+		if (_image) {
+			likelySocs.vk.dataset.image = _image
+		}
 	}
 
 	Object.keys(likelySocs).forEach(soc => likelyElem.appendChild(likelySocs[soc]))
@@ -31,15 +38,14 @@ var generateLikely = (container, options) => {
 	setTimeout(likely.initiate, 0)
 }
 
-var showMore = (data, options) => {
-	if (!data.nodeName) { return }
-	if (!options) options = {}
+var showMore = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
+	if (!content.nodeName) { return }
 
 	let
 		body = document.body,
 		dialog = $create.elem('dialog', '', 'more'),
-		dialonContainer = $create.elem('div', '', 'more--container'),
-		dialogContent = data.cloneNode(true),
+		dialogContainer = $create.elem('div', '', 'more--container'),
+		dialogContent = content.cloneNode(true),
 		dialogCloseBtn = $create.elem('button', '🗙', 'more--close'),
 		dialogURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
 
@@ -55,24 +61,28 @@ var showMore = (data, options) => {
 	})
 
 	dialogContent.classList.add('more--content')
-	dialonContainer.appendChild(dialogContent)
+	dialogContainer.appendChild(dialogContent)
 
-	generateLikely(dialonContainer, {
-		title: options.title,
-		URL: dialogURL,
-		heading: options.heading
+	generateLikely({
+		container: dialogContainer,
+		options: {
+			title: options.title,
+			URL: dialogURL,
+			heading: options.heading,
+			image: options.image
+		}
 	})
 
 	dialog.appendChild(dialogCloseBtn)
-	dialog.appendChild(dialonContainer)
+	dialog.appendChild(dialogContainer)
 	body.appendChild(dialog)
 }
 
 var $parser = {
-	music: (data, container) => {
+	music: ({ data = {}, container }) => {
 		container.textContent = ''
 
-		let parseTrack = track => {
+		let parseTrack = (track = {}) => {
 			if (!track) { return }
 
 			let
@@ -81,7 +91,7 @@ var $parser = {
 				trackDes = false,
 				trackFeat = false
 
-			if (track.feat) {
+			if ('feat' in track) {
 				trackFeat = ' (ft. '
 				track.feat.forEach((person, i) => {
 						trackFeat += `${person}${(i == track.feat.length - 1) ? ')' : ', '}`
@@ -90,26 +100,26 @@ var $parser = {
 
 			trackContainer.appendChild($create.elem('p', `${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`))
 
-			if (track.description && track.description != '') {
+			if ('description' in track && track.description != '') {
 				trackContainer.appendChild($create.elem('p', `${track.description.replace(/\n/g, '<br>')}`, 'more__music--track-info'))
 			}
 
 			return trackContainer
 		}
 
-		let generateMore = (album, heading) => {
+		let generateMore = ({ album = {}, heading = '' }) => {
 			let
 				albumMoreContent = $create.elem('div', '', 'more__music'),
 				albumMoreHeading = `${heading} <q>${album.title}</q>`,
 				albumMoreDes = $create.elem('div', '', 'more__music--description'),
 				albumFeat = false, albumTrackList = '', albumEmbed = ''
 
-			if (album.feat) {
+			if ('feat' in album) {
 				albumFeat = ' при участии '
 				album.feat.forEach((person, i) => {
 					let personID = person.nick
 
-					if (person.link) {
+					if ('link' in person) {
 						personID = $create.link(person.link, person.nick, '', ['html', 'e'])
 					}
 
@@ -119,34 +129,36 @@ var $parser = {
 
 			albumMoreContent.appendChild($create.elem('h2', albumMoreHeading))
 
-			if (album.cover && album.cover.small && album.cover.small != '') {
+			if ('img' in album && 'thumb' in album.img && album.img.thumb != '') {
 				let img = $create.elem('img')
-				img.setAttribute('src', `${album.cover.small}?v=${siteVersion}`)
+				img.setAttribute('src', `${album.img.thumb}?v=${siteVersion}`)
 				albumMoreDes.appendChild(img)
 			}
 
 			albumMoreDes.appendChild($create.elem('p', `<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
 
-			if (album.description) {
+			if ('description' in album) {
 				albumMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
 			}
 
-			if (album.release) {
+			if ('release' in album) {
 				albumMoreDes.appendChild($create.elem('p', `<b>Релиз</b>: ${album.release}`))
 			}
 
 			albumMoreContent.appendChild(albumMoreDes)
 
-			if (album.tracklist && album.tracklist.length != 0) {
+			if ('tracklist' in album && album.tracklist.length != 0) {
 				albumTrackList = $create.elem('details', '', 'more__music--tracklist')
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
+
 				album.tracklist.forEach(track => {
 					albumTrackList.appendChild(parseTrack(track))
 				})
+
 				albumMoreContent.appendChild(albumTrackList)
 			}
 
-			if (album.embed && album.embed.type != '') {
+			if ('embed' in album && album.embed.type != '') {
 				let
 					albumEmbedSrc = 'https://',
 					albumEmbedSrcID = parseFloat(album.embed.ID)
@@ -166,18 +178,22 @@ var $parser = {
 			return albumMoreContent
 		}
 
-		let parseAlbum = album => {
+		let parseAlbum = (album = {}) => {
 			if (!album) { return }
 
 			let
-				albumContainer = $create.elem('div', '', 'music__album'),
-				albumAbout = $create.elem('div', '', 'music__album--about'),
-				albumBack = $create.elem('div', '', 'music__album--background'),
-				albumID = album.id ? album.id : album.title.toLowerCase().replace(' ', '-'),
-				albumHeading = ''
+				albumContainer =   $create.elem('div', '', 'music__album'),
+				albumAbout =       $create.elem('div', '', 'music__album--about'),
+				albumBackground =  $create.elem('div', '', 'music__album--background')
 
-			if (album.cover && album.cover.big && album.cover.big != '') {
-				albumBack.style.backgroundImage = `url('${album.cover.big}?v=${siteVersion}')`
+			let
+				albumID = album.id ? album.id : album.title.toLowerCase().replace(' ', '-'),
+				albumHeading = '',
+				albumCover = ''
+
+			if ('img' in album && 'cover' in album.img && album.img.cover != '') {
+				albumCover = `${album.img.cover}?v=${siteVersion}`
+				albumBackground.style.backgroundImage = `url('${albumCover}')`
 			}
 
 			switch (album.type) {
@@ -189,27 +205,35 @@ var $parser = {
 					albumHeading = 'Альбом'
 			}
 
-			var showMoreWF = () => showMore(generateMore(album, albumHeading), { heading: albumHeading, id: albumID, title: album.title })
+			var showMoreWF = () => showMore({
+				content: generateMore({ album: album, heading: albumHeading }),
+				options: {
+					heading: albumHeading,
+					id: albumID,
+					title: album.title,
+					image: albumCover
+				}
+			})
 
 			albumContainer.onclick = () => showMoreWF()
-			if ($check.get('show') == albumID) showMoreWF()
+			if ($check.get('show') == albumID) { showMoreWF() }
 
 			albumAbout.appendChild($create.elem('h3', album.title))
 			albumAbout.appendChild($create.elem('p', `Треков в альбоме: ${album.tracklist.length}`))
 
-			albumContainer.appendChild(albumBack)
+			albumContainer.appendChild(albumBackground)
 			albumContainer.appendChild(albumAbout)
 
 			return albumContainer
 		}
 
-		//container.appendChild(createHeading('Альбомы'))
 		data.albums.forEach(album => container.appendChild(parseAlbum(album)))
 	},
-	games: (data, container) => {
+
+	games: ({ data = {}, container }) => {
 		container.textContent = ''
 
-		let generateMore = (game, heading) => {
+		let generateMore = ({ game = {}, heading = '' }) => {
 			let
 				gameMoreContent = $create.elem('div', '', 'more__game'),
 				gameMoreHeading = `${heading} <q>${game.title}</q>`,
@@ -230,7 +254,7 @@ var $parser = {
 					gameMorePlatform = false
 			}
 
-			if (game.contest && game.contest.name && game.contest.name != '') {
+			if ('contest' in game && 'name' in game.contest && game.contest.name != '') {
 				let contest = (game.contest.link && game.contest.link != '')
 					? $create.link(game.contest.link, game.contest.name, '', ['e', 'html'])
 					: game.contest.name
@@ -238,7 +262,7 @@ var $parser = {
 				gameMoreDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
 			}
 
-			if (game.description) {
+			if ('description' in game) {
 				gameMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${game.description}`))
 			}
 
@@ -248,14 +272,14 @@ var $parser = {
 
 			gameMoreContent.appendChild(gameMoreDes)
 
-			if (game.description_more && game.description_more != '') {
+			if ('description_more' in game && game.description_more != '') {
 				let desMore = $create.elem('details', '', 'more__game--description-more')
 				desMore.appendChild($create.elem('summary', 'Подробное описание'))
 				desMore.appendChild($create.elem('p', game.description_more.replace(/\n/g, '<br>')))
 				gameMoreContent.appendChild(desMore)
 			}
 
-			if (game.links && Object.keys(game.links).length != 0) {
+			if ('links' in game && Object.keys(game.links).length != 0) {
 				if (game.links.play && game.links.play != '') {
 					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
 				}
@@ -274,23 +298,31 @@ var $parser = {
 			return gameMoreContent
 		}
 
-		let parseGame = game => {
+		let parseGame = (game = {}) => {
 			let
 				gameContainer = $create.elem('div', '', 'games__game'),
 				gameTitle = $create.elem('div', '', 'games__game--title'),
 				gameRelease = $create.elem('div', '', 'games__game--release'),
-				gamePoster = $create.elem('div', '', 'games__game--poster'),
-				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
-				gameHeading = 'Игра'
+				gamePoster = $create.elem('div', '', 'games__game--poster')
 
-			if (game.img && game.img.poster && game.img.poster != '') {
-				gamePoster.style.backgroundImage = `url('${game.img.poster}?v=${siteVersion}')`
+			let
+				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
+				gameHeading = 'Игра',
+				gameImage = ''
+
+			if ('img' in game && 'poster' in game.img && game.img.poster != '') {
+				gameImage = `${game.img.poster}?v=${siteVersion}`
+				gamePoster.style.backgroundImage = `url('${gameImage}')`
 			}
 
-			var showMoreWF = () => showMore(generateMore(game, gameHeading), {
-				heading: gameHeading,
-				id: gameID,
-				title: game.title
+			var showMoreWF = () => showMore({
+				content: generateMore({ game: game, heading: gameHeading }),
+				options: {
+					heading: gameHeading,
+					id: gameID,
+					title: game.title,
+					image: gameImage
+				}
 			})
 
 			gameContainer.onclick = () => showMoreWF()
@@ -298,12 +330,12 @@ var $parser = {
 
 			gameContainer.appendChild(gamePoster)
 
-			if (game.title && game.title != '') {
+			if ('title' in game && game.title != '') {
 				gameTitle.textContent = game.title
 				gameContainer.appendChild(gameTitle)
 			}
 
-			if (game.release && game.release != '') {
+			if ('release' in game && game.release != '') {
 				gameRelease.textContent = game.release
 				gameContainer.appendChild(gameRelease)
 			}

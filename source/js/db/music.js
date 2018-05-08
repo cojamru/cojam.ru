@@ -3,12 +3,45 @@
 var musicDB = {
 	albums: [
 		{
+			title: 'グレイブブラッドの魔女 Sakura',
+			id: 'sakura',
+			artist: 'Cojam',
+			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
+			description: 'Ремейк альбома «グレイブブラッドの魔女».',
+			release: '20 февраля 2018',
+			img: { cover: `${sitePaths.musicCovers}/sakura-cover.jpg`, thumb: `${sitePaths.musicCovers}/sakura-cover-thumb.jpg` },
+			tracklist: [
+				{ title: 'Anxiety' },
+				{ title: 'Panties' },
+				{ title: 'Touching The Star' },
+				{ title: 'Sakura Falls' },
+				{ title: 'Save Vika' },
+				{ title: 'Fell In Love With A Vampire Girl' },
+				{ title: '朝のミルクシェイク' },
+				{ title: 'Never', feat: ['Marisahates'] },
+				{ title: 'Night Guests' },
+				{ title: 'Shadows Of Pines' },
+				{ title: 'S K Y F A L L' },
+				{ title: 'Graveblood River' }
+			],
+			embed: {
+				type: 'bc',
+				ID: 1359904006
+			},
+			links: {
+				bc: {
+					user: 'cojam',
+					album: 'sakura'
+				}
+			}
+		},
+		{
 			title: 'Quantum Suicide',
 			artist: 'Cojam',
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' }, { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez'} ],
-			description: 'После событий "Despair Horizons" Крис обнаруживает себя мёртвой. Это конец истории? Или её смерть - начало чего-то большего?\n"Quantum Suicide" – это целый час кибер-мусора, вобравший в себя треки из разных компиляций, незавершённые синглы и прочий стафф, а часть музыки в этом альбоме записана в параллельных мирах. Этот альбом есть отражение мультивселенной – у треков здесь нет жанра или общей темы, и здесь вы услышите всё её разнообразие.',
+			description: 'После событий «Despair Horizons» Крис обнаруживает себя мёртвой. Это конец истории? Или её смерть – начало чего-то большего?\n«Quantum Suicide» – это целый час кибер-мусора, вобравший в себя треки из разных компиляций, незавершённые синглы и прочий стафф, а часть музыки в этом альбоме записана в параллельных мирах. Этот альбом есть отражение мультивселенной – у треков здесь нет жанра или общей темы, и здесь вы услышите всё её разнообразие.',
 			release: '9 сентября 2017',
-			cover: { big: `${sitePaths.musicCovers}/quantum-suicide-cover.jpg`, small: '' },
+			img: { cover: `${sitePaths.musicCovers}/quantum-suicide-cover.jpg`, thumb: `${sitePaths.musicCovers}/quantum-suicide-cover-thumb.jpg` },
 			tracklist: [
 				{
 					title: 'Injoo',
@@ -70,7 +103,7 @@ var musicDB = {
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' } ],
 			description: 'Всю её жизнь окутал туман. Дни расплывались в памяти, а окружающая действительность потеряла для неё какой-либо интерес. Она тонула в печали, стала для всех вокруг словно колючей сосной. Лишь тёмные непроглядные леса могли принять потерянную душу.',
 			release: '29 июля 2017',
-			cover: { big: `${sitePaths.musicCovers}/despair-horizons-cover.jpg`, small: '' },
+			img: { cover: `${sitePaths.musicCovers}/despair-horizons-cover.jpg`, thumb: `${sitePaths.musicCovers}/despair-horizons-cover-thumb.jpg` },
 			tracklist: [
 				{
 					title: 'Kris\'s Dysphoria',
@@ -97,7 +130,7 @@ var musicDB = {
 				{
 					title: '"I Will Find Her"',
 					artist: 'SHUMANGA',
-					description: '"Да кто они такие, чтобы отнимать её у меня? Почему все так сложно? День без веществ для меня ничто, по сравнению с днем без неё. Я обязательно найду и верну её... Крис, ты все сможешь, мы встретимся Там, несмотря ни на что."'
+					description: '«Да кто они такие, чтобы отнимать её у меня? Почему все так сложно? День без веществ для меня ничто, по сравнению с днем без неё. Я обязательно найду и верну её... Крис, ты все сможешь, мы встретимся Там, несмотря ни на что.»'
 				},
 				{
 					title: 'Good Ending',
@@ -123,7 +156,7 @@ var musicDB = {
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
 			description: 'Туманы Грейвблуда не отпустят никого, вступившего во тьму леса. Никто не может избежать судьбы, никто не может бежать от здешних созданий. Подумай дважды, если решишься оказаться здесь.',
 			release: '8 марта 2017',
-			cover: { big: `${sitePaths.musicCovers}/witch-cover.png`, small: '' },
+			img: { cover: `${sitePaths.musicCovers}/tower-cover.jpg`, thumb: `${sitePaths.musicCovers}/tower-cover-thumb.jpg` },
 			tracklist: [
 				{ title: 'Anxiety' },
 				{ title: 'Panties' },
@@ -154,7 +187,7 @@ var musicDB = {
 			type: 'ep',
 			description: 'Иногда те игры, с которыми связано твоё детство, могут скрывать в себе великое несчастье. Ты не мог ожидать больших проблем от этого маленького клоуна, но вот ты уже стоишь над трупом твоего дедушки. Или что насчёт этого фиолетового дракона, что был твоим фаворитом всё детство? Просто взгляни под другим углом - десятилетиями он приносил боль тысячам существ, не важно, злым или добрым, и всё сходило ему с рук. Эти игры сотканы из катастрофы. Ты ничего не заметил, но они уже посеяли зерно бесконечной боли в твоё сердце. Ничто не спасёт тебя. Кошмар начинается.',
 			release: '10 февраля 2017',
-			cover: { big: `${sitePaths.musicCovers}/nightmare-cover.jpg`, small: `${sitePaths.musicCovers}/nightmare-cover-thumb.jpg` },
+			img: { cover: `${sitePaths.musicCovers}/nightmare-cover.jpg`, thumb: `${sitePaths.musicCovers}/nightmare-cover-thumb.jpg` },
 			tracklist: [
 				{ title: 'Sorceress\' Lair' },
 				{ title: 'The Joka Syndrome' },
@@ -182,7 +215,7 @@ var musicDB = {
 			type: 'game_ost',
 			feat: [ { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez' } ],
 			release: '21 декабря 2016',
-			cover: { big: `${sitePaths.musicCovers}/jicem-cover.png`, small: `${sitePaths.musicCovers}/jicem-cover-thumb.png` },
+			img: { cover: `${sitePaths.musicCovers}/jicem-cover.png`, thumb: `${sitePaths.musicCovers}/jicem-cover-thumb.png` },
 			tracklist: [
 				{ title: 'Battle at Biograd' },
 				{ title: 'Violet Night' },
@@ -219,7 +252,7 @@ var musicDB = {
 			id: 'jicem-zero',
 			artist: 'Cojam',
 			type: 'game_ost',
-			cover: { big: `${sitePaths.musicCovers}/jicem-ltz-cover.jpg` },
+			img: { cover: `${sitePaths.musicCovers}/jicem-zero-cover.jpg`, thumb: `${sitePaths.musicCovers}/jicem-zero-cover-thumb.jpg` },
 			tracklist: [
 				{ title: 'Graviball Launcher' },
 				{ title: 'Our Regular Mission' },
@@ -239,7 +272,7 @@ var musicDB = {
 			id: 'titty',
 			artist: 'Cojam',
 			type: 'game_ost',
-			cover: { big: `${sitePaths.musicCovers}/titty-cover.jpg` },
+			img: { cover: `${sitePaths.musicCovers}/titty-cover.jpg`, thumb: `${sitePaths.musicCovers}/titty-cover-thumb.jpg` },
 			tracklist: [
 				{ title: 'Беспорядок в магазине нижнего белья' },
 				{ title: 'Склизские скользкие монстры в твоём доме' },
@@ -260,7 +293,7 @@ var musicDB = {
 			artist: 'Cojam',
 			type: 'ep',
 			release: '2 января 2015',
-			cover: { big: `${sitePaths.musicCovers}/anastasia-cover.png`, small: `${sitePaths.musicCovers}/anastasia-cover-thumb.png` },
+			img: { cover: `${sitePaths.musicCovers}/anastasia-cover.png`, thumb: `${sitePaths.musicCovers}/anastasia-cover-thumb.png` },
 			tracklist: [
 				{ title: 'Konjak' },
 				{ title: 'Anastasia' },

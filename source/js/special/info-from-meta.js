@@ -5,5 +5,5 @@ let getInfoFromMeta = name => {
 
 	return metaTag
 		? metaTag.getAttribute('content')
-		: 'undefined'
+		: void(0)
 }
