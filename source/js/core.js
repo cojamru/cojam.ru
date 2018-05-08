@@ -19,9 +19,7 @@ var sitePaths = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	let
-		currentLoc = location.pathname.replace('.html', ''),
-		menuItems = $make.qs('header nav a[href^="/"]', ['a'])
+	let menuItems = $make.qs('header nav a[href^="/"]', ['a'])
 
 	switch (location.hostname) {
 		case '127.0.0.1':
@@ -30,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	Array.from(menuItems).forEach(item => {
-		if (item.href.replace('.html', '') == location.href.replace('.html', '')) {
+		if (item.getAttribute('href').replace('.html', '') == location.pathname.replace('.html', '')) {
 			item.classList.add('current')
 		}
 
