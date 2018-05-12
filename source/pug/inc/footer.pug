@@ -1,0 +1,18 @@
+mixin socLink(link, pic, mini)
+	li
+		a(href=`${link}` target='_blank' rel='nofollow noreffer')
+			img(src=`/assets/img/soc/${pic}.svg?v=${VERSION}` alt=`soc${(mini == true) ? '-mini' : ''}`)
+
+footer.footer
+	p #[a(href='/' rel='home') #{title.short_ru}], 2013–#{new Date().getFullYear()}
+
+	div.footer-note
+		p Старая версия сайта доступна на #[a(href=`https://old.${domain}` target='_blank') old.#{domain}]/
+		p Исходный код сайта доступен на #[a(href='https://github.com/cojamru/cojam.ru' target='_blank' rel='nofollow noreffer') GitHub]
+
+	ul.socials
+		+socLink('https://vk.com/tehcojam', 'vk')
+		+socLink('https://www.facebook.com/cojamru', 'fb', true)
+		+socLink('https://cojam.bandcamp.com', 'bc', true)
+		+socLink('https://www.youtube.com/c/cojamru', 'yt', true)
+		//-+socLink('https://soundcloud.com/midipidemy', 'sc')

@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		include inc/vars.pug
+		include inc/mixins.pug
+		- let subTitle = 'Игры'
+
+		meta(charset='utf-8')
+		+title(title.full, subTitle)
+
+		link(rel='canonical' href=`${URLs.same}/games`)
+
+		include inc/meta.pug
+
+		+includeStyles(['parsers'])
+	body
+		include inc/header.pug
+
+		main
+			div.games
+				include inc/no-js.pug
+
+		include inc/footer.pug
+
+		+includeScripts(['special/edge', 'db/games', 'parsers'])
+
+		script document.addEventListener('DOMContentLoaded', () => $parser.games({ data: gamesDB, container: $make.qs('.games') }))
+
+		include inc/bbiswu.pug

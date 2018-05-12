@@ -1,0 +1,60 @@
+.music {
+	& > * {
+		text-align: center;
+	}
+
+	&__album {
+		--albumMargin: 15px;
+		$btnHeight: 30px;
+
+		display: inline-block;
+		background-color: #ccc;
+		background-size: cover;
+		background-image: url('#{$imgPath}/no-image.svg?v=#{$VERSION}');
+		position: relative;
+		vertical-align: top;
+		width: calc(50% - var(--albumMargin)); height: 450px;
+		margin: var(--albumMargin);
+		overflow: hidden;
+		user-select: none;
+		cursor: pointer;
+
+		&:nth-child(-n+2) {
+			margin-top: calc(var(--albumMargin) - 5px);
+		}
+
+		&:nth-child(odd) {
+			margin-left: 0;
+		}
+
+		&:nth-child(even) {
+			margin-right: 0;
+		}
+
+		&:hover { // @TODO как-то пофиксить, используя &, чтобы не повторяться
+			.music__album--cover {
+				filter: brightness(1.2);
+			}
+		}
+
+		&--cover {
+			width: 100%; height: 100%;
+			object-fit: cover;
+
+			@include transition(.5s);
+		}
+
+		&--about {
+			@include flexbox(column, center, center, auto);
+			position: absolute;
+			width: 100%;
+
+			background-color: rgba(255, 255, 255, .8);
+			min-height: 70px;
+			bottom: $btnHeight;
+			padding: 5px;
+			color: #383838;
+			text-shadow: 2px 1px 4px #fff;
+		}
+	}
+}

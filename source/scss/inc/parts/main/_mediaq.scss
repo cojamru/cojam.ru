@@ -1,0 +1,81 @@
+@media screen and (max-width: #{$pageWidth - 1px}) {
+	main {
+		width: 100%;
+	}
+
+	.popup {
+		& > div {
+			width: calc(100% - 40px);
+		}
+	}
+}
+
+@media screen and (max-width: $pageWidthMin) {
+	.header {
+		padding: 50px 10px;
+	}
+
+	main {
+		.music {
+			&__album {
+				display: block;
+				width: 100%;
+				margin: 20px auto !important;
+			}
+		}
+
+		.games {
+			&__game {
+				color: #383838;
+				text-shadow: 2px 1px 4px #fff;
+
+				&--poster {
+					filter: blur(5px);
+				}
+
+				& > *:not([class*='--poster']) {
+					background-color: rgba(255,255,255,.8);
+					width: 100%;
+				}
+
+				&--release {
+					position: static;
+					background-color: transparent;
+					padding: 5px 5px;
+				}
+
+				&:hover {
+					.games__game--poster {
+						filter: blur(5px) brightness(1.2);
+					}
+				}
+			}
+		}
+	}
+
+	.popup {
+		&__music {
+			&--description {
+				img {
+					display: none;
+				}
+			}
+
+			&--tracklist {
+				display: none;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: $pageWidthMin) {
+	main {
+		.games {
+			&__game {
+				&--title {
+					display: none;
+				}
+			}
+		}
+	}
+}

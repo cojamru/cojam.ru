@@ -1,0 +1,19 @@
+title:
+  full: Coffee Jam Party
+  short: Cojam
+  short_ru: Коджем
+
+domain: cojam.ru
+
+prime_color: '#8400a5'
+
+dirs:
+  dev: source
+  prod:
+    build: dist
+    content: dist_content
+    main: assets
+
+trackers:
+  google: UA-41033513-3
+  yandex: 22438144

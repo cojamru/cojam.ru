@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		include inc/vars.pug
+		include inc/mixins.pug
+
+		meta(charset='utf-8')
+		title #{title.full}
+
+		include inc/meta.pug
+
+		+includeStyles()
+	body
+		include inc/header.pug
+
+		main
+			div.error
+				section(data-error='undefined')
+					h1 Неиз&shy;вест&shy;ная ошибка
+					P Пройдите на #[a(href='/?from=error' rel='home') главную страницу], пожалуйста.
+				section(data-error='403')
+					h1 Ошибка 403
+					P Доступ к материалу запрещён.
+					P Пройдите на #[a(href='/?from=error-403' rel='home') главную страницу], пожалуйста.
+				section(data-error='404')
+					h1 Ошибка 404
+					P Материал не найден.
+					P Попробуйте поискать его на #[a(href=`https://old.${domain}`) старой версии] Коджема, или же пройдите на #[a(href='/?from=error-404' rel='home') главную страницу].
+
+		include inc/footer.pug
+
+		+includeScripts(['error'])
