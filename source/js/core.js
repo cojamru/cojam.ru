@@ -1,13 +1,13 @@
 'use strict'
 
+var debugMode = false
+
+var elemSizes = elem => elem.getBoundingClientRect()
+
+var pageInfo = { title: document.title, URL: location.pathname }
+
 var
-	elemSizes = elem => elem.getBoundingClientRect(),
-	debugMode = false,
 	siteVersion = getInfoFromMeta('version'),
-	pageInfo = {
-		title: document.title,
-		URL: location.pathname
-	},
 	pathToImages = getInfoFromMeta('img-path')
 
 var sitePaths = {

@@ -4,7 +4,7 @@
 	}
 
 	&__album {
-		$blockMargin: 20px;
+		--albumMargin: 15px;
 		$btnHeight: 30px;
 
 		display: inline-block;
@@ -13,22 +13,34 @@
 		background-image: url('#{$imgPath}/no-image.svg?v=#{$VERSION}');
 		position: relative;
 		vertical-align: top;
-		width: calc(50% - #{$blockMargin * 2}); height: 400px;
-		margin: 10px $blockMargin;
+		width: calc(50% - var(--albumMargin)); height: 450px;
+		margin: var(--albumMargin);
 		overflow: hidden;
 		user-select: none;
 		cursor: pointer;
 
+		&:nth-child(-n+2) {
+			margin-top: calc(var(--albumMargin) - 5px);
+		}
+
+		&:nth-child(odd) {
+			margin-left: 0;
+		}
+
+		&:nth-child(even) {
+			margin-right: 0;
+		}
+
 		&:hover { // @TODO как-то пофиксить, используя &, чтобы не повторяться
-			.music__album--background {
+			.music__album--cover {
 				filter: brightness(1.2);
 			}
 		}
 
-		&--background {
-			height: 100%;
-			background-position: center center;
-			background-size: cover;
+		&--cover {
+			width: 100%; height: 100%;
+			object-fit: cover;
+
 			@include transition(.5s);
 		}
 

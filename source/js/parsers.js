@@ -3,7 +3,7 @@
 var createHeading = text => $create.elem('h2', text)
 
 var generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
-	if (!options || !container.nodeName) { return }
+	if (!container.nodeName) { return }
 
 	let
 		likelyElem = $create.elem('div', '', 'likely'),
@@ -38,44 +38,49 @@ var generateLikely = ({ container, options = { title = '', URL = '', heading = '
 	setTimeout(likely.initiate, 0)
 }
 
-var showMore = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
+var showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
 	if (!content.nodeName) { return }
 
+	let body = document.body
+
+	let popup = $create.elem('div', '', 'popup')
+
 	let
-		body = document.body,
-		dialog = $create.elem('dialog', '', 'more'),
-		dialogContainer = $create.elem('div', '', 'more--container'),
-		dialogContent = content.cloneNode(true),
-		dialogCloseBtn = $create.elem('button', '🗙', 'more--close'),
-		dialogURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
+		popupContainer = $create.elem('div', '', 'popup--container'),
+		popupContent = content.cloneNode(true),
+		popupCloseBtn = $create.elem('button', '🗙', 'popup--close'),
+		popupURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
 
-	body.classList.add('more-is-open')
+	body.dataset.popup = ''
 
-	history.pushState('', pageInfo.title, dialogURL)
+	history.pushState('', pageInfo.title, popupURL)
 
-	//dialogCloseBtn.setAttribute('title', 'Закрыть')
-	dialogCloseBtn.addEventListener('click', () => {
-		if (location.search != '') history.pushState('', pageInfo.title, pageInfo.URL)
-		body.classList.remove('more-is-open')
-		dialog.remove()
+	//popupCloseBtn.setAttribute('title', 'Закрыть')
+	popupCloseBtn.addEventListener('click', () => {
+		if (location.search != '') {
+			history.pushState('', pageInfo.title, pageInfo.URL)
+		}
+
+		delete body.dataset.popup
+		popup.remove()
 	})
 
-	dialogContent.classList.add('more--content')
-	dialogContainer.appendChild(dialogContent)
+	popupContent.classList.add('popup--content')
+	popupContainer.appendChild(popupContent)
 
 	generateLikely({
-		container: dialogContainer,
+		container: popupContainer,
 		options: {
-			title: options.title,
-			URL: dialogURL,
-			heading: options.heading,
-			image: options.image
+			title:    options.title,
+			URL:      popupURL,
+			heading:  options.heading,
+			image:    options.image
 		}
 	})
 
-	dialog.appendChild(dialogCloseBtn)
-	dialog.appendChild(dialogContainer)
-	body.appendChild(dialog)
+	popup.appendChild(popupCloseBtn)
+	popup.appendChild(popupContainer)
+	body.appendChild(popup)
 }
 
 var $parser = {
@@ -86,7 +91,7 @@ var $parser = {
 			if (!track) { return }
 
 			let
-				trackContainer = $create.elem('div', '', 'more__music--track'),
+				trackContainer = $create.elem('div', '', 'popup__music--track'),
 				trackData = { artist: (track.artist ? track.artist : 'Cojam'), title: (track.title ? track.title : 'Без названия'), link: (track.link ? track.link : false) },
 				trackDes = false,
 				trackFeat = false
@@ -101,18 +106,19 @@ var $parser = {
 			trackContainer.appendChild($create.elem('p', `${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`))
 
 			if ('description' in track && track.description != '') {
-				trackContainer.appendChild($create.elem('p', `${track.description.replace(/\n/g, '<br>')}`, 'more__music--track-info'))
+				trackContainer.appendChild($create.elem('p', `${track.description.replace(/\n/g, '<br>')}`, 'popup__music--track-info'))
 			}
 
 			return trackContainer
 		}
 
-		let generateMore = ({ album = {}, heading = '' }) => {
+		let generatePopup = ({ album = {}, heading = '' }) => {
 			let
-				albumMoreContent = $create.elem('div', '', 'more__music'),
-				albumMoreHeading = `${heading} <q>${album.title}</q>`,
-				albumMoreDes = $create.elem('div', '', 'more__music--description'),
-				albumFeat = false, albumTrackList = '', albumEmbed = ''
+				albumPopupContent = $create.elem('div', '', 'popup__music'),
+				albumPopupHeading = `${heading} <q>${album.title}</q>`,
+				albumPopupDes = $create.elem('div', '', 'popup__music--description'),
+				albumTrackList = $create.elem('details', '', 'popup__music--tracklist'),
+				albumFeat = false, albumEmbed = ''
 
 			if ('feat' in album) {
 				albumFeat = ' при участии '
@@ -127,35 +133,34 @@ var $parser = {
 				})
 			}
 
-			albumMoreContent.appendChild($create.elem('h2', albumMoreHeading))
+			albumPopupContent.appendChild($create.elem('h2', albumPopupHeading))
 
 			if ('img' in album && 'thumb' in album.img && album.img.thumb != '') {
 				let img = $create.elem('img')
 				img.setAttribute('src', `${album.img.thumb}?v=${siteVersion}`)
-				albumMoreDes.appendChild(img)
+				albumPopupDes.appendChild(img)
 			}
 
-			albumMoreDes.appendChild($create.elem('p', `<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
+			albumPopupDes.appendChild($create.elem('p', `<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
 
 			if ('description' in album) {
-				albumMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
+				albumPopupDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
 			}
 
 			if ('release' in album) {
-				albumMoreDes.appendChild($create.elem('p', `<b>Релиз</b>: ${album.release}`))
+				albumPopupDes.appendChild($create.elem('p', `<b>Релиз</b>: ${album.release}`))
 			}
 
-			albumMoreContent.appendChild(albumMoreDes)
+			albumPopupContent.appendChild(albumPopupDes)
 
 			if ('tracklist' in album && album.tracklist.length != 0) {
-				albumTrackList = $create.elem('details', '', 'more__music--tracklist')
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 
 				album.tracklist.forEach(track => {
 					albumTrackList.appendChild(parseTrack(track))
 				})
 
-				albumMoreContent.appendChild(albumTrackList)
+				albumPopupContent.appendChild(albumTrackList)
 			}
 
 			if ('embed' in album && album.embed.type != '') {
@@ -170,30 +175,30 @@ var $parser = {
 						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=8400a5`; break
 				}
 
-				albumEmbed = $create.elem('iframe', '', 'more__music--embed')
+				albumEmbed = $create.elem('iframe', '', 'popup__music--embed')
 				albumEmbed.setAttribute('src', albumEmbedSrc)
-				albumMoreContent.appendChild(albumEmbed)
+				albumPopupContent.appendChild(albumEmbed)
 			}
 
-			return albumMoreContent
+			return albumPopupContent
 		}
 
 		let parseAlbum = (album = {}) => {
-			if (!album) { return }
-
 			let
-				albumContainer =   $create.elem('div', '', 'music__album'),
-				albumAbout =       $create.elem('div', '', 'music__album--about'),
-				albumBackground =  $create.elem('div', '', 'music__album--background')
+				albumContainer =  $create.elem('div', '', 'music__album'),
+				albumAbout =      $create.elem('div', '', 'music__album--about'),
+				albumCover =      $create.elem('img', '', 'music__album--cover')
 
 			let
 				albumID = album.id ? album.id : album.title.toLowerCase().replace(' ', '-'),
 				albumHeading = '',
-				albumCover = ''
+				albumCoverLink = ''
 
 			if ('img' in album && 'cover' in album.img && album.img.cover != '') {
-				albumCover = `${album.img.cover}?v=${siteVersion}`
-				albumBackground.style.backgroundImage = `url('${albumCover}')`
+				albumCoverLink = `${album.img.cover}?v=${siteVersion}`
+
+				albumCover.src = albumCoverLink
+				albumCover.alt = `${albumID} cover`
 			}
 
 			switch (album.type) {
@@ -205,23 +210,26 @@ var $parser = {
 					albumHeading = 'Альбом'
 			}
 
-			var showMoreWF = () => showMore({
-				content: generateMore({ album: album, heading: albumHeading }),
+			var showPopupWF = () => showPopup({
+				content: generatePopup({ album: album, heading: albumHeading }),
 				options: {
 					heading: albumHeading,
 					id: albumID,
 					title: album.title,
-					image: albumCover
+					image: albumCoverLink
 				}
 			})
 
-			albumContainer.onclick = () => showMoreWF()
-			if ($check.get('show') == albumID) { showMoreWF() }
+			albumContainer.onclick = () => showPopupWF()
+			if ($check.get('show') == albumID) { showPopupWF() }
 
 			albumAbout.appendChild($create.elem('h3', album.title))
 			albumAbout.appendChild($create.elem('p', `Треков в альбоме: ${album.tracklist.length}`))
 
-			albumContainer.appendChild(albumBackground)
+			if (!$check.get('disable-images')) {
+				albumContainer.appendChild(albumCover)
+			}
+
 			albumContainer.appendChild(albumAbout)
 
 			return albumContainer
@@ -233,25 +241,25 @@ var $parser = {
 	games: ({ data = {}, container }) => {
 		container.textContent = ''
 
-		let generateMore = ({ game = {}, heading = '' }) => {
+		let generatePopup = ({ game = {}, heading = '' }) => {
 			let
-				gameMoreContent = $create.elem('div', '', 'more__game'),
-				gameMoreHeading = `${heading} <q>${game.title}</q>`,
-				gameMoreDes = $create.elem('div', '', 'more__game--description'),
-				gameMoreLinks = $create.elem('ul', '', 'more__game--links'),
-				gameMorePlatform = '<b>Платформа</b>: '
+				gamePopupContent = $create.elem('div', '', 'popup__game'),
+				gamePopupHeading = `${heading} <q>${game.title}</q>`,
+				gamePopupDes = $create.elem('div', '', 'popup__game--description'),
+				gamePopupLinks = $create.elem('ul', '', 'popup__game--links'),
+				gamePopupPlatform = '<b>Платформа</b>: '
 
-			gameMoreContent.appendChild($create.elem('h2', gameMoreHeading))
+			gamePopupContent.appendChild($create.elem('h2', gamePopupHeading))
 
 			switch (game.platform) {
 				case 'flash':
-					gameMorePlatform += 'Flash'; break
+					gamePopupPlatform += 'Flash'; break
 				case 'pc':
-					gameMorePlatform += 'PC'; break
+					gamePopupPlatform += 'PC'; break
 				case 'online':
-					gameMorePlatform += 'браузерная игра'; break
+					gamePopupPlatform += 'браузерная игра'; break
 				default:
-					gameMorePlatform = false
+					gamePopupPlatform = false
 			}
 
 			if ('contest' in game && 'name' in game.contest && game.contest.name != '') {
@@ -259,43 +267,43 @@ var $parser = {
 					? $create.link(game.contest.link, game.contest.name, '', ['e', 'html'])
 					: game.contest.name
 
-				gameMoreDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
+				gamePopupDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
 			}
 
 			if ('description' in game) {
-				gameMoreDes.appendChild($create.elem('p', `<b>Описание</b>: ${game.description}`))
+				gamePopupDes.appendChild($create.elem('p', `<b>Описание</b>: ${game.description}`))
 			}
 
-			if (gameMorePlatform) {
-				gameMoreDes.appendChild($create.elem('p', gameMorePlatform))
+			if (gamePopupPlatform) {
+				gamePopupDes.appendChild($create.elem('p', gamePopupPlatform))
 			}
 
-			gameMoreContent.appendChild(gameMoreDes)
+			gamePopupContent.appendChild(gamePopupDes)
 
-			if ('description_more' in game && game.description_more != '') {
-				let desMore = $create.elem('details', '', 'more__game--description-more')
-				desMore.appendChild($create.elem('summary', 'Подробное описание'))
-				desMore.appendChild($create.elem('p', game.description_more.replace(/\n/g, '<br>')))
-				gameMoreContent.appendChild(desMore)
+			if ('description_popup' in game && game.description_popup != '') {
+				let desPopup = $create.elem('details', '', 'popup__game--description-popup')
+				desPopup.appendChild($create.elem('summary', 'Подробное описание'))
+				desPopup.appendChild($create.elem('p', game.description_popup.replace(/\n/g, '<br>')))
+				gamePopupContent.appendChild(desPopup)
 			}
 
 			if ('links' in game && Object.keys(game.links).length != 0) {
 				if (game.links.play && game.links.play != '') {
-					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
+					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
 				}
 
 				if (game.links.dl && game.links.dl != '') {
-					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', '', ['e', 'html'])))
+					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', '', ['e', 'html'])))
 				}
 
 				if (game.links.site && game.links.site != '') {
-					gameMoreLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', '', ['html'])))
+					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', '', ['html'])))
 				}
 
-				gameMoreContent.appendChild(gameMoreLinks)
+				gamePopupContent.appendChild(gamePopupLinks)
 			}
 
-			return gameMoreContent
+			return gamePopupContent
 		}
 
 		let parseGame = (game = {}) => {
@@ -303,32 +311,36 @@ var $parser = {
 				gameContainer = $create.elem('div', '', 'games__game'),
 				gameTitle = $create.elem('div', '', 'games__game--title'),
 				gameRelease = $create.elem('div', '', 'games__game--release'),
-				gamePoster = $create.elem('div', '', 'games__game--poster')
+				gamePoster = $create.elem('img', '', 'games__game--poster')
 
 			let
 				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
 				gameHeading = 'Игра',
-				gameImage = ''
+				gamePosterLink = ''
 
 			if ('img' in game && 'poster' in game.img && game.img.poster != '') {
-				gameImage = `${game.img.poster}?v=${siteVersion}`
-				gamePoster.style.backgroundImage = `url('${gameImage}')`
+				gamePosterLink = `${game.img.poster}?v=${siteVersion}`
+
+				gamePoster.src = gamePosterLink
+				gamePoster.alt = `${gameID} poster`
 			}
 
-			var showMoreWF = () => showMore({
-				content: generateMore({ game: game, heading: gameHeading }),
+			var showPopupWF = () => showPopup({
+				content: generatePopup({ game: game, heading: gameHeading }),
 				options: {
 					heading: gameHeading,
 					id: gameID,
 					title: game.title,
-					image: gameImage
+					image: gamePosterLink
 				}
 			})
 
-			gameContainer.onclick = () => showMoreWF()
-			if ($check.get('show') == gameID) { showMoreWF() }
+			gameContainer.onclick = () => showPopupWF()
+			if ($check.get('show') == gameID) { showPopupWF() }
 
-			gameContainer.appendChild(gamePoster)
+			if (!$check.get('disable-images')) {
+				gameContainer.appendChild(gamePoster)
+			}
 
 			if ('title' in game && game.title != '') {
 				gameTitle.textContent = game.title

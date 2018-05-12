@@ -7,7 +7,7 @@ var musicDB = {
 			id: 'sakura',
 			artist: 'Cojam',
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
-			description: 'Ремейк альбома «グレイブブラッドの魔女».',
+			description: 'Ремейк альбома «グレイブブラッドの魔女» (2017).',
 			release: '20 февраля 2018',
 			img: { cover: `${sitePaths.musicCovers}/sakura-cover.jpg`, thumb: `${sitePaths.musicCovers}/sakura-cover-thumb.jpg` },
 			tracklist: [
@@ -45,43 +45,43 @@ var musicDB = {
 			tracklist: [
 				{
 					title: 'Injoo',
-					description: 'Из сборника Nintendocore Lives "Glitched" (2017).'
+					description: 'Из сборника Nintendocore Lives «Glitched» (2017).'
 				},
 				{
 					title: 'Lakaii',
-					description: 'Из сборника DeadDolphins & Cojam "Split it out!" (2017).'
+					description: 'Из сборника DeadDolphins & Cojam «Split it out!» (2017).'
 				},
 				{ title: 'Goodbye Sweet Life' },
 				{
 					title: 'Coal in My Sock',
-					description: 'Из сборника A Grindcore Christmas "Volume 4" (2014).'
+					description: 'Из сборника A Grindcore Christmas «Volume 4» (2014).'
 				},
 				{
 					title: 'The Last Shot',
 					feat: ['MrModez'],
-					description: 'Из сборника "Cojam Secret CD" (2014).'
+					description: 'Из сборника «Cojam Secret CD» (2014).'
 				},
 				{ title: 'Loading Screen' },
 				{ title: 'SkyCrusher', feat: ['SHUMANGA'] },
 				{ title: 'Eat a Croissant' },
 				{
 					title: 'Apparatus Technology',
-					description: 'Кавер на тему игры "Apparatus Technology".'
+					description: 'Кавер на тему игры «Apparatus Technology».'
 				},
 				{ title: 'Super Space' },
 				{
 					title: 'The Confrontation',
-					description: 'Первоапрельский трек для фанатского сообщества по игре "The Sims 2" в VK.'
+					description: 'Первоапрельский трек для фанатского сообщества по игре «The Sims 2» в VK.'
 				},
 				{ title: 'White' },
 				{
 					title: 'Red Leaves',
-					description: 'Потерянный трек из "グレイブブラッドの魔女" (2017).'
+					description: 'Потерянный трек из «グレイブブラッドの魔女» (2017).'
 				},
 				{ title: 'Death is Just a Beginning' },
 				{
 					title: 'Lessi Crip',
-					description: 'Трек из игры "Lessy Creep" (2015).'
+					description: 'Трек из игры «Lessy Creep» (2015).'
 				},
 				{ title: 'Iotusatu' },
 				{ title: 'Outro' }
@@ -121,7 +121,7 @@ var musicDB = {
 				{
 					title: 'Datura',
 					artist: 'SHUMANGA',
-					description: 'Увлеченная рассказами Крис, Эшли решила расслабиться. Конечно, ей слабо верилось в рассказы подруги. Она взяла свой порошок, рассыпала на столе...\nСпустя несколько минут она провалилась сквозь землю. Вокруг все сильнее проявлялось нечто сверхъестественное... тени, тусклое мерцание света, звуки, коих она никогда не слышала... Эшли поняла: "Все, что рассказывала Крис - сбывается, или же я схожу с ума..."'
+					description: 'Увлеченная рассказами Крис, Эшли решила расслабиться. Конечно, ей слабо верилось в рассказы подруги. Она взяла свой порошок, рассыпала на столе...\nСпустя несколько минут она провалилась сквозь землю. Вокруг все сильнее проявлялось нечто сверхъестественное... тени, тусклое мерцание света, звуки, коих она никогда не слышала... Эшли поняла: «Все, что рассказывала Крис - сбывается, или же я схожу с ума...»'
 				},
 				{
 					title: 'Together',

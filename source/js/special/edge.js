@@ -1,3 +1,5 @@
 'use strict'
 
-let isEdge = (/Edge\//.test(navigator.userAgent)) ? true : false
+let isEdge = /Edge\//.test(navigator.userAgent)
+
+if (isEdge) { document.body.dataset.edge = '' }

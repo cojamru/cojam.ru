@@ -33,7 +33,7 @@ let parseYAMLfile = fileName => parseYAML.load(fs.readFileSync(`./${fileName}.ya
 
 let config = parseYAMLfile('project-config')
 
-let vendors = parseYAMLfile('vendors-data')
+let vendors = parseYAMLfile('project-vendors')
 
 let dirs = config.dirs
 

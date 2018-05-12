@@ -30,15 +30,15 @@ body {
 	font-family: Ubuntu, Roboto, Arial, sans-serif;
 	color: #666;
 
-	&.more-is-open {
+	&[data-popup] {
 		overflow-y: hidden;
 	}
 
 	/*
-	 * Костыль для Edge, пока не введут поддержку details
+	 * Костыль для Edge, пока не введут поддержку <details/>
 	 */
 
-	&.is-ms-edge {
+	&[data-edge] {
 		details {
 			display: none;
 		}
