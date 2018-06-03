@@ -21,7 +21,7 @@ var generateLikely = ({ container, options = { title = '', URL = '', heading = '
 	if ('title' in options) {
 		let
 			_heading =  options.heading ? `${options.heading} "${options.title}"` : options.title,
-			_image =    options.image ? `${location.origin}${options.image}` : ''
+			_image =    options.image ? options.image : ''
 
 		likelyElem.dataset.title = _heading
 		likelySocs.vk.dataset.description = _heading
