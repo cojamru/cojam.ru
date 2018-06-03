@@ -33,7 +33,7 @@ html
 
 		include inc/footer.pug
 
-		+includeScripts(['special/edge', 'db/music', 'parsers'])
+		+includeScripts(['db/music', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.music({ data: musicDB, container: $make.qs('.music') }))
 

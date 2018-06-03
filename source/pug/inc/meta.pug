@@ -3,11 +3,10 @@ link(rel='shortcut icon' href=`${URLs.favicon}`)
 meta(name='theme-color' content=`${primeColor}`)
 meta(name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
 
-meta(name='_cojam:version' content=`${VERSION}`)
-meta(name='_cojam:prime-color' content=`${primeColor}`)
-meta(name='_cojam:cdn-link' content=`${URLs.CDN}`)
+each cojamMeta in [{ name: 'version', content: `${VERSION}` }, { name: 'prime-color', content: `${primeColor}` }, { name: 'cdn-link', content: `${URLs.CDN}` }]
+	meta(name=`_cojam:${cojamMeta.name}` content=`${cojamMeta.content}`)
 
-each URL in [`${URLs.CDN}`, 'www.google-analytics.com', 'fonts.gstatic.com']
+each URL in [`${URLs.CDN.replace('https://', '')}`, 'www.google-analytics.com', 'fonts.gstatic.com']
 	link(rel='dns-prefetch' href=`//${URL}`)
 
 link(rel='sitemap' href='/sitemap.php')

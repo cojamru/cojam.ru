@@ -1,7 +1,9 @@
 'use strict'
 
 void (() => {
-	let qs = qs => document.querySelector(qs)
+	let doc = document
+
+	let qs = qs => doc.querySelector(qs)
 
 	let undefinedBlock = qs('section[data-error="undefined"]')
 
@@ -9,11 +11,11 @@ void (() => {
 
 	qs('section[data-error="404"] a[href*="old"]').href += location.pathname
 
-	fetch(document.URL)
+	fetch(doc.URL)
 		.then(response => {
 			let status = response.status
 
-			document.title = `Ошибка ${status} – ${document.title}`
+			doc.title = `Ошибка ${status} – ${doc.title}`
 
 			switch (status) {
 				case 403:

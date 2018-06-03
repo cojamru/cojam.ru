@@ -14,16 +14,18 @@ var metaVars = {
 
 var CDNpaths = {
 	music: {
-		covers: `https://${metaVars.CDNlink}/music/covers`
+		covers: `${metaVars.CDNlink}/music/covers`
 	},
 
 	games: {
-		posters: `https://${metaVars.CDNlink}/games/posters`
+		posters: `${metaVars.CDNlink}/games/posters`
 	}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
 	let menuItems = $make.qs('header nav a[href^="/"]', ['a'])
+
+	if (isEdge) { document.body.dataset.edge = '' }
 
 	switch (location.hostname) {
 		case '127.0.0.1':

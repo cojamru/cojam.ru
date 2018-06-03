@@ -26,7 +26,7 @@ html
 
 		include inc/footer.pug
 
-		+includeScripts(['special/edge', 'db/games', 'parsers'])
+		+includeScripts(['db/games', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.games({ data: gamesDB, container: $make.qs('.games') }))
 
