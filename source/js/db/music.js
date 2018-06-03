@@ -9,7 +9,10 @@ var musicDB = {
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
 			description: 'Ремейк альбома «グレイブブラッドの魔女» (2017).',
 			release: '20 февраля 2018',
-			img: { cover: `${sitePaths.music.covers}/sakura-cover.jpg`, thumb: `${sitePaths.music.covers}/sakura-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/sakura-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/sakura-cover-thumb.jpg`
+			},
 			tracklist: [
 				{ title: 'Anxiety' },
 				{ title: 'Panties' },
@@ -35,13 +38,17 @@ var musicDB = {
 				}
 			}
 		},
+		
 		{
 			title: 'Quantum Suicide',
 			artist: 'Cojam',
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' }, { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez'} ],
 			description: 'После событий «Despair Horizons» Крис обнаруживает себя мёртвой. Это конец истории? Или её смерть – начало чего-то большего?\n«Quantum Suicide» – это целый час кибер-мусора, вобравший в себя треки из разных компиляций, незавершённые синглы и прочий стафф, а часть музыки в этом альбоме записана в параллельных мирах. Этот альбом есть отражение мультивселенной – у треков здесь нет жанра или общей темы, и здесь вы услышите всё её разнообразие.',
 			release: '9 сентября 2017',
-			img: { cover: `${sitePaths.music.covers}/quantum-suicide-cover.jpg`, thumb: `${sitePaths.music.covers}/quantum-suicide-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/quantum-suicide-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/quantum-suicide-cover-thumb.jpg`
+			},
 			tracklist: [
 				{
 					title: 'Injoo',
@@ -97,13 +104,17 @@ var musicDB = {
 				}
 			}
 		},
+
 		{
 			title: 'Despair Horizons',
 			artist: 'Cojam',
 			feat: [ { nick: 'SHUMANGA', link: 'https://vk.com/public119295761' } ],
 			description: 'Всю её жизнь окутал туман. Дни расплывались в памяти, а окружающая действительность потеряла для неё какой-либо интерес. Она тонула в печали, стала для всех вокруг словно колючей сосной. Лишь тёмные непроглядные леса могли принять потерянную душу.',
 			release: '29 июля 2017',
-			img: { cover: `${sitePaths.music.covers}/despair-horizons-cover.jpg`, thumb: `${sitePaths.music.covers}/despair-horizons-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/despair-horizons-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/despair-horizons-cover-thumb.jpg`
+			},
 			tracklist: [
 				{
 					title: 'Kris\'s Dysphoria',
@@ -149,6 +160,7 @@ var musicDB = {
 				}
 			}
 		},
+
 		{
 			title: 'グレイブブラッドの魔女',
 			id: 'tower',
@@ -156,7 +168,10 @@ var musicDB = {
 			feat: [ { nick: 'Marisahates', link: 'https://vk.com/id44907782' } ],
 			description: 'Туманы Грейвблуда не отпустят никого, вступившего во тьму леса. Никто не может избежать судьбы, никто не может бежать от здешних созданий. Подумай дважды, если решишься оказаться здесь.',
 			release: '8 марта 2017',
-			img: { cover: `${sitePaths.music.covers}/tower-cover.jpg`, thumb: `${sitePaths.music.covers}/tower-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/tower-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/tower-cover-thumb.jpg`
+			},
 			tracklist: [
 				{ title: 'Anxiety' },
 				{ title: 'Panties' },
@@ -180,6 +195,7 @@ var musicDB = {
 				}
 			}
 		},
+
 		{
 			title: 'The Nightmare Begins',
 			id: 'nightmare-begins',
@@ -187,7 +203,10 @@ var musicDB = {
 			type: 'ep',
 			description: 'Иногда те игры, с которыми связано твоё детство, могут скрывать в себе великое несчастье. Ты не мог ожидать больших проблем от этого маленького клоуна, но вот ты уже стоишь над трупом твоего дедушки. Или что насчёт этого фиолетового дракона, что был твоим фаворитом всё детство? Просто взгляни под другим углом - десятилетиями он приносил боль тысячам существ, не важно, злым или добрым, и всё сходило ему с рук. Эти игры сотканы из катастрофы. Ты ничего не заметил, но они уже посеяли зерно бесконечной боли в твоё сердце. Ничто не спасёт тебя. Кошмар начинается.',
 			release: '10 февраля 2017',
-			img: { cover: `${sitePaths.music.covers}/nightmare-cover.jpg`, thumb: `${sitePaths.music.covers}/nightmare-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/nightmare-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/nightmare-cover-thumb.jpg`
+			},
 			tracklist: [
 				{ title: 'Sorceress\' Lair' },
 				{ title: 'The Joka Syndrome' },
@@ -209,13 +228,17 @@ var musicDB = {
 				sc: 'midipidemy/sets/the-nightmare-begins'
 			}
 		},
+
 		{
 			title: 'Jicem',
 			artist: 'Cojam',
 			type: 'game_ost',
 			feat: [ { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez' } ],
 			release: '21 декабря 2016',
-			img: { cover: `${sitePaths.music.covers}/jicem-cover.png`, thumb: `${sitePaths.music.covers}/jicem-cover-thumb.png` },
+			img: {
+				cover: `${CDNpaths.music.covers}/jicem-cover.png`,
+				thumb: `${CDNpaths.music.covers}/jicem-cover-thumb.png`
+			},
 			tracklist: [
 				{ title: 'Battle at Biograd' },
 				{ title: 'Violet Night' },
@@ -247,12 +270,16 @@ var musicDB = {
 				}
 			}
 		},
+
 		{
 			title: 'Jicem: Ниже Нуля',
 			id: 'jicem-zero',
 			artist: 'Cojam',
 			type: 'game_ost',
-			img: { cover: `${sitePaths.music.covers}/jicem-zero-cover.jpg`, thumb: `${sitePaths.music.covers}/jicem-zero-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/jicem-zero-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/jicem-zero-cover-thumb.jpg`
+			},
 			tracklist: [
 				{ title: 'Graviball Launcher' },
 				{ title: 'Our Regular Mission' },
@@ -267,12 +294,16 @@ var musicDB = {
 				sc: 'midipidemy/sets/jicem'
 			}
 		},
+
 		{
 			title: 'Липкие Сладкие Лифчики',
 			id: 'titty',
 			artist: 'Cojam',
 			type: 'game_ost',
-			img: { cover: `${sitePaths.music.covers}/titty-cover.jpg`, thumb: `${sitePaths.music.covers}/titty-cover-thumb.jpg` },
+			img: {
+				cover: `${CDNpaths.music.covers}/titty-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/titty-cover-thumb.jpg`
+			},
 			tracklist: [
 				{ title: 'Беспорядок в магазине нижнего белья' },
 				{ title: 'Склизские скользкие монстры в твоём доме' },
@@ -288,12 +319,16 @@ var musicDB = {
 				sc: 'midipidemy/sets/qk3tr4pp10xo'
 			}
 		},
+
 		{
 			title: 'Anastasia',
 			artist: 'Cojam',
 			type: 'ep',
 			release: '2 января 2015',
-			img: { cover: `${sitePaths.music.covers}/anastasia-cover.png`, thumb: `${sitePaths.music.covers}/anastasia-cover-thumb.png` },
+			img: {
+				cover: `${CDNpaths.music.covers}/anastasia-cover.png`,
+				thumb: `${CDNpaths.music.covers}/anastasia-cover-thumb.png`
+			},
 			tracklist: [
 				{ title: 'Konjak' },
 				{ title: 'Anastasia' },
@@ -314,5 +349,6 @@ var musicDB = {
 			}
 		}
 	],
+
 	singles: []
 }

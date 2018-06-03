@@ -137,7 +137,8 @@ var $parser = {
 
 			if ('img' in album && 'thumb' in album.img && album.img.thumb != '') {
 				let img = $create.elem('img')
-				img.setAttribute('src', `${album.img.thumb}?v=${siteVersion}`)
+				img.setAttribute('src', `${album.img.thumb}?v=${metaVars.siteVersion}`)
+
 				albumPopupDes.appendChild(img)
 			}
 
@@ -168,11 +169,13 @@ var $parser = {
 					albumEmbedSrc = 'https://',
 					albumEmbedSrcID = parseFloat(album.embed.ID)
 
+				let _color = metaVars.primeColor.replace('#', '')
+
 				switch (album.embed.type) {
 					case 'bc':
-						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=8400a5/artwork=none/transparent=true`; break
+						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=${_color}/artwork=none/transparent=true`; break
 					case 'sc':
-						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=8400a5`; break
+						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=${_color}`; break
 				}
 
 				albumEmbed = $create.elem('iframe', '', 'popup__music--embed')
@@ -195,7 +198,7 @@ var $parser = {
 				albumCoverLink = ''
 
 			if ('img' in album && 'cover' in album.img && album.img.cover != '') {
-				albumCoverLink = `${album.img.cover}?v=${siteVersion}`
+				albumCoverLink = `${album.img.cover}?v=${metaVars.siteVersion}`
 
 				albumCover.src = albumCoverLink
 				albumCover.alt = `${albumID} cover`
@@ -319,7 +322,7 @@ var $parser = {
 				gamePosterLink = ''
 
 			if ('img' in game && 'poster' in game.img && game.img.poster != '') {
-				gamePosterLink = `${game.img.poster}?v=${siteVersion}`
+				gamePosterLink = `${game.img.poster}?v=${metaVars.siteVersion}`
 
 				gamePoster.src = gamePosterLink
 				gamePoster.alt = `${gameID} poster`

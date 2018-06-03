@@ -1,13 +1,13 @@
 'use strict'
 
 void (() => {
-	let undefinedBlock = document.querySelector('section[data-error="undefined"]')
+	let qs = qs => document.querySelector(qs)
 
-	if (window.self != window.top) {
-		undefinedBlock.style.display = 'initial'; return
-	}
+	let undefinedBlock = qs('section[data-error="undefined"]')
 
-	$make.qs('section[data-error="404"] a[href*="old"]').href += location.pathname
+	if (self != top) { undefinedBlock.style.display = 'initial'; return }
+
+	qs('section[data-error="404"] a[href*="old"]').href += location.pathname
 
 	fetch(document.URL)
 		.then(response => {
@@ -18,7 +18,7 @@ void (() => {
 			switch (status) {
 				case 403:
 				case 404:
-					document.querySelector(`section[data-error='${status}']`).style.display = 'initial'; break
+					qs(`section[data-error='${status}']`).style.display = 'initial'; break
 				case 200:
 				default:
 					undefinedBlock.style.display = 'initial'; break

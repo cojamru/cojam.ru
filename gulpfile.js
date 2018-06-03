@@ -82,6 +82,11 @@ gulp.task('pug', () => tube([
 		primeColor:  config.prime_color
 	}}),
 	bom(),
+	rename(file => {
+		if (file.basename == 'error') {
+			file.extname = '.htm'
+		}
+	}),
 	gulp.dest(paths.html.prod),
 	reloadServer()
 ]))
@@ -97,7 +102,7 @@ let jsTubes = (_src, _dest) => tube([
 	plumber(),
 	minifyJS({}),
 	bom(),
-	rename({suffix: '.min'}),
+	rename({ suffix: '.min' }),
 	gulp.dest(_dest),
 	reloadServer()
 ])
@@ -110,8 +115,8 @@ let scssTubes = [
 		VERSION:     project.version,
 		primeColor:  config.prime_color,
 		imgPath:     `/${dirs.prod.main}/img`
-	}),
-	sass.compile({outputStyle: 'compressed'}),
+	}, { verbose: false }),
+	sass.compile({ outputStyle: 'compressed' }),
 	cleanCSS(),
 	bom(),
 	rename({suffix: '.min'}),

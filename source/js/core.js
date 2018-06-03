@@ -6,17 +6,19 @@ var elemSizes = elem => elem.getBoundingClientRect()
 
 var pageInfo = { title: document.title, URL: location.pathname }
 
-var
-	siteVersion = getInfoFromMeta('version'),
-	pathToImages = getInfoFromMeta('img-path')
+var metaVars = {
+	siteVersion:  getInfoFromMeta('version'),
+	primeColor:   getInfoFromMeta('prime-color'),
+	CDNlink:      getInfoFromMeta('cdn-link')
+}
 
-var sitePaths = {
+var CDNpaths = {
 	music: {
-		covers: `${pathToImages}/music/covers`
+		covers: `https://${metaVars.CDNlink}/music/covers`
 	},
 
 	games: {
-		posters: `${pathToImages}/games/posters`
+		posters: `https://${metaVars.CDNlink}/games/posters`
 	}
 }
 

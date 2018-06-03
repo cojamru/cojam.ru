@@ -13,6 +13,10 @@ html
 		include inc/meta.pug
 
 		+includeStyles(['parsers'])
+
+		each URL in ['/index', '/music']
+			link(rel='prerender' href=`${URL}`)
+
 	body
 		include inc/header.pug
 

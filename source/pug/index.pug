@@ -14,10 +14,11 @@ html
 
 		include inc/meta.pug
 
+		+includeStyles()
+
 		each URL in ['/music', '/games']
 			link(rel='prerender' href=`${URL}`)
 
-		+includeStyles()
 	body
 		include inc/header.pug
 

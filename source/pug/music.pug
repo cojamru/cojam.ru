@@ -16,6 +16,10 @@ html
 			link(rel='dns-prefetch' href=`//${URL}`)
 
 		+includeStyles(['parsers'])
+
+		each URL in ['/index', '/games']
+			link(rel='prerender' href=`${URL}`)
+
 	body
 		include inc/header.pug
 
