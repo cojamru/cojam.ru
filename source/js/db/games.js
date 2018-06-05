@@ -1,6 +1,6 @@
 'use strict'
 
-var gamesDB = {
+let gamesDB = {
 	our: [
 		{
 			title: 'Орёл или решка?',

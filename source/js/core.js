@@ -1,18 +1,18 @@
 'use strict'
 
-var debugMode = false
+let debugMode = false
 
-var elemSizes = elem => elem.getBoundingClientRect()
+let elemSizes = elem => elem.getBoundingClientRect()
 
-var pageInfo = { title: document.title, URL: location.pathname }
+let pageInfo = { title: document.title, URL: location.pathname }
 
-var metaVars = {
+let metaVars = {
 	siteVersion:  getInfoFromMeta('version'),
 	primeColor:   getInfoFromMeta('prime-color'),
 	CDNlink:      getInfoFromMeta('cdn-link')
 }
 
-var CDNpaths = {
+let CDNpaths = {
 	music: {
 		covers: `${metaVars.CDNlink}/music/covers`
 	},

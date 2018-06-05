@@ -1,8 +1,8 @@
 'use strict'
 
-var createHeading = text => $create.elem('h2', text)
+let createHeading = text => $create.elem('h2', text)
 
-var generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
+let generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
 	if (!container.nodeName) { return }
 
 	let
@@ -38,7 +38,7 @@ var generateLikely = ({ container, options = { title = '', URL = '', heading = '
 	setTimeout(likely.initiate, 0)
 }
 
-var showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
+let showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
 	if (!content.nodeName) { return }
 
 	let body = document.body
@@ -83,7 +83,7 @@ var showPopup = ({ content, options = { heading = '', id = '', title = '', image
 	body.appendChild(popup)
 }
 
-var $parser = {
+let $parser = {
 	music: ({ data = {}, container }) => {
 		container.textContent = ''
 
@@ -213,7 +213,7 @@ var $parser = {
 					albumHeading = 'Альбом'
 			}
 
-			var showPopupWF = () => showPopup({
+			let showPopupWF = () => showPopup({
 				content: generatePopup({ album: album, heading: albumHeading }),
 				options: {
 					heading: albumHeading,
@@ -328,7 +328,7 @@ var $parser = {
 				gamePoster.alt = `${gameID} poster`
 			}
 
-			var showPopupWF = () => showPopup({
+			let showPopupWF = () => showPopup({
 				content: generatePopup({ game: game, heading: gameHeading }),
 				options: {
 					heading: gameHeading,

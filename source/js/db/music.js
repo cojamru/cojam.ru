@@ -1,6 +1,6 @@
 'use strict'
 
-var musicDB = {
+let musicDB = {
 	albums: [
 		{
 			title: 'グレイブブラッドの魔女 Sakura',
@@ -38,7 +38,7 @@ var musicDB = {
 				}
 			}
 		},
-		
+
 		{
 			title: 'Quantum Suicide',
 			artist: 'Cojam',
