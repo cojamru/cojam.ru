@@ -1,4 +1,4 @@
-#### Исходный код сайта https://cojam.ru
+### Исходный код сайта https://cojam.ru
 
 ![screenshot](.github/screenshot.png)  
 

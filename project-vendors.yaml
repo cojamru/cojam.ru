@@ -7,5 +7,5 @@ likely:
 
 # cdnjs.com/libraries/url-search-params (url-search-params.js)
 urlSP_polyfill:
-  v: 0.10.0
-  sri: sha256-Tj0IK7neOvGa1FUIZ433DRvlP/Kv0ffbyyrgQOhdOro=
+  v: 1.1.0
+  sri: sha256-vA5o1HRlFYggrn0yG+6bKGlnln9fWxi4S9cvzo6FlKw=

@@ -9,10 +9,10 @@ prime_color: '#8400a5'
 
 dirs:
   dev: source
-  prod:
-    build: dist
-    content: dist_content
-    main: assets
+  build: build
+  dist: dist
+  dist_content: dist_content
+  assets: assets
 
 trackers:
   google: UA-41033513-3

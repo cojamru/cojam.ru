@@ -9,4 +9,4 @@ each cojamMeta in [{ name: 'version', content: `${VERSION}` }, { name: 'prime-co
 each URL in [`${URLs.CDN.replace('https://', '')}`, 'www.google-analytics.com', 'fonts.gstatic.com']
 	link(rel='dns-prefetch' href=`//${URL}`)
 
-link(rel='sitemap' href='/sitemap.php')
+link(rel='sitemap' href='/sitemap.xml')

@@ -49,3 +49,4 @@ Header set Content-Security-Policy "default-src 'self'; \
 RedirectMatch 301 /music/(.*\.mp3)$ https://old.cojam.ru/audio/$1
 Redirect 301 /wp-content/uploads/ https://old.cojam.ru/wp-content/uploads/
 RedirectMatch 301 /games/(.*?)$ /games
+RedirectMatch 301 /contest/* https://twoweeks.github.io/games-db/?get=two-dg

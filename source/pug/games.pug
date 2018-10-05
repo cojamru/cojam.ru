@@ -18,13 +18,14 @@ html
 			link(rel='prerender' href=`${URL}`)
 
 	body
-		include inc/header.pug
+		div.container
+			include inc/header.pug
 
-		main
-			div.games
-				include inc/no-js.pug
+			main
+				div.games
+					include inc/no-js.pug
 
-		include inc/footer.pug
+			include inc/footer.pug
 
 		+includeScripts(['db/games', 'parsers'])
 

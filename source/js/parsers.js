@@ -41,8 +41,6 @@ let generateLikely = ({ container, options = { title = '', URL = '', heading = '
 let showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
 	if (!content.nodeName) { return }
 
-	let body = document.body
-
 	let popup = $create.elem('div', '', 'popup')
 
 	let
@@ -51,19 +49,18 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 		popupCloseBtn = $create.elem('button', '🗙', 'popup--close'),
 		popupURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
 
-	body.dataset.popup = ''
-
 	history.pushState('', pageInfo.title, popupURL)
 
-	//popupCloseBtn.setAttribute('title', 'Закрыть')
-	popupCloseBtn.addEventListener('click', () => {
+	let closePopup = () => {
 		if (location.search != '') {
 			history.pushState('', pageInfo.title, pageInfo.URL)
 		}
 
-		delete body.dataset.popup
 		popup.remove()
-	})
+	}
+
+	//popupCloseBtn.setAttribute('title', 'Закрыть')
+	popupCloseBtn.addEventListener('click', () => closePopup())
 
 	popupContent.classList.add('popup--content')
 	popupContainer.appendChild(popupContent)
@@ -80,7 +77,8 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 
 	popup.appendChild(popupCloseBtn)
 	popup.appendChild(popupContainer)
-	body.appendChild(popup)
+
+	document.body.appendChild(popup)
 }
 
 let $parser = {

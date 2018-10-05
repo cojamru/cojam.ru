@@ -14,25 +14,20 @@
 	color: #fff;
 }
 
-html {
-	@at-root body, & {
-		width: 100%;
-	}
+html, body, .container {
+	width: 100%; height: 100%;
+}
 
+html {
 	-webkit-font-smoothing: antialiased;
 }
 
 body {
 	background-color: #fff;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 	font-size: var(--font-size);
 	font-family: Ubuntu, Roboto, Arial, sans-serif;
 	color: #666;
-
-	&[data-popup] {
-		overflow-y: hidden;
-	}
 
 	/*
 	 * Костыль для Edge, пока не введут поддержку <details/>
@@ -43,6 +38,10 @@ body {
 			display: none;
 		}
 	}
+}
+
+.container {
+	overflow-y: scroll;
 }
 
 q { quotes: '\00AB' '\00BB' }

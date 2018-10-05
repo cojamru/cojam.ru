@@ -66,7 +66,10 @@
 					color: #fff;
 				}
 
-				span { transform: skew(20deg) }
+				span {
+					transform: skew(20deg);
+					line-height: 1.2;
+				}
 			}
 		}
 	}

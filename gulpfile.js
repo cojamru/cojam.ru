@@ -1,16 +1,19 @@
 'use strict'
 
+let project = require('./package.json')
+
 let
-	project =     require('./package.json'),
 	fs =          require('fs'),
 	gulp =        require('gulp'),
 	tube =        require('gulp-pipe'),
 	bom =         require('gulp-bom'),
 	rename =      require('gulp-rename'),
 	watch =       require('gulp-watch'),
+	clean =       require('gulp-clean'),
 	plumber =     require('gulp-plumber'),
 	cleanCSS =    require('gulp-clean-css'),
 	pug =         require('gulp-pug'),
+	sequence =    require('gulp-sequence'),
 	parseYAML =   require('js-yaml'),
 	liveServer =  require('browser-sync')
 
@@ -21,7 +24,7 @@ let sass = {
 }
 
 let uglify = {
-	core:      require('uglify-es'),
+	core:      require('terser'),
 	composer:  require('gulp-uglify/composer')
 }
 
@@ -40,96 +43,143 @@ let dirs = config.dirs
 let paths = {
 	html: {
 		dev: [`${dirs.dev}/pug/**/*.pug`, `!${dirs.dev}/pug/inc/**/*.pug`],
-		prod: `${dirs.prod.build}/`
+		prod: `${dirs.build}/`
 	},
 
 	js: {
-		dev:  [`${dirs.dev}/js/**/*.js`, `!${dirs.dev}/js/service-worker.js`],
-		prod:  `${dirs.prod.build}/${dirs.prod.main}/js/`,
-
-		kamina: 'node_modules/kamina-js/dist/kamina.min.js'
+		dev:    [`${dirs.dev}/js/**/*.js`, `!${dirs.dev}/js/service-worker.js`],
+		prod:    `${dirs.build}/${dirs.assets}/js/`
 	},
 
 	css: {
 		dev:   `${dirs.dev}/scss/**/*.scss`,
-		prod:  `${dirs.prod.build}/${dirs.prod.main}/css/`
+		prod:  `${dirs.build}/${dirs.assets}/css/`
 	}
 }
 
 gulp.task('liveReload', () => liveServer({
-	server: [dirs.prod.build, dirs.prod.content],
+	server: [dirs.build, dirs.dist_content],
 	port: 8080,
 	notify: false
 }))
 
-gulp.task('pug', () => tube([
-	watch(paths.html.dev, { ignoreInitial: false }),
+/* Сборка pug */
+
+let pugTubes = [
 	plumber(),
 	pug({ locals: {
-		VERSION: project.version,
+		VERSION:     project.version,
+		title:       config.title,
+		domain:      config.domain,
+		primeColor:  config.prime_color,
 		PATHS: {
-			js:       `/${dirs.prod.main}/js`,
-			css:      `/${dirs.prod.main}/css`,
-			img:      `/${dirs.prod.main}/img`
+			js:       `/${dirs.assets}/js`,
+			css:      `/${dirs.assets}/css`,
+			img:      `/${dirs.assets}/img`,
 		},
 		LIBS: vendors,
 		BBISWU: {
 			google: config.trackers.google,
 			yandex: config.trackers.yandex
 		},
-		title:       config.title,
-		domain:      config.domain,
-		primeColor:  config.prime_color
 	}}),
 	bom(),
 	rename(file => {
-		if (file.basename == 'error') {
-			file.extname = '.htm'
+		if (file.basename == 'sitemap') {
+			file.extname = '.xml'
 		}
 	}),
-	gulp.dest(paths.html.prod),
-	reloadServer()
-]))
+	gulp.dest(paths.html.prod)
+]
 
-gulp.task('get-kamina', () => tube([
-	gulp.src(paths.js.kamina),
-	bom(),
-	gulp.dest(paths.js.prod)
-]))
+gulp.task('pug:build', () => tube(
+	[gulp.src(paths.html.dev)]
+		.concat(pugTubes)
+))
 
-let jsTubes = (_src, _dest) => tube([
-	watch(_src, { ignoreInitial: false }),
+gulp.task('pug:dev', () => tube(
+	[watch(paths.html.dev, { ignoreInitial: false })]
+		.concat(pugTubes, [reloadServer()])
+))
+
+/* Сборка JS */
+
+let jsTubes = (dest = paths.js.prod) => [
 	plumber(),
 	minifyJS({}),
 	bom(),
 	rename({ suffix: '.min' }),
-	gulp.dest(_dest),
-	reloadServer()
-])
+	gulp.dest(dest)
+]
 
-gulp.task('js:assets', () => jsTubes(paths.js.dev, paths.js.prod))
+gulp.task('js:assets:build', () => tube(
+	[gulp.src(paths.js.dev)]
+		.concat(jsTubes())
+))
+
+gulp.task('js:assets:dev', () => tube(
+	[watch(paths.js.dev, { ignoreInitial: false })]
+		.concat(jsTubes(), [reloadServer()])
+))
+
+gulp.task('js:get-kamina', () => tube([
+	gulp.src('node_modules/kamina-js/dist/kamina.min.js'),
+	bom(),
+	gulp.dest(paths.js.prod)
+]))
+
+/* Сборка SCSS */
 
 let scssTubes = [
 	plumber(),
 	sass.vars({
 		VERSION:     project.version,
 		primeColor:  config.prime_color,
-		imgPath:     `/${dirs.prod.main}/img`
+		imgPath:     `/${dirs.assets}/img`,
 	}, { verbose: false }),
-	sass.compile({ outputStyle: 'compressed' }),
+	sass.compile.sync({ outputStyle: 'compressed' }),
 	cleanCSS(),
 	bom(),
 	rename({suffix: '.min'}),
 	gulp.dest(paths.css.prod)
 ]
 
-gulp.task('scss:only-compile', () => tube(
-	[gulp.src(paths.css.dev)].concat(scssTubes)
+gulp.task('scss:build', () => tube(
+	[gulp.src(paths.css.dev)]
+		.concat(scssTubes)
 ))
 
 gulp.task('scss:dev', () => tube(
-	[sass.watch(paths.css.dev)].concat(scssTubes, [reloadServer()])
+	[sass.watch(paths.css.dev)]
+		.concat(scssTubes, [reloadServer()])
 ))
 
-gulp.task('default', ['pug', 'get-kamina', 'js:assets', 'scss:dev'])
-gulp.task('dev', ['liveReload', 'default'])
+/* Копирование файлов из dirs.build и dirs.dist_content в одну общую dirs.dist */
+
+gulp.task('dist:copy', () => tube([
+	gulp.src([
+		`${dirs.build}/**/*`, `${dirs.build}/**/.*`,
+		`${dirs.dist_content}/**/*`, `${dirs.dist_content}/**/.*`
+	]),
+	gulp.dest(dirs.dist)
+]))
+
+gulp.task('dist:clean', () => tube([
+	gulp.src(dirs.dist, { read: false }),
+	clean()
+]))
+
+gulp.task('dist', sequence('dist:clean', 'dist:copy'))
+
+/* Команды для сборки и разработки */
+
+gulp.task('build', ['pug:build', 'js:assets:build', 'js:get-kamina', 'scss:build'])
+
+gulp.task('build:clean', () => tube([
+	gulp.src(dirs.build, { read: false }),
+	clean()
+]))
+
+gulp.task('dev', ['liveReload', 'pug:dev', 'js:assets:dev', 'js:get-kamina', 'scss:dev'])
+
+gulp.task('default', sequence('build', 'dist'))
