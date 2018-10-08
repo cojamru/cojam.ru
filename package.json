@@ -2,10 +2,14 @@
 	"name": "cojam.ru",
 	"description": "Source code of cojam.ru website.",
 	"private": true,
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"author": "Dmitry <dmitry@cojam.ru> (https://e965.ru)",
 	"repository": "github:cojamru/cojam.ru",
 	"license": "MIT",
+	"engines": {
+		"node": ">= 10.11.0",
+		"npm": ">= 6.4.1"
+	},
 	"scripts": {
 		"build": "gulp build",
 		"dev": "gulp dev",
@@ -15,7 +19,7 @@
 		"kamina-js": "1.2.7"
 	},
 	"devDependencies": {
-		"browser-sync": "2.24.7",
+		"browser-sync": "2.26.0",
 		"gulp": "3.9.1",
 		"gulp-bom": "2.0.0",
 		"gulp-clean": "0.4.0",

@@ -85,8 +85,11 @@ let pugTubes = [
 	}}),
 	bom(),
 	rename(file => {
-		if (file.basename == 'sitemap') {
-			file.extname = '.xml'
+		switch (file.basename) {
+			case 'sitemap':
+				file.extname = '.xml'; break
+			case 'error':
+				file.extname = '.htm'; break
 		}
 	}),
 	gulp.dest(paths.html.prod)
