@@ -9,8 +9,6 @@ void (() => {
 
 	if (self != top) { undefinedBlock.style.display = 'initial'; return }
 
-	qs('section[data-error="404"] a[href*="old"]').href += location.pathname
-
 	fetch(doc.URL)
 		.then(response => {
 			let status = response.status

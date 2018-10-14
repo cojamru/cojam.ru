@@ -14,7 +14,7 @@ html
 
 		+includeStyles(['parsers'])
 
-		each URL in ['/index', '/music']
+		each URL in ['/', '/music']
 			link(rel='prerender' href=`${URL}`)
 
 	body
@@ -22,6 +22,13 @@ html
 			include inc/header.pug
 
 			main
+				div.text
+					p В этом разделе можно найти все наши игры.
+
+					p Большинство из них требуют Flash Player projector, скачать его #[+externalLink('https://www.adobe.com/support/flashplayer/debug_downloads.html', 'можно здесь')].
+
+				hr
+
 				div.games
 					include inc/no-js.pug
 

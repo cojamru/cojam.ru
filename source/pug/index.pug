@@ -14,7 +14,7 @@ html
 
 		include inc/meta.pug
 
-		+includeStyles()
+		+includeStyles(['index'])
 
 		each URL in ['/music', '/games']
 			link(rel='prerender' href=`${URL}`)
@@ -23,17 +23,7 @@ html
 		div.container
 			include inc/header.pug
 
-			main
-				div.text
-					p Привет!
-
-					p Мы &ndash; #{title.short}, небольшая компания людей, сплочённая вместе общей идеей и стремлением к своей мечте.
-
-					p Вот уже пять лет мы делаем различный контент, который не оставит тебя равнодушным!
-
-					p Среди наших проектов — музыка, Flash-видеоигры, графика, а также многое-многое другое.
-
-					p Надеемся, что тебе здесь понравится! :3
+			hr
 
 			include inc/footer.pug
 

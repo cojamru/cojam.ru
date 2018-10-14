@@ -29,3 +29,6 @@ mixin includeScripts(added = [])
 
 	each JS in scripts
 		script(src=`${PATHS.js}/${JS}.min.js?v=${VERSION}` defer)
+
+mixin externalLink(link, text)
+	a(href=`${link}` target='_blank' rel='nofollow noreffer') #{text}

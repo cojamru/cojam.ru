@@ -4,14 +4,11 @@ mixin socLink(link, pic, mini)
 			img(src=`${PATHS.img}/soc/${pic}.svg?v=${VERSION}` alt=`${pic} soc icon${(mini == true) ? '-mini' : ''}`)
 
 footer.footer
-	p 2013 – #{new Date().getFullYear()}
-
-	div.footer-note
-		p Исходный код сайта доступен на #[a(href='https://github.com/cojamru/cojam.ru' target='_blank' rel='nofollow noreffer') GitHub]
-
 	ul.socials
 		+socLink('https://vk.com/tehcojam', 'vk')
 		+socLink('https://www.facebook.com/cojamru', 'fb', true)
 		+socLink('https://cojam.bandcamp.com', 'bc', true)
 		+socLink('https://www.youtube.com/c/cojamru', 'yt', true)
 		//-+socLink('https://soundcloud.com/midipidemy', 'sc')
+
+	p.footer-note #[a(href='/' rel='home') #{title.short_ru}], 2013 – #{new Date().getFullYear()}

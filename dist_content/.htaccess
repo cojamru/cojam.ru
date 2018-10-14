@@ -4,7 +4,7 @@ AddDefaultCharset utf-8
 # Запрет на просмотр директорий
 Options All -Indexes
 
-# Рерайт всех "*/some.html" на "*/some" 
+# Рерайт всех "*/some.html" на "*/some"
 RewriteEngine on
 RewriteBase /
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html\ HTTP
@@ -22,9 +22,9 @@ RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
 RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
 
 # Форсированный HTTPS
-RewriteEngine on
-RewriteCond %{HTTPS} !on
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+# RewriteEngine on
+# RewriteCond %{HTTPS} !on
+# RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 
 # Обработка ошибок
 ErrorDocument 404 /error.htm

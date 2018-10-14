@@ -5,34 +5,38 @@ let createHeading = text => $create.elem('h2', text)
 let generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
 	if (!container.nodeName) { return }
 
-	let
-		likelyElem = $create.elem('div', '', 'likely'),
-		likelySocs = {
-			vk: $create.elem('div', 'Поделиться', 'vkontakte'),
-			tg: $create.elem('div', 'Рассказать', 'telegram'),
-			tw: $create.elem('div', 'Твитнуть', 'twitter'),
-			fb: $create.elem('div', 'Шернуть', 'facebook')
-		}
+	let likelyElem = $create.elem('div', '', 'likely')
+
+	let likelySocs = {
+		vk: $create.elem('div', 'Поделиться', 'vkontakte'),
+		tg: $create.elem('div', 'Рассказать', 'telegram'),
+		tw: $create.elem('div', 'Твитнуть', 'twitter'),
+		fb: $create.elem('div', 'Шернуть', 'facebook')
+	}
 
 	if ('URL' in options) {
 		likelyElem.dataset.url = `${location.origin}/${options.URL}`
 	}
 
 	if ('title' in options) {
-		let
-			_heading =  options.heading ? `${options.heading} "${options.title}"` : options.title,
-			_image =    options.image ? options.image : ''
+		let _heading = options.heading
+			? `${options.heading} "${options.title}"`
+			: options.title
 
 		likelyElem.dataset.title = _heading
 		likelySocs.vk.dataset.description = _heading
 		likelySocs.tg.dataset.text = _heading
+
+		let _image = options.image ? options.image : ''
 
 		if (_image) {
 			likelySocs.vk.dataset.image = _image
 		}
 	}
 
-	Object.keys(likelySocs).forEach(soc => likelyElem.appendChild(likelySocs[soc]))
+	Object.keys(likelySocs).forEach(soc =>
+		likelyElem.appendChild(likelySocs[soc])
+	)
 
 	container.appendChild(likelyElem)
 	setTimeout(likely.initiate, 0)
@@ -43,11 +47,9 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 
 	let popup = $create.elem('div', '', 'popup')
 
-	let
-		popupContainer = $create.elem('div', '', 'popup--container'),
-		popupContent = content.cloneNode(true),
-		popupCloseBtn = $create.elem('button', '🗙', 'popup--close'),
-		popupURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
+	let popupContainer = $create.elem('div', '', 'popup--container')
+
+	let popupURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
 
 	history.pushState('', pageInfo.title, popupURL)
 
@@ -59,10 +61,18 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 		popup.remove()
 	}
 
+	let popupCloseBtn = $create.elem('button', '🗙', 'popup--close')
+
 	//popupCloseBtn.setAttribute('title', 'Закрыть')
+
 	popupCloseBtn.addEventListener('click', () => closePopup())
 
+	popup.appendChild(popupCloseBtn)
+
+	let popupContent = content.cloneNode(true)
+
 	popupContent.classList.add('popup--content')
+
 	popupContainer.appendChild(popupContent)
 
 	generateLikely({
@@ -75,7 +85,6 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 		}
 	})
 
-	popup.appendChild(popupCloseBtn)
 	popup.appendChild(popupContainer)
 
 	document.body.appendChild(popup)
@@ -88,35 +97,45 @@ let $parser = {
 		let parseTrack = (track = {}) => {
 			if (!track) { return }
 
-			let
-				trackContainer = $create.elem('div', '', 'popup__music--track'),
-				trackData = { artist: (track.artist ? track.artist : 'Cojam'), title: (track.title ? track.title : 'Без названия'), link: (track.link ? track.link : false) },
-				trackDes = false,
-				trackFeat = false
+			let trackContainer = $create.elem('div', '', 'popup__music--track')
+
+			let trackData = {
+				artist:  (track.artist  ? track.artist :  'Cojam'),
+				title:   (track.title   ? track.title :   'Без названия'),
+				link:    (track.link    ? track.link :     false)
+			}
+
+			let trackFeat = ''
 
 			if ('feat' in track) {
 				trackFeat = ' (ft. '
 				track.feat.forEach((person, i) => {
-						trackFeat += `${person}${(i == track.feat.length - 1) ? ')' : ', '}`
+					trackFeat += `${person}${(i == track.feat.length - 1) ? ')' : ', '}`
 				})
 			}
 
-			trackContainer.appendChild($create.elem('p', `${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`))
+			trackContainer.appendChild($create.elem(
+				'p',
+				`${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`
+			))
 
 			if ('description' in track && track.description != '') {
-				trackContainer.appendChild($create.elem('p', `${track.description.replace(/\n/g, '<br>')}`, 'popup__music--track-info'))
+				trackContainer.appendChild($create.elem(
+					'p',
+					`${track.description.replace(/\n/g, '<br>')}`,
+					'popup__music--track-info'
+				))
 			}
 
 			return trackContainer
 		}
 
 		let generatePopup = ({ album = {}, heading = '' }) => {
-			let
-				albumPopupContent = $create.elem('div', '', 'popup__music'),
-				albumPopupHeading = `${heading} <q>${album.title}</q>`,
-				albumPopupDes = $create.elem('div', '', 'popup__music--description'),
-				albumTrackList = $create.elem('details', '', 'popup__music--tracklist'),
-				albumFeat = false, albumEmbed = ''
+			let albumPopupContent = $create.elem('div', '', 'popup__music')
+
+			let albumPopupHeading = `${heading} <q>${album.title}</q>`
+
+			let albumFeat = ''
 
 			if ('feat' in album) {
 				albumFeat = ' при участии '
@@ -133,14 +152,20 @@ let $parser = {
 
 			albumPopupContent.appendChild($create.elem('h2', albumPopupHeading))
 
+			let albumPopupDes = $create.elem('div', '', 'popup__music--description')
+
 			if ('img' in album && 'thumb' in album.img && album.img.thumb != '') {
 				let img = $create.elem('img')
+
 				img.setAttribute('src', `${album.img.thumb}?v=${metaVars.siteVersion}`)
 
 				albumPopupDes.appendChild(img)
 			}
 
-			albumPopupDes.appendChild($create.elem('p', `<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`))
+			albumPopupDes.appendChild($create.elem(
+				'p',
+				`<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`
+			))
 
 			if ('description' in album) {
 				albumPopupDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
@@ -152,6 +177,8 @@ let $parser = {
 
 			albumPopupContent.appendChild(albumPopupDes)
 
+			let albumTrackList = $create.elem('details', '', 'popup__music--tracklist')
+
 			if ('tracklist' in album && album.tracklist.length != 0) {
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 
@@ -162,21 +189,28 @@ let $parser = {
 				albumPopupContent.appendChild(albumTrackList)
 			}
 
+			let albumEmbed = $create.elem('iframe', '', 'popup__music--embed')
+
 			if ('embed' in album && album.embed.type != '') {
-				let
-					albumEmbedSrc = 'https://',
-					albumEmbedSrcID = parseFloat(album.embed.ID)
+				let albumEmbedSrc = 'https://'
+
+				let albumEmbedSrcID = Number(album.embed.ID)
 
 				let _color = metaVars.primeColor.replace('#', '')
+
+				let _user = album.embed.user
+					? album.embed.user
+					: 'team@cojam.ru'
 
 				switch (album.embed.type) {
 					case 'bc':
 						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=${_color}/artwork=none/transparent=true`; break
 					case 'sc':
 						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=${_color}`; break
+					case 'ym':
+						albumEmbedSrc += `music.yandex.ru/iframe/#playlist/${_user}/${albumEmbedSrcID}/hide/cover/title/`; break
 				}
 
-				albumEmbed = $create.elem('iframe', '', 'popup__music--embed')
 				albumEmbed.setAttribute('src', albumEmbedSrc)
 				albumPopupContent.appendChild(albumEmbed)
 			}
@@ -190,10 +224,11 @@ let $parser = {
 				albumAbout =      $create.elem('div', '', 'music__album--about'),
 				albumCover =      $create.elem('img', '', 'music__album--cover')
 
-			let
-				albumID = album.id ? album.id : album.title.toLowerCase().replace(' ', '-'),
-				albumHeading = '',
-				albumCoverLink = ''
+			let albumID = album.id
+				? album.id
+				: album.title.toLowerCase().replace(' ', '-')
+
+			let albumCoverLink = ''
 
 			if ('img' in album && 'cover' in album.img && album.img.cover != '') {
 				albumCoverLink = `${album.img.cover}?v=${metaVars.siteVersion}`
@@ -201,6 +236,8 @@ let $parser = {
 				albumCover.src = albumCoverLink
 				albumCover.alt = `${albumID} cover`
 			}
+
+			let albumHeading = ''
 
 			switch (album.type) {
 				case 'ep':
@@ -243,14 +280,13 @@ let $parser = {
 		container.textContent = ''
 
 		let generatePopup = ({ game = {}, heading = '' }) => {
-			let
-				gamePopupContent = $create.elem('div', '', 'popup__game'),
-				gamePopupHeading = `${heading} <q>${game.title}</q>`,
-				gamePopupDes = $create.elem('div', '', 'popup__game--description'),
-				gamePopupLinks = $create.elem('ul', '', 'popup__game--links'),
-				gamePopupPlatform = '<b>Платформа</b>: '
+			let gamePopupContent = $create.elem('div', '', 'popup__game')
+
+			let gamePopupHeading = `${heading} <q>${game.title}</q>`
 
 			gamePopupContent.appendChild($create.elem('h2', gamePopupHeading))
+
+			let gamePopupPlatform = '<b>Платформа</b>: '
 
 			switch (game.platform) {
 				case 'flash':
@@ -262,6 +298,8 @@ let $parser = {
 				default:
 					gamePopupPlatform = false
 			}
+
+			let gamePopupDes = $create.elem('div', '', 'popup__game--description')
 
 			if ('contest' in game && 'name' in game.contest && game.contest.name != '') {
 				let contest = (game.contest.link && game.contest.link != '')
@@ -288,6 +326,8 @@ let $parser = {
 				gamePopupContent.appendChild(desPopup)
 			}
 
+			let gamePopupLinks = $create.elem('ul', '', 'popup__game--links')
+
 			if ('links' in game && Object.keys(game.links).length != 0) {
 				if (game.links.play && game.links.play != '') {
 					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
@@ -309,15 +349,16 @@ let $parser = {
 
 		let parseGame = (game = {}) => {
 			let
-				gameContainer = $create.elem('div', '', 'games__game'),
-				gameTitle = $create.elem('div', '', 'games__game--title'),
-				gameRelease = $create.elem('div', '', 'games__game--release'),
-				gamePoster = $create.elem('img', '', 'games__game--poster')
+				gameContainer =  $create.elem('div', '', 'games__game'),
+				gameTitle =      $create.elem('div', '', 'games__game--title'),
+				gameRelease =    $create.elem('div', '', 'games__game--release'),
+				gamePoster =     $create.elem('img', '', 'games__game--poster')
 
-			let
-				gameID = game.id ? game.id : game.title.toLowerCase().replace(' ', '-'),
-				gameHeading = 'Игра',
-				gamePosterLink = ''
+			let gameID = game.id
+				? game.id
+				: game.title.toLowerCase().replace(' ', '-')
+
+			let gamePosterLink = ''
 
 			if ('img' in game && 'poster' in game.img && game.img.poster != '') {
 				gamePosterLink = `${game.img.poster}?v=${metaVars.siteVersion}`
@@ -325,6 +366,8 @@ let $parser = {
 				gamePoster.src = gamePosterLink
 				gamePoster.alt = `${gameID} poster`
 			}
+
+			let gameHeading = 'Игра'
 
 			let showPopupWF = () => showPopup({
 				content: generatePopup({ game: game, heading: gameHeading }),
@@ -356,6 +399,8 @@ let $parser = {
 			return gameContainer
 		}
 
-		data.our.forEach(game => container.appendChild(parseGame(game)))
+		data.our.forEach(game =>
+			container.appendChild(parseGame(game))
+		)
 	}
 }

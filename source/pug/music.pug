@@ -17,7 +17,7 @@ html
 
 		+includeStyles(['parsers'])
 
-		each URL in ['/index', '/games']
+		each URL in ['/', '/games']
 			link(rel='prerender' href=`${URL}`)
 
 	body
@@ -27,8 +27,11 @@ html
 			main
 				div.text
 					p В этом разделе можно найти все наши музыкальные альбомы.
-					p Синглы здесь не публикуются, но их можно найти на #[a(href='https://soundcloud.com/midipidemy/tracks' target='_blank' rel='nofollow noopener') SoundCloud] или в #[a(href='https://vk.com/audios-71897180' target='_blank' rel='nofollow noopener') VK].
+
+					p Синглы здесь не публикуются, но их можно найти #[+externalLink('https://soundcloud.com/midipidemy/tracks', 'на SoundCloud')] или в нашем #[+externalLink('https://vk.com/audios-71897180', 'сообществе в VK')].
+
 				hr
+
 				div.music
 					include inc/no-js.pug
 
