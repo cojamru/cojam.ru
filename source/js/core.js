@@ -4,7 +4,10 @@ let debugMode = false
 
 let elemSizes = elem => elem.getBoundingClientRect()
 
-let pageInfo = { title: document.title, URL: location.pathname }
+let pageInfo = {
+	title: document.title,
+	URL: location.pathname
+}
 
 let metaVars = {
 	siteVersion:  getInfoFromMeta('version'),
@@ -44,15 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 
 	void (() => {
-		let
-			header =  $make.qs('header'),
-			menu =    $make.qsf('nav', header)
+		let header = $make.qs('header')
 
-		let
-			headerSizes =  elemSizes(header),
-			menuSizes =    elemSizes(menu)
+		let headerWidth = elemSizes(header).width
 
-		if (menuSizes.width >= headerSizes.width - 20) {
+		let menu = $make.qsf('nav', header)
+
+		let menuLinks = $make.qsf('nav a', menu, ['a'])
+
+		let menuLinksWidth = 0
+
+		menuLinks.forEach(link =>
+			menuLinksWidth += elemSizes(link).width
+		)
+
+		if (menuLinksWidth >= headerWidth) {
 			menu.classList.add('not-inline')
 		}
 	})()
