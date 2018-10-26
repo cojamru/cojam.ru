@@ -94,15 +94,15 @@ let $parser = {
 	music: ({ data = {}, container }) => {
 		container.textContent = ''
 
-		let parseTrack = (track = {}) => {
+		let parseTrack = ({ track = {}, albumArtist = 'Cojam' }) => {
 			if (!track) { return }
 
 			let trackContainer = $create.elem('div', '', 'popup__music--track')
 
 			let trackData = {
-				artist:  (track.artist  ? track.artist :  'Cojam'),
+				artist:  (track.artist  ? track.artist :  albumArtist),
 				title:   (track.title   ? track.title :   'Без названия'),
-				link:    (track.link    ? track.link :     false)
+				link:    (track.link    ? track.link :    false)
 			}
 
 			let trackFeat = ''
@@ -162,9 +162,13 @@ let $parser = {
 				albumPopupDes.appendChild(img)
 			}
 
+			let albumArtist = album.artist
+				? album.artist
+				: 'Cojam'
+
 			albumPopupDes.appendChild($create.elem(
 				'p',
-				`<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${album.artist ? album.artist : 'Cojam'}${albumFeat ? albumFeat : ''}`
+				`<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${albumArtist}${albumFeat ? albumFeat : ''}`
 			))
 
 			if ('description' in album) {
@@ -183,7 +187,7 @@ let $parser = {
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 
 				album.tracklist.forEach(track => {
-					albumTrackList.appendChild(parseTrack(track))
+					albumTrackList.appendChild(parseTrack({ track: track, albumArtist: albumArtist }))
 				})
 
 				albumPopupContent.appendChild(albumTrackList)

@@ -3,6 +3,40 @@
 let musicDB = {
 	albums: [
 		{
+			title: '抑うつ',
+			id: 'depression',
+			artist: 'cojam',
+			description: 'i am sad\nthis sadness never ends',
+			release: '26 октября 2018',
+			img: {
+				cover: `${CDNpaths.music.covers}/depression-cover.jpg`,
+				thumb: `${CDNpaths.music.covers}/depression-cover-thumb.jpg`
+			},
+			tracklist: [
+				{ title: 'bury me lavender' },
+				{ title: 'so i kissed her secretly' },
+				{ title: 'i want to die' },
+				{ title: 'exrthstxr' },
+				{ title: 'far light' },
+				{ title: 'snotgirl' },
+				{ title: 'spaceship isolation' },
+				{ title: 'outer space' },
+				{ title: 'drowning' },
+				{ title: 'wet chokers' }
+			],
+			embed: {
+				type: 'bc',
+				ID: 46584512
+			},
+			links: {
+				bc: {
+					user: 'cojam',
+					album: '--3'
+				}
+			}
+		},
+
+		{
 			title: 'グレイブブラッドの魔女 Sakura',
 			id: 'sakura',
 			artist: 'Cojam',
