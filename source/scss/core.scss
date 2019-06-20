@@ -9,7 +9,7 @@
 	--menu-border-radius: 10px;
 
 	--background-image:
-		linear-gradient(to top left, #{$primeColor},#{desaturate(darken($primeColor, 25%), 40%)});
+		linear-gradient(to top left, #{$primeColor}, #{desaturate(darken($primeColor, 25%), 40%)});
 }
 
 ::selection {

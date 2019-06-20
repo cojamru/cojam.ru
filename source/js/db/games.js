@@ -12,7 +12,7 @@ let gamesDB = {
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/coin.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
 				dl: 'https://yadi.sk/d/_joaixCM3PJkDr'
@@ -29,7 +29,7 @@ let gamesDB = {
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/jicem-ltz.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
 				dl: 'https://yadi.sk/d/DEgEvZYKtiMPf',
@@ -47,7 +47,7 @@ let gamesDB = {
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/titties.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
 				dl: 'https://yadi.sk/d/PwXrvPoaiUX9D'
@@ -57,14 +57,14 @@ let gamesDB = {
 		{
 			title: 'Лесси Крип',
 			id: 'lessy',
-			contest: { name: 'Two Weeks Game 5' },
+			contest: { name: 'Two Weeks Game 5', link: 'https://twoweeks.github.io/games-db/?get=twg&comp=5' },
 			platform: 'flash',
 			release: 2015,
 			description: 'Перед отъездом из деревни Лампово Даня, главный герой игры, потерял в лесу свою камеру, подаренную ему родителями. Он отправляется на поиски дорогой игрушки, но вот только прогулка по лесу превращается в настоящий кошмар. Герой местных легенд, ужасный паукообразный монстр Лесси, оказывается реальным. Встреча с ним пугает Даню, отчего тот бросается в бег и попадает в таинственный Дом, ради которого он и посетил деревню; кладбище времени и мост между вселенными, обитель всех самых страшных существ.',
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/lessy.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
 				dl: 'https://yadi.sk/d/M2dB_NQaeHSjj'
@@ -80,7 +80,7 @@ let gamesDB = {
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/jicem.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
 				dl: 'https://yadi.sk/d/boNVaSbrtiMJE',
@@ -98,10 +98,11 @@ let gamesDB = {
 			img: {
 				icon: '',
 				poster: `${CDNpaths.games.posters}/cl.png`,
-				screenshots: {}
+				screenshots: []
 			},
 			links: {
-				dl: 'https://yadi.sk/d/dJD1a4OeCjF8q'
+				dl: 'https://yadi.sk/d/dJD1a4OeCjF8q',
+				play: 'https://tehcojam.itch.io/cl-flash'
 			}
 		},
 

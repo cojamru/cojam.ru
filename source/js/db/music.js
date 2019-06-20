@@ -3,6 +3,43 @@
 let musicDB = {
 	albums: [
 		{
+			title: 'Witchcvlt',
+			id: 'witchcvlt',
+			artist: 'Cojam',
+			description: 'Играйте за Вику в этой новой увлекательной игре для домашней консоли Playstation. Найдите новых друзей в Грейвблуде, вместе решайте головоломки и сражайтесь со злом! Выбирайте из множества заклинаний чёрной магии, видов оружия и методов борьбы. Найдите стратегию и истребите зло. Судьба Грейвблуда в ваших руках! Поддерживается контроллер Dualshock. Требуется карта памяти (один блок). Инструкция в комплекте.',
+			release: '20 июня 2019',
+			img: {
+				cover: `${CDNpaths.music.covers}/witchcvlt-cover.png`,
+				thumb: `${CDNpaths.music.covers}/witchcvlt-cover-thumb.png`
+			},
+			tracklist: [
+				{ title: 'Meet Me at the Fairy Ring' },
+				{ title: 'He\'s Gorefield' },
+				{ title: 'Your Cheatin\' Magic' },
+				{ title: 'Total Eclipse' },
+				{ title: 'The Ghost Girl of the Dark Luna Park' },
+				{ title: 'Milky Swimming' },
+				{ title: 'I Witnessed UFO Crash' },
+				{ title: 'Ghostly Ringing Bells' },
+				{ title: 'Late Night Screaming' }
+			],
+			embed: {
+				type: 'bc',
+				ID: 2416956577
+			},
+			links: {
+				bc: {
+					user: 'cojam',
+					album: 'witchcvlt'
+				},
+				vk: {
+					com: 'club71897180',
+					ID: '-71897180_77613811'
+				}
+			}
+		},
+
+		{
 			title: '抑うつ',
 			id: 'depression',
 			artist: 'cojam',

@@ -13,7 +13,6 @@ let
 	plumber =     require('gulp-plumber'),
 	cleanCSS =    require('gulp-clean-css'),
 	pug =         require('gulp-pug'),
-	sequence =    require('gulp-sequence'),
 	parseYAML =   require('js-yaml'),
 	liveServer =  require('browser-sync')
 
@@ -172,17 +171,17 @@ gulp.task('dist:clean', () => tube([
 	clean()
 ]))
 
-gulp.task('dist', sequence('dist:clean', 'dist:copy'))
+gulp.task('dist', gulp.series('dist:clean', 'dist:copy'))
 
 /* Команды для сборки и разработки */
 
-gulp.task('build', ['pug:build', 'js:assets:build', 'js:get-kamina', 'scss:build'])
+gulp.task('build', gulp.parallel('pug:build', 'js:assets:build', 'js:get-kamina', 'scss:build'))
 
 gulp.task('build:clean', () => tube([
 	gulp.src(dirs.build, { read: false }),
 	clean()
 ]))
 
-gulp.task('dev', ['liveReload', 'pug:dev', 'js:assets:dev', 'js:get-kamina', 'scss:dev'])
+gulp.task('dev', gulp.parallel('liveReload', 'pug:dev', 'js:assets:dev', 'js:get-kamina', 'scss:dev'))
 
-gulp.task('default', sequence('build', 'dist'))
+gulp.task('default', gulp.series('build:clean', 'build', 'dist'))
