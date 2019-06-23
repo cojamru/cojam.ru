@@ -6,7 +6,7 @@ let musicDB = {
 			title: 'Witchcvlt',
 			id: 'witchcvlt',
 			artist: 'Cojam',
-			description: 'Играйте за Вику в этой новой увлекательной игре для домашней консоли Playstation. Найдите новых друзей в Грейвблуде, вместе решайте головоломки и сражайтесь со злом! Выбирайте из множества заклинаний чёрной магии, видов оружия и методов борьбы. Найдите стратегию и истребите зло. Судьба Грейвблуда в ваших руках! Поддерживается контроллер Dualshock. Требуется карта памяти (один блок). Инструкция в комплекте.',
+			description: 'Играйте за Вику в этой новой увлекательной игре для домашней консоли PlayStation. Найдите новых друзей в Грейвблуде, вместе решайте головоломки и сражайтесь со злом! Выбирайте из множества заклинаний чёрной магии, видов оружия и методов борьбы. Найдите стратегию и истребите зло. Судьба Грейвблуда в ваших руках! Поддерживается контроллер DualShock. Требуется карта памяти (один блок). Инструкция в комплекте.',
 			release: '20 июня 2019',
 			img: {
 				cover: `${CDNpaths.music.covers}/witchcvlt-cover.png`,
@@ -33,7 +33,7 @@ let musicDB = {
 					album: 'witchcvlt'
 				},
 				vk: {
-					com: 'club71897180',
+					com: 'tehcojam',
 					ID: '-71897180_77613811'
 				}
 			}
@@ -69,6 +69,10 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: '--3'
+				},
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_77613808'
 				}
 			}
 		},
@@ -106,7 +110,12 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: 'sakura'
-				}
+				},
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_77613807'
+				},
+				yt: 'PLmIjlK8YYsHsluAtPeL0q0M3vSse7e3hS'
 			}
 		},
 
@@ -172,6 +181,10 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: 'quantum-suicide'
+				},
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_77613805'
 				}
 			}
 		},
@@ -228,6 +241,10 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: 'despair-horizons'
+				},
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_77613804'
 				}
 			}
 		},
@@ -263,6 +280,10 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: '--2'
+				},
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_77613803'
 				}
 			}
 		},
@@ -296,7 +317,8 @@ let musicDB = {
 					user: 'cojam',
 					album: 'the-nightmare-begins'
 				},
-				sc: 'midipidemy/sets/the-nightmare-begins'
+				sc: 'midipidemy/sets/the-nightmare-begins',
+				yt: 'PLmIjlK8YYsHuAJD0uOg0-dCp4HtoxKLxc'
 			}
 		},
 
@@ -416,7 +438,11 @@ let musicDB = {
 					user: 'cojam',
 					album: 'anastasia'
 				},
-				sc: 'midipidemy/sets/anastasia'
+				sc: 'midipidemy/sets/anastasia',
+				vk: {
+					com: 'tehcojam',
+					ID: '-71897180_66803284'
+				}
 			}
 		}
 	],

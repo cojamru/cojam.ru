@@ -2,6 +2,22 @@
 
 let createHeading = text => $create.elem('h2', text)
 
+let createPopupLink = (link = '', text = '', isExternal = false) => {
+	let linkOptions = ['html']
+
+	if (isExternal) {
+		linkOptions.push('e')
+	}
+
+	return $create.elem(
+		'li',
+		$create.link(
+			link, text,
+			'', linkOptions
+		)
+	)
+}
+
 let generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
 	if (!container.nodeName) { return }
 
@@ -63,15 +79,26 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 
 	let popupCloseBtn = $create.elem('button', '🗙', 'popup--close')
 
-	//popupCloseBtn.setAttribute('title', 'Закрыть')
-
-	popupCloseBtn.addEventListener('click', () => closePopup())
+	popupCloseBtn.setAttribute('aria-label', 'Закрыть')
 
 	popup.appendChild(popupCloseBtn)
 
 	let popupContent = content.cloneNode(true)
 
 	popupContent.classList.add('popup--content')
+
+	popup.addEventListener('click', e => {
+		let target = e.target
+
+		if (
+			target.classList.contains('popup') ||
+			target.classList.contains('popup--close')
+		) {
+			closePopup()
+		} else {
+			return
+		}
+	})
 
 	popupContainer.appendChild(popupContent)
 
@@ -87,7 +114,10 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 
 	popup.appendChild(popupContainer)
 
-	document.body.appendChild(popup)
+	document.body.insertBefore(
+		popup,
+		$make.qs('.container')
+	)
 }
 
 let $parser = {
@@ -195,8 +225,10 @@ let $parser = {
 
 			let albumEmbed = $create.elem('iframe', '', 'popup__music--embed')
 
+			let https = 'https://'
+
 			if ('embed' in album && album.embed.type != '') {
-				let albumEmbedSrc = 'https://'
+				let albumEmbedSrc = https
 
 				let albumEmbedSrcID = Number(album.embed.ID)
 
@@ -215,8 +247,38 @@ let $parser = {
 						albumEmbedSrc += `music.yandex.ru/iframe/#playlist/${_user}/${albumEmbedSrcID}/hide/cover/title/`; break
 				}
 
-				albumEmbed.setAttribute('src', albumEmbedSrc)
+				albumEmbed.setAttribute('src', decodeURIComponent(albumEmbedSrc))
 				albumPopupContent.appendChild(albumEmbed)
+			}
+
+			let albumEmbedLinks = $create.elem('ul', '', 'popup--links')
+
+			if ('links' in album && Object.keys(album.links).length != 0) {
+				if ('bc' in album.links && album.links.bc.album != '') {
+					albumEmbedLinks.appendChild(
+						createPopupLink(`${https}${album.links.bc.user}.bandcamp.com/album/${album.links.bc.album}`, '🎵 BandCamp', true)
+					)
+				}
+
+				if ('sc' in album.links && album.links.sc != '') {
+					albumEmbedLinks.appendChild(
+						createPopupLink(`${https}soundcloud.com/${album.links.sc}`, '☁️ SoundCloud', true)
+					)
+				}
+
+				if ('vk' in album.links && album.links.vk.ID != '') {
+					albumEmbedLinks.appendChild(
+						createPopupLink(`${https}vk.com/${album.links.vk.com}?z=audio_playlist${album.links.vk.ID}`, '🎼 ВКонтакте', true)
+					)
+				}
+
+				if ('yt' in album.links && album.links.yt != '') {
+					albumEmbedLinks.appendChild(
+						createPopupLink(`${https}www.youtube.com/playlist?list=${album.links.yt}`, '📼 YouTube', true)
+					)
+				}
+
+				albumPopupContent.appendChild(albumEmbedLinks)
 			}
 
 			return albumPopupContent
@@ -330,19 +392,25 @@ let $parser = {
 				gamePopupContent.appendChild(desPopup)
 			}
 
-			let gamePopupLinks = $create.elem('ul', '', 'popup__game--links')
+			let gamePopupLinks = $create.elem('ul', '', 'popup--links')
 
 			if ('links' in game && Object.keys(game.links).length != 0) {
-				if (game.links.play && game.links.play != '') {
-					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.play, '🕹️ Играть онлайн', '', ['html'])))
+				if ('play' in game.links && game.links.play != '') {
+					gamePopupLinks.appendChild(
+						createPopupLink(game.links.play, '🕹️ Играть онлайн', true)
+					)
 				}
 
-				if (game.links.dl && game.links.dl != '') {
-					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.dl, '☁️ Скачать', '', ['e', 'html'])))
+				if ('dl' in game.links && game.links.dl != '') {
+					gamePopupLinks.appendChild(
+						createPopupLink(game.links.dl, '☁️ Скачать', true)
+					)
 				}
 
-				if (game.links.site && game.links.site != '') {
-					gamePopupLinks.appendChild($create.elem('li', $create.link(game.links.site, '🏠 Сайт игры', '', ['html'])))
+				if ('site' in game.links && game.links.site != '') {
+					gamePopupLinks.appendChild(
+						createPopupLink(game.links.site, '🏠 Сайт игры', true)
+					)
 				}
 
 				gamePopupContent.appendChild(gamePopupLinks)
