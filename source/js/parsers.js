@@ -361,6 +361,8 @@ let $parser = {
 					gamePopupPlatform += 'PC'; break
 				case 'online':
 					gamePopupPlatform += 'браузерная игра'; break
+				case 'gba':
+					gamePopupPlatform += 'Game Boy Advance'; break
 				default:
 					gamePopupPlatform = false
 			}
@@ -395,9 +397,15 @@ let $parser = {
 			let gamePopupLinks = $create.elem('ul', '', 'popup--links')
 
 			if ('links' in game && Object.keys(game.links).length != 0) {
-				if ('play' in game.links && game.links.play != '') {
+				if ('itch' in game.links && game.links.itch != '') {
 					gamePopupLinks.appendChild(
-						createPopupLink(game.links.play, '🕹️ Играть онлайн', true)
+						createPopupLink(game.links.itch, '🕹️ Itch.io', true)
+					)
+				}
+
+				if ('trailer' in game.links && game.links.trailer != '') {
+					gamePopupLinks.appendChild(
+						createPopupLink(game.links.trailer, '📼 Смотреть трейлер', true)
 					)
 				}
 

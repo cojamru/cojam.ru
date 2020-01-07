@@ -3,6 +3,22 @@
 let gamesDB = {
 	our: [
 		{
+			title: 'Graveblood',
+			id: 'graveblood',
+			platform: 'gba',
+			description: '',
+			img: {
+				icon: '',
+				poster: `${CDNpaths.games.posters}/graveblood.png`,
+				screenshots: []
+			},
+			links: {
+				itch: 'https://cojam.itch.io/graveblood',
+				trailer: 'https://www.youtube.com/watch?v=4tYuLbqQdw0'
+			}
+		},
+
+		{
 			title: 'Орёл или решка?',
 			id: 'coin',
 			contest: { name: 'Two Weeks Game 7', link: 'https://7.twg.host' },
@@ -33,7 +49,8 @@ let gamesDB = {
 			},
 			links: {
 				dl: 'https://yadi.sk/d/DEgEvZYKtiMPf',
-				site: 'https://jicem.cojam.ru'
+				site: 'https://jicem.cojam.ru',
+				itch: 'https://cojam.itch.io/jicem'
 			}
 		},
 
@@ -102,7 +119,7 @@ let gamesDB = {
 			},
 			links: {
 				dl: 'https://yadi.sk/d/dJD1a4OeCjF8q',
-				play: 'https://tehcojam.itch.io/cl-flash'
+				itch: 'https://cojam.itch.io/cl-flash'
 			}
 		},
 
