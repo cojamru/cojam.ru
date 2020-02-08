@@ -9,8 +9,8 @@ let musicDB = {
 			description: 'Играйте за Вику в этой новой увлекательной игре для домашней консоли PlayStation. Найдите новых друзей в Грейвблуде, вместе решайте головоломки и сражайтесь со злом! Выбирайте из множества заклинаний чёрной магии, видов оружия и методов борьбы. Найдите стратегию и истребите зло. Судьба Грейвблуда в ваших руках! Поддерживается контроллер DualShock. Требуется карта памяти (один блок). Инструкция в комплекте.',
 			release: '20 июня 2019',
 			img: {
-				cover: `${CDNpaths.music.covers}/witchcvlt-cover.png`,
-				thumb: `${CDNpaths.music.covers}/witchcvlt-cover-thumb.png`
+				cover: `${INFO.CDN_paths.music.covers}/witchcvlt-cover.png`,
+				thumb: `${INFO.CDN_paths.music.covers}/witchcvlt-cover-thumb.png`
 			},
 			tracklist: [
 				{ title: 'Meet Me at the Fairy Ring' },
@@ -46,8 +46,8 @@ let musicDB = {
 			description: 'i am sad\nthis sadness never ends',
 			release: '26 октября 2018',
 			img: {
-				cover: `${CDNpaths.music.covers}/depression-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/depression-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/depression-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/depression-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'bury me lavender' },
@@ -85,8 +85,8 @@ let musicDB = {
 			description: 'Ремейк альбома «グレイブブラッドの魔女» (2017).',
 			release: '20 февраля 2018',
 			img: {
-				cover: `${CDNpaths.music.covers}/sakura-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/sakura-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/sakura-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/sakura-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'Anxiety' },
@@ -126,8 +126,8 @@ let musicDB = {
 			description: 'После событий «Despair Horizons» Крис обнаруживает себя мёртвой. Это конец истории? Или её смерть – начало чего-то большего?\n«Quantum Suicide» – это целый час кибер-мусора, вобравший в себя треки из разных компиляций, незавершённые синглы и прочий стафф, а часть музыки в этом альбоме записана в параллельных мирах. Этот альбом есть отражение мультивселенной – у треков здесь нет жанра или общей темы, и здесь вы услышите всё её разнообразие.',
 			release: '9 сентября 2017',
 			img: {
-				cover: `${CDNpaths.music.covers}/quantum-suicide-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/quantum-suicide-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/quantum-suicide-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/quantum-suicide-cover-thumb.jpg`
 			},
 			tracklist: [
 				{
@@ -196,8 +196,8 @@ let musicDB = {
 			description: 'Всю её жизнь окутал туман. Дни расплывались в памяти, а окружающая действительность потеряла для неё какой-либо интерес. Она тонула в печали, стала для всех вокруг словно колючей сосной. Лишь тёмные непроглядные леса могли принять потерянную душу.',
 			release: '29 июля 2017',
 			img: {
-				cover: `${CDNpaths.music.covers}/despair-horizons-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/despair-horizons-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/despair-horizons-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/despair-horizons-cover-thumb.jpg`
 			},
 			tracklist: [
 				{
@@ -257,8 +257,8 @@ let musicDB = {
 			description: 'Туманы Грейвблуда не отпустят никого, вступившего во тьму леса. Никто не может избежать судьбы, никто не может бежать от здешних созданий. Подумай дважды, если решишься оказаться здесь.',
 			release: '8 марта 2017',
 			img: {
-				cover: `${CDNpaths.music.covers}/tower-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/tower-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/tower-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/tower-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'Anxiety' },
@@ -296,8 +296,8 @@ let musicDB = {
 			description: 'Иногда те игры, с которыми связано твоё детство, могут скрывать в себе великое несчастье. Ты не мог ожидать больших проблем от этого маленького клоуна, но вот ты уже стоишь над трупом твоего дедушки. Или что насчёт этого фиолетового дракона, что был твоим фаворитом всё детство? Просто взгляни под другим углом - десятилетиями он приносил боль тысячам существ, не важно, злым или добрым, и всё сходило ему с рук. Эти игры сотканы из катастрофы. Ты ничего не заметил, но они уже посеяли зерно бесконечной боли в твоё сердце. Ничто не спасёт тебя. Кошмар начинается.',
 			release: '10 февраля 2017',
 			img: {
-				cover: `${CDNpaths.music.covers}/nightmare-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/nightmare-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/nightmare-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/nightmare-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'Sorceress\' Lair' },
@@ -329,8 +329,8 @@ let musicDB = {
 			feat: [ { nick: 'MrModez', link: 'https://soundcloud.com/mrmodez' } ],
 			release: '21 декабря 2016',
 			img: {
-				cover: `${CDNpaths.music.covers}/jicem-cover.png`,
-				thumb: `${CDNpaths.music.covers}/jicem-cover-thumb.png`
+				cover: `${INFO.CDN_paths.music.covers}/jicem-cover.png`,
+				thumb: `${INFO.CDN_paths.music.covers}/jicem-cover-thumb.png`
 			},
 			tracklist: [
 				{ title: 'Battle at Biograd' },
@@ -360,7 +360,8 @@ let musicDB = {
 				bc: {
 					user: 'cojam',
 					album: 'jicem-official-soundtrack'
-				}
+				},
+				game: 'jicem-dm'
 			}
 		},
 
@@ -370,8 +371,8 @@ let musicDB = {
 			artist: 'Cojam',
 			type: 'game_ost',
 			img: {
-				cover: `${CDNpaths.music.covers}/jicem-zero-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/jicem-zero-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/jicem-zero-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/jicem-zero-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'Graviball Launcher' },
@@ -384,7 +385,8 @@ let musicDB = {
 				ID: 189111485
 			},
 			links: {
-				sc: 'midipidemy/sets/jicem'
+				sc: 'midipidemy/sets/jicem',
+				game: 'jicem-zero'
 			}
 		},
 
@@ -394,8 +396,8 @@ let musicDB = {
 			artist: 'Cojam',
 			type: 'game_ost',
 			img: {
-				cover: `${CDNpaths.music.covers}/titty-cover.jpg`,
-				thumb: `${CDNpaths.music.covers}/titty-cover-thumb.jpg`
+				cover: `${INFO.CDN_paths.music.covers}/titty-cover.jpg`,
+				thumb: `${INFO.CDN_paths.music.covers}/titty-cover-thumb.jpg`
 			},
 			tracklist: [
 				{ title: 'Беспорядок в магазине нижнего белья' },
@@ -409,7 +411,8 @@ let musicDB = {
 				ID: 136449277
 			},
 			links: {
-				sc: 'midipidemy/sets/qk3tr4pp10xo'
+				sc: 'midipidemy/sets/qk3tr4pp10xo',
+				game: 'titty'
 			}
 		},
 
@@ -419,8 +422,8 @@ let musicDB = {
 			type: 'ep',
 			release: '2 января 2015',
 			img: {
-				cover: `${CDNpaths.music.covers}/anastasia-cover.png`,
-				thumb: `${CDNpaths.music.covers}/anastasia-cover-thumb.png`
+				cover: `${INFO.CDN_paths.music.covers}/anastasia-cover.png`,
+				thumb: `${INFO.CDN_paths.music.covers}/anastasia-cover-thumb.png`
 			},
 			tracklist: [
 				{ title: 'Konjak' },

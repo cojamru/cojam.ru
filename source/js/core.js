@@ -1,28 +1,36 @@
 'use strict'
 
-let debugMode = false
+const IS_DEV_MODE = location.hostname === '127.0.0.1' || location.hostname === 'localhost'
 
-let elemSizes = elem => elem.getBoundingClientRect()
+const elemSizes = elem => elem.getBoundingClientRect()
 
-let pageInfo = {
-	title: document.title,
-	URL: location.pathname
+const INFO = {
+	pages: {
+		index: `/${IS_DEV_MODE ? 'index.html' : ''}`,
+		music: `/music${IS_DEV_MODE ? '.html' : ''}`,
+		games: `/games${IS_DEV_MODE ? '.html' : ''}`
+	},
+
+	current_page: {
+		title: document.title,
+		URL: location.pathname
+	},
+
+	meta: {
+		site_version:  getInfoFromMeta('version'),
+		prime_color:   getInfoFromMeta('prime-color'),
+		CDN_link:      getInfoFromMeta('cdn-link')
+	},
 }
 
-let metaVars = {
-	siteVersion:  getInfoFromMeta('version'),
-	primeColor:   getInfoFromMeta('prime-color'),
-	CDNlink:      getInfoFromMeta('cdn-link')
-}
-
-let CDNpaths = {
+INFO.CDN_paths = {
 	music: {
-		covers: `${metaVars.CDNlink}/music/covers`
+		covers: `${INFO.meta.CDN_link}/music/covers`
 	},
 
 	games: {
-		posters: `${metaVars.CDNlink}/games/posters`
-	}
+		posters: `${INFO.meta.CDN_link}/games/posters`
+	},
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,18 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	if (isEdge) { document.body.dataset.edge = '' }
 
-	switch (location.hostname) {
-		case '127.0.0.1':
-		case 'localhost':
-			debugMode = true; break
-	}
-
 	Array.from(menuItems).forEach(item => {
 		if (item.getAttribute('href').replace('.html', '') == location.pathname.replace('.html', '')) {
 			item.classList.add('current')
 		}
 
-		if (debugMode) {
+		if (IS_DEV_MODE) {
 			item.setAttribute('href', item.getAttribute('href') + '.html')
 		}
 	})

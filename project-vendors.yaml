@@ -1,9 +1,9 @@
 # cdnjs.com/libraries/ilyabirman-likely (likely.js && likely.css)
 likely:
-  v: 2.3.1
+  v: 2.4.0
   sri:
-    js: sha256-9Kxltq+z8wpmsHTFYMA02TiwUcyRMAr7JaZ5kmyQlf8=
-    css: sha256-fG+Jslxxk4H/VpC+UEEn8POOch4Cu28ubRSUwATUkKM=
+    js: sha256-xku11+3PnoWitOMNFZ3xQRBAWtFBmLrefDJD48FdBg0=
+    css: sha256-ASguxQEaJafcYAe+MWjlgnk7e8QO+P6RZNMSmlP96EE=
 
 # cdnjs.com/libraries/url-search-params (url-search-params.js)
 urlSP_polyfill:

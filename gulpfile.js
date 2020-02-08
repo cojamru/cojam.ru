@@ -2,9 +2,17 @@
 
 let project = require('./package.json')
 
+/* Подключение встроенных модулей к проекту */
+
+let fs = require('fs')
+
+/* Подключение Gulp к проекту */
+
+let gulp = require('gulp')
+
+/* Подключение сторонних плагинов Gulp к проекту */
+
 let
-	fs =          require('fs'),
-	gulp =        require('gulp'),
 	tube =        require('gulp-pipe'),
 	bom =         require('gulp-bom'),
 	rename =      require('gulp-rename'),
@@ -12,9 +20,13 @@ let
 	clean =       require('gulp-clean'),
 	plumber =     require('gulp-plumber'),
 	cleanCSS =    require('gulp-clean-css'),
-	pug =         require('gulp-pug'),
-	parseYAML =   require('js-yaml'),
-	liveServer =  require('browser-sync')
+	pug =         require('gulp-pug')
+
+/*  Подключение сторонних модулей к проекту */
+
+let
+	parseYAML =		require('js-yaml'),
+	liveServer =	require('browser-sync')
 
 let sass = {
 	compile:  require('gulp-sass'),
@@ -167,7 +179,7 @@ gulp.task('dist:copy', () => tube([
 ]))
 
 gulp.task('dist:clean', () => tube([
-	gulp.src(dirs.dist, { read: false }),
+	gulp.src(dirs.dist, { read: false, allowEmpty: true }),
 	clean()
 ]))
 
@@ -178,7 +190,7 @@ gulp.task('dist', gulp.series('dist:clean', 'dist:copy'))
 gulp.task('build', gulp.parallel('pug:build', 'js:assets:build', 'js:get-kamina', 'scss:build'))
 
 gulp.task('build:clean', () => tube([
-	gulp.src(dirs.build, { read: false }),
+	gulp.src(dirs.build, { read: false, allowEmpty: true }),
 	clean()
 ]))
 

@@ -1,8 +1,8 @@
 'use strict'
 
-let createHeading = text => $create.elem('h2', text)
+const createHeading = text => $create.elem('h2', text)
 
-let createPopupLink = (link = '', text = '', isExternal = false) => {
+const createPopupLink = (link = '', text = '', isExternal = false) => {
 	let linkOptions = ['html']
 
 	if (isExternal) {
@@ -18,7 +18,7 @@ let createPopupLink = (link = '', text = '', isExternal = false) => {
 	)
 }
 
-let generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
+const generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
 	if (!container.nodeName) { return }
 
 	let likelyElem = $create.elem('div', '', 'likely')
@@ -30,11 +30,11 @@ let generateLikely = ({ container, options = { title = '', URL = '', heading = '
 		fb: $create.elem('div', 'Шернуть', 'facebook')
 	}
 
-	if ('URL' in options) {
+	if (options.URL) {
 		likelyElem.dataset.url = `${location.origin}/${options.URL}`
 	}
 
-	if ('title' in options) {
+	if (options.title) {
 		let _heading = options.heading
 			? `${options.heading} "${options.title}"`
 			: options.title
@@ -58,20 +58,20 @@ let generateLikely = ({ container, options = { title = '', URL = '', heading = '
 	setTimeout(likely.initiate, 0)
 }
 
-let showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
+const showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
 	if (!content.nodeName) { return }
 
 	let popup = $create.elem('div', '', 'popup')
 
 	let popupContainer = $create.elem('div', '', 'popup--container')
 
-	let popupURL = `${pageInfo.URL.replace('/', '')}?show=${options.id}`
+	let popupURL = `${INFO.current_page.URL.replace('/', '')}?show=${options.id}`
 
-	history.pushState('', pageInfo.title, popupURL)
+	history.pushState('', INFO.current_page.title, popupURL)
 
 	let closePopup = () => {
 		if (location.search != '') {
-			history.pushState('', pageInfo.title, pageInfo.URL)
+			history.pushState('', INFO.current_page.title, INFO.current_page.URL)
 		}
 
 		popup.remove()
@@ -120,7 +120,7 @@ let showPopup = ({ content, options = { heading = '', id = '', title = '', image
 	)
 }
 
-let $parser = {
+const $parser = {
 	music: ({ data = {}, container }) => {
 		container.textContent = ''
 
@@ -137,7 +137,7 @@ let $parser = {
 
 			let trackFeat = ''
 
-			if ('feat' in track) {
+			if (track.feat) {
 				trackFeat = ' (ft. '
 				track.feat.forEach((person, i) => {
 					trackFeat += `${person}${(i == track.feat.length - 1) ? ')' : ', '}`
@@ -149,7 +149,7 @@ let $parser = {
 				`${trackData.artist} &ndash; ${trackData.title}${trackFeat ? trackFeat : ''}`
 			))
 
-			if ('description' in track && track.description != '') {
+			if (track.description) {
 				trackContainer.appendChild($create.elem(
 					'p',
 					`${track.description.replace(/\n/g, '<br>')}`,
@@ -167,12 +167,12 @@ let $parser = {
 
 			let albumFeat = ''
 
-			if ('feat' in album) {
+			if (album.feat) {
 				albumFeat = ' при участии '
 				album.feat.forEach((person, i) => {
 					let personID = person.nick
 
-					if ('link' in person) {
+					if (person.link) {
 						personID = $create.link(person.link, person.nick, '', ['html', 'e'])
 					}
 
@@ -184,10 +184,14 @@ let $parser = {
 
 			let albumPopupDes = $create.elem('div', '', 'popup__music--description')
 
-			if ('img' in album && 'thumb' in album.img && album.img.thumb != '') {
+			if (album.img && album.img.thumb) {
 				let img = $create.elem('img')
 
-				img.setAttribute('src', `${album.img.thumb}?v=${metaVars.siteVersion}`)
+				img.setAttribute('src', `${album.img.thumb}?v=${INFO.meta.site_version}`)
+
+				img.addEventListener('error', e => {
+					img.hidden = true
+				})
 
 				albumPopupDes.appendChild(img)
 			}
@@ -201,11 +205,11 @@ let $parser = {
 				`<b>Исполнител${(album.feat) ? 'и' : 'ь'}</b>: ${albumArtist}${albumFeat ? albumFeat : ''}`
 			))
 
-			if ('description' in album) {
+			if (album.description) {
 				albumPopupDes.appendChild($create.elem('p', `<b>Описание</b>: ${album.description.replace(/\n/g, '<br>')}`))
 			}
 
-			if ('release' in album) {
+			if (album.release) {
 				albumPopupDes.appendChild($create.elem('p', `<b>Релиз</b>: ${album.release}`))
 			}
 
@@ -213,7 +217,7 @@ let $parser = {
 
 			let albumTrackList = $create.elem('details', '', 'popup__music--tracklist')
 
-			if ('tracklist' in album && album.tracklist.length != 0) {
+			if (album.tracklist && album.tracklist.length > 0) {
 				albumTrackList.appendChild($create.elem('summary', 'Треклист'))
 
 				album.tracklist.forEach(track => {
@@ -227,12 +231,12 @@ let $parser = {
 
 			let https = 'https://'
 
-			if ('embed' in album && album.embed.type != '') {
+			if (album.embed && album.embed.type) {
 				let albumEmbedSrc = https
 
 				let albumEmbedSrcID = Number(album.embed.ID)
 
-				let _color = metaVars.primeColor.replace('#', '')
+				let color = INFO.meta.prime_color.replace('#', '')
 
 				let _user = album.embed.user
 					? album.embed.user
@@ -240,9 +244,9 @@ let $parser = {
 
 				switch (album.embed.type) {
 					case 'bc':
-						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=${_color}/artwork=none/transparent=true`; break
+						albumEmbedSrc += `bandcamp.com/EmbeddedPlayer/album=${albumEmbedSrcID}/size=large/bgcol=ffffff/linkcol=${color}/artwork=none/transparent=true`; break
 					case 'sc':
-						albumEmbedSrc += `w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${albumEmbedSrcID}&color=${_color}`; break
+						albumEmbedSrc += `w.soundcloud.com/player/?url=${https}api.soundcloud.com/playlists/${albumEmbedSrcID}&color=${color}`; break
 					case 'ym':
 						albumEmbedSrc += `music.yandex.ru/iframe/#playlist/${_user}/${albumEmbedSrcID}/hide/cover/title/`; break
 				}
@@ -253,26 +257,32 @@ let $parser = {
 
 			let albumEmbedLinks = $create.elem('ul', '', 'popup--links')
 
-			if ('links' in album && Object.keys(album.links).length != 0) {
-				if ('bc' in album.links && album.links.bc.album != '') {
+			if (album.links && Object.keys(album.links).length > 0) {
+				if (album.links.game) {
+					albumEmbedLinks.appendChild(
+						createPopupLink(`${INFO.pages.games}?show=${album.links.game}`, '🕹️ Игра')
+					)
+				}
+
+				if (album.links.bc) {
 					albumEmbedLinks.appendChild(
 						createPopupLink(`${https}${album.links.bc.user}.bandcamp.com/album/${album.links.bc.album}`, '🎵 BandCamp', true)
 					)
 				}
 
-				if ('sc' in album.links && album.links.sc != '') {
+				if (album.links.sc) {
 					albumEmbedLinks.appendChild(
 						createPopupLink(`${https}soundcloud.com/${album.links.sc}`, '☁️ SoundCloud', true)
 					)
 				}
 
-				if ('vk' in album.links && album.links.vk.ID != '') {
+				if (album.links.vk) {
 					albumEmbedLinks.appendChild(
 						createPopupLink(`${https}vk.com/${album.links.vk.com}?z=audio_playlist${album.links.vk.ID}`, '🎼 ВКонтакте', true)
 					)
 				}
 
-				if ('yt' in album.links && album.links.yt != '') {
+				if (album.links.yt) {
 					albumEmbedLinks.appendChild(
 						createPopupLink(`${https}www.youtube.com/playlist?list=${album.links.yt}`, '📼 YouTube', true)
 					)
@@ -296,11 +306,15 @@ let $parser = {
 
 			let albumCoverLink = ''
 
-			if ('img' in album && 'cover' in album.img && album.img.cover != '') {
-				albumCoverLink = `${album.img.cover}?v=${metaVars.siteVersion}`
+			if (album.img && album.img.cover) {
+				albumCoverLink = `${album.img.cover}?v=${INFO.meta.site_version}`
 
 				albumCover.src = albumCoverLink
 				albumCover.alt = `${albumID} cover`
+
+				albumCover.addEventListener('error', e => {
+					e.target.hidden = true
+				})
 			}
 
 			let albumHeading = ''
@@ -369,7 +383,7 @@ let $parser = {
 
 			let gamePopupDes = $create.elem('div', '', 'popup__game--description')
 
-			if ('contest' in game && 'name' in game.contest && game.contest.name != '') {
+			if (game.contest && game.contest.name) {
 				let contest = (game.contest.link && game.contest.link != '')
 					? $create.link(game.contest.link, game.contest.name, '', ['e', 'html'])
 					: game.contest.name
@@ -377,7 +391,7 @@ let $parser = {
 				gamePopupDes.appendChild($create.elem('p', `Игра сделана для конкурса <q>${contest}</q>.`))
 			}
 
-			if ('description' in game) {
+			if (game.description) {
 				gamePopupDes.appendChild($create.elem('p', `<b>Описание</b>: ${game.description}`))
 			}
 
@@ -387,7 +401,7 @@ let $parser = {
 
 			gamePopupContent.appendChild(gamePopupDes)
 
-			if ('description_popup' in game && game.description_popup != '') {
+			if (game.description_popup) {
 				let desPopup = $create.elem('details', '', 'popup__game--description-popup')
 				desPopup.appendChild($create.elem('summary', 'Подробное описание'))
 				desPopup.appendChild($create.elem('p', game.description_popup.replace(/\n/g, '<br>')))
@@ -396,28 +410,34 @@ let $parser = {
 
 			let gamePopupLinks = $create.elem('ul', '', 'popup--links')
 
-			if ('links' in game && Object.keys(game.links).length != 0) {
-				if ('itch' in game.links && game.links.itch != '') {
+			if (game.links && Object.keys(game.links).length > 0) {
+				if (game.links.site) {
 					gamePopupLinks.appendChild(
-						createPopupLink(game.links.itch, '🕹️ Itch.io', true)
+						createPopupLink(game.links.site, '🏠 Сайт игры', true)
 					)
 				}
 
-				if ('trailer' in game.links && game.links.trailer != '') {
+				if (game.links.trailer) {
 					gamePopupLinks.appendChild(
 						createPopupLink(game.links.trailer, '📼 Смотреть трейлер', true)
 					)
 				}
 
-				if ('dl' in game.links && game.links.dl != '') {
+				if (game.links.itch) {
+					gamePopupLinks.appendChild(
+						createPopupLink(game.links.itch, '🕹️ Itch.io', true)
+					)
+				}
+
+				if (game.links.dl) {
 					gamePopupLinks.appendChild(
 						createPopupLink(game.links.dl, '☁️ Скачать', true)
 					)
 				}
 
-				if ('site' in game.links && game.links.site != '') {
+				if (game.links.soundtrack) {
 					gamePopupLinks.appendChild(
-						createPopupLink(game.links.site, '🏠 Сайт игры', true)
+						createPopupLink(`${INFO.pages.music}?show=${game.links.soundtrack}`, '🎵 Саундтрек')
 					)
 				}
 
@@ -440,11 +460,15 @@ let $parser = {
 
 			let gamePosterLink = ''
 
-			if ('img' in game && 'poster' in game.img && game.img.poster != '') {
-				gamePosterLink = `${game.img.poster}?v=${metaVars.siteVersion}`
+			if (game.img && game.img.poster) {
+				gamePosterLink = `${game.img.poster}?v=${INFO.meta.site_version}`
 
 				gamePoster.src = gamePosterLink
 				gamePoster.alt = `${gameID} poster`
+
+				gamePoster.addEventListener('error', e => {
+					e.target.hidden = true
+				})
 			}
 
 			let gameHeading = 'Игра'
@@ -466,12 +490,12 @@ let $parser = {
 				gameContainer.appendChild(gamePoster)
 			}
 
-			if ('title' in game && game.title != '') {
+			if (game.title) {
 				gameTitle.textContent = game.title
 				gameContainer.appendChild(gameTitle)
 			}
 
-			if ('release' in game && game.release != '') {
+			if (game.release) {
 				gameRelease.textContent = game.release
 				gameContainer.appendChild(gameRelease)
 			}
