@@ -25,6 +25,7 @@ let
 /*  Подключение сторонних модулей к проекту */
 
 let
+	CLIargs =       require('yargs').argv,
 	parseYAML =		require('js-yaml'),
 	liveServer =	require('browser-sync')
 
@@ -50,6 +51,10 @@ let config = parseYAMLfile('project-config')
 let vendors = parseYAMLfile('project-vendors')
 
 let dirs = config.dirs
+
+const IS_PROD = 'prod' in CLIargs
+
+const ASSETS_HOST = IS_PROD ? config.URLs.CDN : ''
 
 let paths = {
 	html: {
@@ -80,15 +85,23 @@ let pugTubes = [
 	plumber(),
 	pug({ locals: {
 		VERSION:     project.version,
+
 		title:       config.title,
+
 		domain:      config.domain,
+
 		primeColor:  config.prime_color,
+
 		PATHS: {
-			js:       `/${dirs.assets}/js`,
-			css:      `/${dirs.assets}/css`,
-			img:      `/${dirs.assets}/img`,
+			js:       `${ASSETS_HOST}/${dirs.assets}/js`,
+			css:      `${ASSETS_HOST}/${dirs.assets}/css`,
+			img:      `${ASSETS_HOST}/${dirs.assets}/img`,
 		},
+
 		LIBS: vendors,
+
+		URLs: config.URLs,
+
 		BBISWU: {
 			google: config.trackers.google,
 			yandex: config.trackers.yandex
@@ -149,7 +162,7 @@ let scssTubes = [
 	sass.vars({
 		VERSION:     project.version,
 		primeColor:  config.prime_color,
-		imgPath:     `/${dirs.assets}/img`,
+		imgPath:     `${ASSETS_HOST}/${dirs.assets}/img`,
 	}, { verbose: false }),
 	sass.compile.sync({ outputStyle: 'compressed' }),
 	cleanCSS(),

@@ -31,4 +31,4 @@ mixin includeScripts(added = [])
 		script(src=`${PATHS.js}/${JS}.min.js?v=${VERSION}` defer)
 
 mixin externalLink(link, text)
-	a(href=`${link}` target='_blank' rel='nofollow noreffer') #{text}
+	a(href=`${link}` target='_blank' rel='nofollow noopener') #{text}

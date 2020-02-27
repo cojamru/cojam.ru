@@ -14,6 +14,9 @@ dirs:
   dist_content: dist_content
   assets: assets
 
+URLs:
+  CDN: https://cdn.blyat.science/cojam
+
 trackers:
   google: UA-41033513-3
   yandex: 22438144

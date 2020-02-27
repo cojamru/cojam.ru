@@ -21,7 +21,9 @@ let musicDB = {
 				{ title: 'Milky Swimming' },
 				{ title: 'I Witnessed UFO Crash' },
 				{ title: 'Ghostly Ringing Bells' },
-				{ title: 'Late Night Screaming' }
+				{ title: 'Night Vision Spell', description: 'Эксклюзив для CD' },
+				{ title: 'Ed', description: 'Эксклюзив для CD' },
+				{ title: 'Девочка с каре', description: 'Эксклюзив для CD' }
 			],
 			embed: {
 				type: 'bc',
