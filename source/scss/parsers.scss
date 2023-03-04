@@ -2,19 +2,58 @@
 @import 'inc/mixins';
 
 main {
-  @import 'inc/parts/main/main__music';
-	@import 'inc/parts/main/main__games';
+	@import
+		'inc/parts/main/main__music',
+		'inc/parts/main/main__games';
+}
+
+@keyframes popup-container-anim {
+	from {
+		margin-top: calc(var(--container-top-margin) + 5px);
+	}
+
+	to {
+		margin-top: var(--container-top-margin);
+	}
+}
+
+@keyframes popup-background-anim {
+	from {
+		background-color: transparent;
+	}
+
+	to {
+		background-color: var(--popup-background-color);
+	}
+}
+
+@keyframes popup-close-btn-anim {
+	from {
+		opacity: .5;
+	}
+
+	to {
+		opacity: .8;
+	}
 }
 
 .popup {
+	--container-top-margin: 10px;
+	--popup-background-color: #{rgba(#000, .3)};
+	--popup-anim-duration: .5s;
+
 	display: block;
-	background-color: rgba(0, 0, 0, .3);
-	position: fixed;
-	overflow-y: auto;
-	top: 0; left: 0;
 	width: 100%; height: 100%;
+	overflow-y: scroll;
+
+	background-color: var(--popup-background-color);
 	border: 0;
+
+	position: fixed;
+	top: 0; left: 0;
 	z-index: 42;
+
+	animation: popup-background-anim var(--popup-anim-duration) 1 ease-in;
 
 	& > * {
 		margin: 0 auto;
@@ -22,8 +61,11 @@ main {
 
 	&--container {
 		background-color: rgba(255, 255, 255, .95);
+
 		width: #{$pageWidth - 100px};
-		margin-bottom: 20px;
+		margin: var(--container-top-margin) auto 20px;
+
+		animation: popup-container-anim var(--popup-anim-duration) 1 ease-in;
 	}
 
 	&--content {
@@ -35,13 +77,13 @@ main {
 		}
 	}
 
-	@import 'inc/parts/main/popup__music';
-	@import 'inc/parts/main/popup__games';
+	@import
+		'inc/parts/main/popup__music',
+		'inc/parts/main/popup__games';
 
 	&--close {
 		background: none;
 		display: block;
-		margin-bottom: 10px;
 		border: 0;
 		opacity: .8;
 
@@ -54,6 +96,43 @@ main {
 
 		&:hover {
 			opacity: .9;
+		}
+
+		animation: popup-close-btn-anim var(--popup-anim-duration) 1 ease-in;
+	}
+
+	&--links {
+		font-size: 0;
+		margin-top: 5px;
+
+		li {
+			display: inline-block;
+			list-style: none;
+			font-size: 1.1rem;
+
+			margin-top: 5px;
+			margin-right: 5px;
+
+			&:last-child { margin-right: 0 }
+
+			a {
+				display: block;
+				width: 100%; height: 100%;
+				background-color: #fff;
+				border-radius: 10px;
+				border: 1px solid #d9d9d9;
+				padding: 5px 10px;
+				text-decoration: none;
+				line-height: 1.2em;
+				color: #000;
+
+				@include transition(.3s);
+
+				&:hover {
+					background-color: #f8f8f8;
+					opacity: 1;
+				}
+			}
 		}
 	}
 

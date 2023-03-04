@@ -2,4 +2,4 @@ User-agent: *
 Disallow:
 
 Host: cojam.ru
-Sitemap: https://cojam.ru/sitemap.php
+Sitemap: https://cojam.ru/sitemap.xml

@@ -1,27 +1,34 @@
-mixin title(title, subTitle)
+mixin title(title = '', subTitle = false)
 	title #{`${subTitle ? subTitle + ' – ' : ''}${title}`}
 
-mixin menuItem(link, text)
+mixin menuItem(link = '', text = '')
 	li
 		a(href=`${link}`)
 			span #{text}
 
-mixin includeStyles(added)
+mixin includeStyles(added = [])
 	- let styles = ['core', 'header-n-footer']
-	- if (added && added.length != 0) styles.push(...added)
+	- if (Array.isArray(added) && added.length != 0) { styles.push(...added) }
 	- styles.push('mediaq')
-	link(rel='stylesheet' href=`${URLs.font}`)
-	if (added && added.length != 0 && added.includes('parsers'))
-		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${LIBS.likely.v}/likely.css` integrity=`${LIBS.likely.sri.css}` crossorigin='anonymous')
-	each CSS in styles
-		link(rel='stylesheet' href=`/assets/css/${CSS}.min.css?v=${VERSION}`)
 
-mixin includeScripts(added)
-	- let scripts = ['kamina', 'special/info-from-meta', 'core']
-	- if (added && added.length != 0) scripts.push(...added)
-	if (added && added.length != 0 && added.includes('parsers'))
+	link(rel='stylesheet' href=`${URLs.font}`)
+
+	if (Array.isArray(added) && added.length != 0 && added.includes('parsers'))
+		link(rel='stylesheet' href=`https://cdnjs.cloudflare.com/ajax/libs/ilyabirman-likely/${LIBS.likely.v}/likely.css` integrity=`${LIBS.likely.sri.css}` crossorigin='anonymous')
+
+	each CSS in styles
+		link(rel='stylesheet' href=`${PATHS.css}/${CSS}.min.css?v=${VERSION}`)
+
+mixin includeScripts(added = [])
+	- let scripts = ['kamina', 'special/info-from-meta', 'special/edge', 'core']
+	- if (Array.isArray(added) && added.length != 0) { scripts.push(...added) }
+
+	if (Array.isArray(added) && added.length != 0 && added.includes('parsers'))
 		each JS in [{ file: `url-search-params/${LIBS.urlSP_polyfill.v}/url-search-params.js`, sri: LIBS.urlSP_polyfill.sri }, { file: `ilyabirman-likely/${LIBS.likely.v}/likely.js`, sri: LIBS.likely.sri.js }]
 			script(src=`https://cdnjs.cloudflare.com/ajax/libs/${JS.file}` integrity=`${JS.sri}` crossorigin='anonymous' defer)
+
 	each JS in scripts
-		script(src=`/assets/js/${JS}.min.js?v=${VERSION}` defer)
-	
+		script(src=`${PATHS.js}/${JS}.min.js?v=${VERSION}` defer)
+
+mixin externalLink(link, text)
+	a(href=`${link}` target='_blank' rel='nofollow noopener') #{text}

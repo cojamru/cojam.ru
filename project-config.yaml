@@ -5,14 +5,17 @@ title:
 
 domain: cojam.ru
 
-prime_color: '#8400a5'
+prime_color: '#4e60ac'
 
 dirs:
   dev: source
-  prod:
-    build: dist
-    content: dist_content
-    main: assets
+  build: build
+  dist: dist
+  dist_content: dist_content
+  assets: assets
+
+URLs:
+  CDN: https://cdn.blyat.science/cojam
 
 trackers:
   google: UA-41033513-3

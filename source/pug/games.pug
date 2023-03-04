@@ -13,16 +13,28 @@ html
 		include inc/meta.pug
 
 		+includeStyles(['parsers'])
+
+		each URL in ['/', '/music']
+			link(rel='prerender' href=`${URL}`)
+
 	body
-		include inc/header.pug
+		div.container
+			include inc/header.pug
 
-		main
-			div.games
-				include inc/no-js.pug
+			main
+				div.text
+					p В этом разделе можно найти все наши игры.
 
-		include inc/footer.pug
+					p Некоторые из них требуют Flash Player projector, скачать его #[+externalLink('https://www.adobe.com/support/flashplayer/debug_downloads.html', 'можно здесь')].
 
-		+includeScripts(['special/edge', 'db/games', 'parsers'])
+				hr
+
+				div.games
+					include inc/no-js.pug
+
+			include inc/footer.pug
+
+		+includeScripts(['db/games', 'parsers'])
 
 		script document.addEventListener('DOMContentLoaded', () => $parser.games({ data: gamesDB, container: $make.qs('.games') }))
 
