@@ -1,6 +1,4 @@
-'use strict'
-
-let getInfoFromMeta = name => {
+export const getInfoFromMeta = name => {
 	let metaTag = document.head.querySelector(`meta[name='_cojam:${name}']`)
 
 	return metaTag

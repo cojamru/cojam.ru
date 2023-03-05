@@ -1,6 +1,8 @@
 'use strict'
 
-let gamesDB = {
+import { INFO } from '../core'
+
+export const gamesDB = {
 	our: [
 		{
 			title: 'Graveblood',

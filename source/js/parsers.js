@@ -1,4 +1,7 @@
-'use strict'
+import likely from 'ilyabirman-likely'
+
+import { INFO } from './core'
+import { $make, $create, $check } from './kamina'
 
 const createHeading = text => $create.elem('h2', text)
 
@@ -18,7 +21,7 @@ const createPopupLink = (link = '', text = '', isExternal = false) => {
 	)
 }
 
-const generateLikely = ({ container, options = { title = '', URL = '', heading = '', image: '' } }) => {
+const generateLikely = ({ container, options = { title: '', URL: '', heading: '', image: '' } }) => {
 	if (!container.nodeName) { return }
 
 	let likelyElem = $create.elem('div', '', 'likely')
@@ -58,7 +61,7 @@ const generateLikely = ({ container, options = { title = '', URL = '', heading =
 	setTimeout(likely.initiate, 0)
 }
 
-const showPopup = ({ content, options = { heading = '', id = '', title = '', image = '' } }) => {
+const showPopup = ({ content, options = { heading: '', id: '', title: '', image: '' } }) => {
 	if (!content.nodeName) { return }
 
 	let popup = $create.elem('div', '', 'popup')
@@ -120,7 +123,7 @@ const showPopup = ({ content, options = { heading = '', id = '', title = '', ima
 	)
 }
 
-const $parser = {
+export const $parser = {
 	music: ({ data = {}, container }) => {
 		container.textContent = ''
 

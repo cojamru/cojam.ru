@@ -13,7 +13,7 @@ html
 
 		+includeStyles()
 
-		each URL in ['/', '/music', '/games']
+		each URL in ['./index', './music', './games']
 			link(rel='prerender' href=`${URL}`)
 
 	body
@@ -38,4 +38,4 @@ html
 
 			include inc/footer.pug
 
-		script(src=`${PATHS.js}/error.min.js?v=${VERSION}` defer)
+		script(src='../js/error.js' nomodule defer)

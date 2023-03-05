@@ -14,7 +14,7 @@ html
 
 		+includeStyles(['parsers'])
 
-		each URL in ['/', '/music']
+		each URL in ['./index', './music']
 			link(rel='prerender' href=`${URL}`)
 
 	body
@@ -25,8 +25,6 @@ html
 				div.text
 					p В этом разделе можно найти все наши игры.
 
-					p Некоторые из них требуют Flash Player projector, скачать его #[+externalLink('https://www.adobe.com/support/flashplayer/debug_downloads.html', 'можно здесь')].
-
 				hr
 
 				div.games
@@ -34,8 +32,6 @@ html
 
 			include inc/footer.pug
 
-		+includeScripts(['db/games', 'parsers'])
-
-		script document.addEventListener('DOMContentLoaded', () => $parser.games({ data: gamesDB, container: $make.qs('.games') }))
+		script(src="../js/games-page.js" type="module")
 
 		include inc/bbiswu.pug

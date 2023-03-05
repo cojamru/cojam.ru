@@ -1,4 +1,4 @@
-link(rel='shortcut icon' href=`${URLs.favicon}`)
+link(rel='shortcut icon' href=`../img/${URLs.favicon}`)
 
 meta(name='theme-color' content=`${primeColor}`)
 meta(name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -12,4 +12,4 @@ each URL in [`${URLs.CDN.replace('https://', '')}`, 'fonts.gstatic.com']
 each URL in ['www.google-analytics.com', 'mc.yandex.ru']
 	link(rel='dns-prefetch' href=`//${URL}`)
 
-link(rel='sitemap' href='/sitemap.xml')
+link(rel='sitemap' href='./sitemap.pug')

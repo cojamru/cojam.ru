@@ -1,10 +1,12 @@
-'use strict'
+import { getInfoFromMeta } from './special/info-from-meta'
+
+import { $make } from './kamina'
 
 const IS_DEV_MODE = location.hostname === '127.0.0.1' || location.hostname === 'localhost'
 
 const elemSizes = elem => elem.getBoundingClientRect()
 
-const INFO = {
+export const INFO = {
 	pages: {
 		index: `/${IS_DEV_MODE ? 'index.html' : ''}`,
 		music: `/music${IS_DEV_MODE ? '.html' : ''}`,
@@ -35,8 +37,6 @@ INFO.CDN_paths = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	let menuItems = $make.qs('header nav a[href^="/"]', ['a'])
-
-	if (isEdge) { document.body.dataset.edge = '' }
 
 	Array.from(menuItems).forEach(item => {
 		if (item.getAttribute('href').replace('.html', '') == location.pathname.replace('.html', '')) {

@@ -1,7 +1,7 @@
 mixin socLink(link, pic, mini)
 	li
 		a(href=`${link}` target='_blank' rel='nofollow noopener')
-			img(src=`${PATHS.img}/soc/${pic}.svg?v=${VERSION}` alt=`${pic} soc icon${(mini == true) ? '-mini' : ''}`)
+			img(src=`../img/soc/${pic}.svg` alt=`${pic} soc icon${(mini == true) ? '-mini' : ''}`)
 
 footer.footer
 	ul.socials

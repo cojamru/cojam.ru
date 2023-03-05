@@ -2,41 +2,38 @@
 	"name": "cojam.ru",
 	"description": "Source code of cojam.ru website",
 	"private": true,
-	"version": "3.3.2",
+	"version": "3.4.0",
 	"author": "Dmitry <dmitry@cojam.ru> (https://e965.ru)",
 	"repository": "github:cojamru/cojam.ru",
 	"license": "MIT",
 	"engines": {
-		"node": ">= 13.3.0",
-		"npm": ">= 6.13.1"
+		"node": ">= 18.12.0",
+		"npm": ">= 9.2.0"
+	},
+	"targets": {
+		"default": {
+			"engines": {
+        "browsers": ">= 50%"
+      }
+		}
 	},
 	"scripts": {
-		"build": "gulp build",
-		"prestart": "gulp scss:build",
-		"start": "gulp dev",
+		"create-configs": "node .pugrc.gen.js && node .sassrc.gen.js",
+		"build": "parcel build source/pug/index.pug source/pug/games.pug source/pug/music.pug source/pug/error.pug source/pug/sitemap.pug --dist-dir dist",
+		"prebuild": "rm -rf dist",
+		"postbuild": "mv dist/error.html dist/error.htm && mv dist/sitemap.html dist/sitemap.xml && cp -a public/. dist",
+		"prestart": "npm run create-configs && rm -rf dist-tmp",
+		"start": "parcel source/pug/index.pug source/pug/games.pug source/pug/music.pug source/pug/error.pug source/pug/sitemap.pug --open --dist-dir dist-tmp",
 		"dist": "gulp --prod"
 	},
 	"dependencies": {
+		"ilyabirman-likely": "2.4.0",
 		"kamina-js": "1.3.2"
 	},
 	"devDependencies": {
-		"browser-sync": "2.26.7",
-		"gulp": "4.0.2",
-		"gulp-bom": "3.0.0",
-		"gulp-clean": "0.4.0",
-		"gulp-clean-css": "4.2.0",
-		"gulp-pipe": "1.0.4",
-		"gulp-plumber": "1.2.1",
-		"gulp-pug": "4.0.1",
-		"gulp-rename": "2.0.0",
-		"gulp-sass": "4.0.2",
-		"gulp-sass-vars": "1.3.0",
-		"gulp-uglify": "3.0.2",
-		"gulp-watch": "5.0.1",
-		"gulp-watch-sass": "1.4.1",
+		"@parcel/transformer-pug": "2.8.3",
+		"@parcel/transformer-sass": "2.8.3",
 		"js-yaml": "3.13.1",
-		"natives": "1.1.6",
-		"terser": "4.6.4",
-		"yargs": "15.1.0"
+		"parcel": "2.8.3"
 	}
 }

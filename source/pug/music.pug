@@ -17,7 +17,7 @@ html
 
 		+includeStyles(['parsers'])
 
-		each URL in ['/', '/games']
+		each URL in ['./index', './games']
 			link(rel='prerender' href=`${URL}`)
 
 	body
@@ -37,8 +37,6 @@ html
 
 			include inc/footer.pug
 
-		+includeScripts(['db/music', 'parsers'])
-
-		script document.addEventListener('DOMContentLoaded', () => $parser.music({ data: musicDB, container: $make.qs('.music') }))
+		script(src="../js/music-page.js" type="module")
 
 		include inc/bbiswu.pug

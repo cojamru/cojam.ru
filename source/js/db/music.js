@@ -1,6 +1,8 @@
 'use strict'
 
-let musicDB = {
+import { INFO } from '../core'
+
+export const musicDB = {
 	albums: [
 		{
 			title: 'Witchcvlt',
