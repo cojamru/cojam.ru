@@ -1,70 +1,63 @@
-import { getInfoFromMeta } from './special/info-from-meta'
+import { getInfoFromMeta } from './special/info-from-meta';
 
-import { $make } from './kamina'
+import { $make } from './kamina';
 
-const IS_DEV_MODE = location.hostname === '127.0.0.1' || location.hostname === 'localhost'
+const IS_DEV_MODE = process.env.NODE_ENV === 'development';
 
-const elemSizes = elem => elem.getBoundingClientRect()
+const elemSizes = elem => elem.getBoundingClientRect();
 
 export const INFO = {
 	pages: {
 		index: `/${IS_DEV_MODE ? 'index.html' : ''}`,
 		music: `/music${IS_DEV_MODE ? '.html' : ''}`,
-		games: `/games${IS_DEV_MODE ? '.html' : ''}`
+		games: `/games${IS_DEV_MODE ? '.html' : ''}`,
 	},
 
 	current_page: {
 		title: document.title,
-		URL: location.pathname
+		URL: location.pathname,
 	},
 
 	meta: {
-		site_version:  getInfoFromMeta('version'),
-		prime_color:   getInfoFromMeta('prime-color'),
-		CDN_link:      getInfoFromMeta('cdn-link')
+		site_version: getInfoFromMeta('version'),
+		prime_color: getInfoFromMeta('prime-color'),
+		CDN_link: getInfoFromMeta('cdn-link'),
 	},
-}
+};
 
 INFO.CDN_paths = {
 	music: {
-		covers: `${INFO.meta.CDN_link}/music/covers`
+		covers: `${INFO.meta.CDN_link}/music/covers`,
 	},
 
 	games: {
-		posters: `${INFO.meta.CDN_link}/games/posters`
+		posters: `${INFO.meta.CDN_link}/games/posters`,
 	},
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-	let menuItems = $make.qs('header nav a[href^="/"]', ['a'])
+	const header = $make.qs('header');
 
-	Array.from(menuItems).forEach(item => {
-		if (item.getAttribute('href').replace('.html', '') == location.pathname.replace('.html', '')) {
-			item.classList.add('current')
+	if (IS_DEV_MODE) {
+		const menuItems = $make.qsf('header nav a[href^="./"]', header, ['a']);
+		for (let menuItem of menuItems) {
+			menuItem.setAttribute('href', menuItem.getAttribute('href') + '.html');
 		}
-
-		if (IS_DEV_MODE) {
-			item.setAttribute('href', item.getAttribute('href') + '.html')
-		}
-	})
+	}
 
 	void (() => {
-		let header = $make.qs('header')
+		const headerWidth = elemSizes(header).width;
 
-		let headerWidth = elemSizes(header).width
+		const menu = $make.qsf('nav', header);
+		const menuLinks = $make.qsf('nav a', menu, ['a']);
 
-		let menu = $make.qsf('nav', header)
-
-		let menuLinks = $make.qsf('nav a', menu, ['a'])
-
-		let menuLinksWidth = 0
-
-		menuLinks.forEach(link =>
-			menuLinksWidth += elemSizes(link).width
-		)
+		let menuLinksWidth = Array.from(menuLinks).reduce((acc, linkNode) => {
+			acc += elemSizes(linkNode).width;
+			return acc;
+		}, 0);
 
 		if (menuLinksWidth >= headerWidth) {
-			menu.classList.add('not-inline')
+			menu.classList.add('not-inline');
 		}
-	})()
-})
+	})();
+});

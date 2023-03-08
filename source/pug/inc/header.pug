@@ -1,8 +1,8 @@
 header.header
 	h1
-		a(href='/' rel='home') #{title.full}
+		a(href='/' rel='home') #{title.full} #{currentPageId}
 
 	nav
 		ul
-			+menuItem('./music', 'Музыка')
-			+menuItem('./games', 'Игры')
+			+menuItem('./music', 'Музыка', currentPageId === 'music')
+			+menuItem('./games', 'Игры', currentPageId === 'games')

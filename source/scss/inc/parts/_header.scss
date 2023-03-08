@@ -7,13 +7,19 @@
 	user-select: none;
 	cursor: default;
 
-	& > * { text-align: center }
-	a { text-decoration: none }
+	& > * {
+		text-align: center;
+	}
+	a {
+		text-decoration: none;
+	}
 
 	h1 {
 		font-size: 3em;
 		color: #fff;
-		a { color: inherit }
+		a {
+			color: inherit;
+		}
 	}
 
 	nav {
@@ -23,11 +29,15 @@
 
 		&.not-inline {
 			li {
-				a { border-radius: 0 !important }
+				a {
+					border-radius: 0 !important;
+				}
 			}
 		}
 
-		ul { font-size: 0 }
+		ul {
+			font-size: 0;
+		}
 
 		li {
 			display: inline-block;
@@ -37,13 +47,13 @@
 
 			&:first-child {
 				a {
-					border-radius: var(--menu-border-radius) 0 0 var(--menu-border-radius)
+					border-radius: var(--menu-border-radius) 0 0 var(--menu-border-radius);
 				}
 			}
 
 			&:last-child {
 				a {
-					border-radius: 0 var(--menu-border-radius) var(--menu-border-radius) 0
+					border-radius: 0 var(--menu-border-radius) var(--menu-border-radius) 0;
 				}
 			}
 
@@ -56,7 +66,7 @@
 				padding: 5px 10px;
 				color: #000;
 
-				@include transition(.3s);
+				@include transition(0.3s);
 
 				&:hover {
 					background-color: darken(#fff, 10%);

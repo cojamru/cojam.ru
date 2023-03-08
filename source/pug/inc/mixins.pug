@@ -1,9 +1,9 @@
 mixin title(title = '', subTitle = false)
 	title #{`${subTitle ? subTitle + ' – ' : ''}${title}`}
 
-mixin menuItem(link = '', text = '')
+mixin menuItem(link = '', text = '', isCurrent = false)
 	li
-		a(href=`${link}`)
+		a(href=`${link}` class=`${isCurrent ? 'current' : ''}`)
 			span #{text}
 
 mixin includeStyles(added = [])

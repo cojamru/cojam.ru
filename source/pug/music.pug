@@ -3,12 +3,14 @@ html
 	head
 		include inc/vars.pug
 		include inc/mixins.pug
+
+		- let currentPageId = 'music'
 		- let subTitle = 'Музыка'
 
 		meta(charset='utf-8')
 		+title(title.full, subTitle)
 
-		link(rel='canonical' href=`${URLs.same}/music`)
+		link(rel='canonical' href=`${URLs.same}/${currentPageId}`)
 
 		include inc/meta.pug
 
