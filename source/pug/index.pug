@@ -12,7 +12,7 @@ html
 		each verif in [{ type: 'google-site-verification', code: 'lxhx79LqFXKKsVA7APFm5TO1Qv2QK9QCImP8VGfeCz0' }, { type: 'yandex-verification', code: '732f957a96f1d556' }, { type: 'msvalidate.01', code: 'C7EBDF39B17680694BCF0278806A6C9B' }, { type: 'p:domain_verify', code: '067a67c31fa06ee5c15c62d8ba872b72' }]
 			meta(name=`${verif.type}` content=`${verif.code}`)
 
-		//- include inc/meta.pug
+		include inc/meta.pug
 
 		+includeStyles(['index'])
 
